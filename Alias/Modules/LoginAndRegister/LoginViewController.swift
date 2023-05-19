@@ -33,6 +33,13 @@ final class LoginViewController: UIViewController {
         return button
     }()
     
+    private lazy var signUpButton = {
+        let button = UIButton()
+        button.setTitle("Sign up?", for: .normal)
+        button.setTitleColor(UIColor.systemGray4, for: .normal)
+        return button
+    }()
+    
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +51,7 @@ final class LoginViewController: UIViewController {
         setupEmailInput()
         setupPasswordInput()
         setupLoginButton()
+        setupSignUpButton()
     }
     
     private func setupEmailInput() {
@@ -76,6 +84,21 @@ final class LoginViewController: UIViewController {
             loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         loginButton.addTarget(self, action: #selector(loginDidTouch), for: .touchUpInside)
+    }
+    
+    private func setupSignUpButton() {
+        view.addSubview(signUpButton)
+        signUpButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            signUpButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 16),
+            signUpButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        signUpButton.addTarget(self, action: #selector(signUpDidTouch), for: .touchUpInside)
+    }
+    
+    @objc
+    private func signUpDidTouch(_ sender: AnyObject) {
+       present(RegisterViewController(), animated: true)
     }
     
     @objc

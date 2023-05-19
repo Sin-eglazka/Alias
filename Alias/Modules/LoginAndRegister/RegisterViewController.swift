@@ -59,7 +59,7 @@ final class RegisterViewController: UIViewController {
         view.addSubview(nameInput)
         nameInput.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            nameInput.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -70),
+            nameInput.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
             nameInput.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
             nameInput.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -36)
         ])

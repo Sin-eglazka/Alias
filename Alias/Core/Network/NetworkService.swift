@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 protocol NetworkServiceProtocol {
     func sendRequest<T: Decodable>(_ request: URLRequest, completion: @escaping (Result<T, Error>) -> Void)
 }
@@ -34,6 +32,7 @@ final class NetworkService: NetworkServiceProtocol {
             }
             
             do {
+                print(data)
                 let model = try JSONDecoder().decode(T.self, from: data)
                 completion(.success(model))
             } catch {

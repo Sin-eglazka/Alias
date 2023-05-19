@@ -21,6 +21,7 @@
 		44E6C9532A17AABB0016B11C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C9522A17AABB0016B11C /* Constants.swift */; };
 		CC3958482A17F259008E4838 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3958472A17F259008E4838 /* NetworkService.swift */; };
 		CC39584A2A17F2B8008E4838 /* URLRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3958492A17F2B8008E4838 /* URLRequestFactory.swift */; };
+		CC39584D2A181C57008E4838 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC39584C2A181C57008E4838 /* UserService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		44E6C9522A17AABB0016B11C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CC3958472A17F259008E4838 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		CC3958492A17F2B8008E4838 /* URLRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestFactory.swift; sourceTree = "<group>"; };
+		CC39584C2A181C57008E4838 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 		44E6C92B2A179BF10016B11C /* Alias */ = {
 			isa = PBXGroup;
 			children = (
+				CC39584B2A181C40008E4838 /* Services */,
 				44E6C9502A17A7640016B11C /* Modules */,
 				44E6C94F2A17A72E0016B11C /* Core */,
 				44E6C9402A179C0E0016B11C /* Models */,
@@ -129,6 +132,14 @@
 				44E6C9422A179C410016B11C /* LoginViewController.swift */,
 			);
 			path = LoginAndRegister;
+			sourceTree = "<group>";
+		};
+		CC39584B2A181C40008E4838 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CC39584C2A181C57008E4838 /* UserService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +218,7 @@
 				44E6C9492A179C7D0016B11C /* Room.swift in Sources */,
 				44E6C9472A179C610016B11C /* User.swift in Sources */,
 				44E6C94B2A179C8E0016B11C /* Team.swift in Sources */,
+				CC39584D2A181C57008E4838 /* UserService.swift in Sources */,
 				44E6C9532A17AABB0016B11C /* Constants.swift in Sources */,
 				44E6C94E2A179D120016B11C /* HttpClient.swift in Sources */,
 				44E6C9312A179BF10016B11C /* RootViewController.swift in Sources */,

@@ -7,6 +7,9 @@
 
 import Foundation
 
-class User{
-    
+struct User: Codable {
+    let id: String
+    let name: String
+    let email: String
+    let passwordHash: String
 }

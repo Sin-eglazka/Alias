@@ -8,11 +8,12 @@
 import Foundation
 
 enum Constants{
-    static let baseUrl = "https://alias-swift-api.onrender.com/"
+    // убрала https
+    static let baseUrl = "alias-swift-api.onrender.com"
 }
 
 enum Endpoints{
-    static let users = "users"
-    static let login = "users/login"
-    static let register = "users/register"
+    static let users = "/users"
+    static let login = "/users/login"
+    static let register = "/users/register"
 }

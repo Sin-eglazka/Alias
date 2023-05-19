@@ -66,8 +66,8 @@
 		44E6C92B2A179BF10016B11C /* Alias */ = {
 			isa = PBXGroup;
 			children = (
-				44E6C94C2A179CF80016B11C /* Network */,
-				44E6C9412A179C160016B11C /* ViewControllers */,
+				44E6C9502A17A7640016B11C /* Modules */,
+				44E6C94F2A17A72E0016B11C /* Core */,
 				44E6C9402A179C0E0016B11C /* Models */,
 				44E6C92C2A179BF10016B11C /* AppDelegate.swift */,
 				44E6C92E2A179BF10016B11C /* SceneDelegate.swift */,
@@ -89,21 +89,37 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		44E6C9412A179C160016B11C /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				44E6C9422A179C410016B11C /* LoginViewController.swift */,
-				44E6C9442A179C530016B11C /* RegisterViewController.swift */,
-			);
-			path = ViewControllers;
-			sourceTree = "<group>";
-		};
 		44E6C94C2A179CF80016B11C /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				44E6C94D2A179D120016B11C /* HttpClient.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		44E6C94F2A17A72E0016B11C /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				44E6C94C2A179CF80016B11C /* Network */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		44E6C9502A17A7640016B11C /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				44E6C9512A17A76C0016B11C /* LoginAndRegister */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		44E6C9512A17A76C0016B11C /* LoginAndRegister */ = {
+			isa = PBXGroup;
+			children = (
+				44E6C9442A179C530016B11C /* RegisterViewController.swift */,
+				44E6C9422A179C410016B11C /* LoginViewController.swift */,
+			);
+			path = LoginAndRegister;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

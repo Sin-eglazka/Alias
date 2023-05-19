@@ -20,6 +20,7 @@ final class NetworkService: NetworkServiceProtocol {
     }
     
     func sendRequest<T: Decodable>(_ request: URLRequest, completion: @escaping (Result<T, Error>) -> Void) {
+        
         session.dataTask(with: request) { data, _, error in
             if let error = error {
                 completion(.failure(error))
@@ -33,6 +34,7 @@ final class NetworkService: NetworkServiceProtocol {
             
             do {
                 print(data)
+                print("111")
                 let model = try JSONDecoder().decode(T.self, from: data)
                 completion(.success(model))
             } catch {

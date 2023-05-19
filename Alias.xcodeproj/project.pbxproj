@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44D325382A18266500667BA9 /* JoinRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D325372A18266500667BA9 /* JoinRoomViewController.swift */; };
+		44D3253B2A18272000667BA9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D3253A2A18272000667BA9 /* GameViewController.swift */; };
+		44D3253D2A18272E00667BA9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D3253C2A18272E00667BA9 /* SettingsViewController.swift */; };
+		44D325402A18324E00667BA9 /* RoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D3253F2A18324E00667BA9 /* RoomCell.swift */; };
 		44E6C92D2A179BF10016B11C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C92C2A179BF10016B11C /* AppDelegate.swift */; };
 		44E6C92F2A179BF10016B11C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C92E2A179BF10016B11C /* SceneDelegate.swift */; };
 		44E6C9312A179BF10016B11C /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C9302A179BF10016B11C /* RootViewController.swift */; };
@@ -25,6 +29,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		44D325372A18266500667BA9 /* JoinRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomViewController.swift; sourceTree = "<group>"; };
+		44D3253A2A18272000667BA9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		44D3253C2A18272E00667BA9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		44D3253F2A18324E00667BA9 /* RoomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCell.swift; sourceTree = "<group>"; };
 		44E6C9292A179BF10016B11C /* Alias.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alias.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44E6C92C2A179BF10016B11C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44E6C92E2A179BF10016B11C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +63,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		44D325362A18262900667BA9 /* JoinRooms */ = {
+			isa = PBXGroup;
+			children = (
+				44D325372A18266500667BA9 /* JoinRoomViewController.swift */,
+			);
+			path = JoinRooms;
+			sourceTree = "<group>";
+		};
+		44D325392A18268800667BA9 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				44D3253A2A18272000667BA9 /* GameViewController.swift */,
+				44D3253C2A18272E00667BA9 /* SettingsViewController.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		44D3253E2A18323500667BA9 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				44D3253F2A18324E00667BA9 /* RoomCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		44E6C9202A179BF00016B11C = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +153,9 @@
 		44E6C9502A17A7640016B11C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				44D3253E2A18323500667BA9 /* Cells */,
+				44D325392A18268800667BA9 /* Game */,
+				44D325362A18262900667BA9 /* JoinRooms */,
 				44E6C9512A17A76C0016B11C /* LoginAndRegister */,
 			);
 			path = Modules;
@@ -219,12 +255,16 @@
 				44E6C9472A179C610016B11C /* User.swift in Sources */,
 				44E6C94B2A179C8E0016B11C /* Team.swift in Sources */,
 				CC39584D2A181C57008E4838 /* UserService.swift in Sources */,
+				44D3253D2A18272E00667BA9 /* SettingsViewController.swift in Sources */,
 				44E6C9532A17AABB0016B11C /* Constants.swift in Sources */,
 				44E6C94E2A179D120016B11C /* HttpClient.swift in Sources */,
+				44D325402A18324E00667BA9 /* RoomCell.swift in Sources */,
 				44E6C9312A179BF10016B11C /* RootViewController.swift in Sources */,
+				44D3253B2A18272000667BA9 /* GameViewController.swift in Sources */,
 				44E6C92D2A179BF10016B11C /* AppDelegate.swift in Sources */,
 				CC39584A2A17F2B8008E4838 /* URLRequestFactory.swift in Sources */,
 				44E6C92F2A179BF10016B11C /* SceneDelegate.swift in Sources */,
+				44D325382A18266500667BA9 /* JoinRoomViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

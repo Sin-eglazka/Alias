@@ -10,7 +10,7 @@ import UIKit
 
 final class LoginViewController: UIViewController {
     
-    private lazy var emailInput = {
+    private lazy var emailInput = { () -> UITextField in
         let input = UITextField()
         input.placeholder = "Email"
         input.borderStyle = .roundedRect
@@ -18,7 +18,7 @@ final class LoginViewController: UIViewController {
         return input
     }()
     
-    private lazy var passwordInput = {
+    private lazy var passwordInput = { () -> UITextField in
         let input = UITextField()
         input.placeholder = "Password"
         input.borderStyle = .roundedRect
@@ -26,14 +26,14 @@ final class LoginViewController: UIViewController {
         return input
     }()
     
-    private lazy var loginButton = {
+    private lazy var loginButton = { () -> UIButton in
         let button = UIButton()
         button.setTitle("Login", for: .normal)
         button.setTitleColor(UIColor.systemBlue, for: .normal)
         return button
     }()
     
-    private lazy var signUpButton = {
+    private lazy var signUpButton = { () -> UIButton in
         let button = UIButton()
         button.setTitle("Sign up?", for: .normal)
         button.setTitleColor(UIColor.systemGray4, for: .normal)
@@ -54,6 +54,7 @@ final class LoginViewController: UIViewController {
         setupSignUpButton()
         
         // test
+        /*
         let service = UserService(networkService: NetworkService(), requestFactory: URLRequestFactory(host: Constants.baseUrl))
         service.register(name: "some12345", email: "name@gmail.com", password: "password") { result in
                 switch result {
@@ -62,7 +63,7 @@ final class LoginViewController: UIViewController {
                 case .failure:
                     print(result)
                 }
-        }
+        }*/
     }
     
     private func setupEmailInput() {
@@ -122,6 +123,13 @@ final class LoginViewController: UIViewController {
         else { return }
         
         // TODO: login
+        
+        //
+        
+        print("join")
+        //let joinController = JoinRoomViewController()
+        //self.navigationController?.pushViewController(joinController, animated: true)
+        present(JoinRoomViewController(), animated: true)
     }
     
 }

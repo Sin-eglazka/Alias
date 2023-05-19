@@ -10,7 +10,7 @@ import UIKit
 
 final class RegisterViewController: UIViewController {
     
-    private lazy var nameInput = {
+    private lazy var nameInput = { () -> UITextField in
         let input = UITextField()
         input.placeholder = "Name"
         input.borderStyle = .roundedRect
@@ -18,7 +18,7 @@ final class RegisterViewController: UIViewController {
         return input
     }()
     
-    private lazy var emailInput = {
+    private lazy var emailInput = { () -> UITextField in
         let input = UITextField()
         input.placeholder = "Email"
         input.borderStyle = .roundedRect
@@ -26,7 +26,7 @@ final class RegisterViewController: UIViewController {
         return input
     }()
     
-    private lazy var passwordInput = {
+    private lazy var passwordInput = { () -> UITextField in
         let input = UITextField()
         input.placeholder = "Password"
         input.borderStyle = .roundedRect
@@ -34,7 +34,7 @@ final class RegisterViewController: UIViewController {
         return input
     }()
     
-    private lazy var signUpButton = {
+    private lazy var signUpButton = { () -> UIButton in
         let button = UIButton()
         button.setTitle("Sign Up", for: .normal)
         button.setTitleColor(UIColor.systemBlue, for: .normal)

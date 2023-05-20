@@ -59,7 +59,7 @@ class CreateRoomViewController: UIViewController{
     private func setupView() {
         setupContentView()
         setupjoinNameInput()
-        setupcreateRoomButton
+        setupcreateRoomButton()
         
     }
     
@@ -83,56 +83,44 @@ class CreateRoomViewController: UIViewController{
             roomNameInput.topAnchor.constraint(equalTo: mainView.bottomAnchor, constant: 5)
         ])
     }
+
+    private func setupPrivateToggle() {
+        mainView.addSubview(isPrivteToggle)
+        isPrivteToggle.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            isPrivteToggle.leftAnchor.constraint(equalTo: mainView.leftAnchor, constant: 5),
+            isPrivteToggle.rightAnchor.constraint(equalTo: mainView.centerXAnchor, constant: -5),
+            isPrivteToggle.topAnchor.constraint(equalTo: mainView.bottomAnchor, constant: 40)
+        ])
+        
+        mainView.addSubview(toggleLabel)
+        toggleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            toggleLabel.leftAnchor.constraint(equalTo: mainView.centerXAnchor, constant: 5),
+            toggleLabel.rightAnchor.constraint(equalTo: mainView.rightAnchor, constant: -5),
+            toggleLabel.topAnchor.constraint(equalTo: mainView.bottomAnchor, constant: 40)
+        ])
+    }
     
     private func setupcreateRoomButton() {
         mainView.addSubview(createRoomButton)
         createRoomButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             createRoomButton.leftAnchor.constraint(equalTo: mainView.leftAnchor, constant: 10),
-            createRoomButton.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 10)
+            createRoomButton.bottomAnchor.constraint(equalTo: mainView.topAnchor, constant: 10),
+            createRoomButton.rightAnchor.constraint(equalTo: mainView.rightAnchor, constant: -10)
         ])
         createRoomButton.addTarget(self, action: #selector(createRoom), for: .touchUpInside)
     }
     
-    private func setupRefreshButton() {
-        view.addSubview(refreshButton)
-        refreshButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            refreshButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
-            refreshButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 10)
-        ])
-        refreshButton.addTarget(self, action: #selector(refreshRooms), for: .touchUpInside)
-    }
     
-    private func setupJoinPrivateButton() {
-        view.addSubview(joinPrivateButton)
-        joinPrivateButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            joinPrivateButton.leftAnchor.constraint(equalTo: view.centerXAnchor, constant: 10),
-            joinPrivateButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            joinPrivateButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40)
-        ])
-        joinPrivateButton.addTarget(self, action: #selector(joinPrivateRoom), for: .touchUpInside)
-    }
-    
-    private func handleDelete(indexPath: IndexPath) {
-        dataSource.remove(at: indexPath.row)
-        tableView.reloadData()
-    }
     
     @objc
     private func createRoom(_ sender: AnyObject) {
-        present(CreateRoomViewController(), animated: true)
+        // ToDo create room 
     }
     
-    @objc
-    private func refreshRooms(_ sender: AnyObject) {
-        dataSource.removeAll()
-        
-        // get Rooms
-        
-        tableView.reloadData()
-    }
+    
     
     
 }

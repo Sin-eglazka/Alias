@@ -13,6 +13,8 @@ protocol URLRequestFactoryProtocol {
     func logout(with token: String) throws -> URLRequest
     func listRooms(with token: String) throws -> URLRequest
     func createRoom(with token: String, name: String, isPrivate: Bool) throws -> URLRequest
+    func joinRoom(with token: String, gameRoomId: String, invitationCode: String) throws -> URLRequest
+    func leaveRoom(with token: String, gameRoomId: String) throws -> URLRequest
 }
 
 final class URLRequestFactory {
@@ -36,8 +38,8 @@ final class URLRequestFactory {
         return request
     }
     
-    private func makeGetRequest(path: String) throws -> URLRequest {
-        guard let url = url(with: path, parameters: [:]) else {
+    private func makeGetRequest(path: String, parametres: [String:String]) throws -> URLRequest {
+        guard let url = url(with: path, parameters: parametres) else {
             throw HttpError.badURL
         }
         var request = URLRequest(url: url)
@@ -95,7 +97,7 @@ extension URLRequestFactory: URLRequestFactoryProtocol {
     }
     
     func listRooms(with token: String) throws -> URLRequest {
-        var request = try makeGetRequest(path: Endpoints.listRooms)
+        var request = try makeGetRequest(path: Endpoints.listRooms, parametres: [:])
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }
@@ -104,6 +106,24 @@ extension URLRequestFactory: URLRequestFactoryProtocol {
         var request = try makePostRequest(
             path: Endpoints.createRoom,
             bodyObject: ["name": name, "isPrivate": isPrivate]
+        )
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    func joinRoom(with token: String, gameRoomId: String, invitationCode: String) throws -> URLRequest {
+        var request = try makePostRequest(
+            path: Endpoints.joinRoom,
+            bodyObject: ["gameRoomId": gameRoomId, "invitationCode": invitationCode]
+        )
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    func leaveRoom(with token: String, gameRoomId: String) throws -> URLRequest {
+        var request = try makeGetRequest(
+            path: Endpoints.leaveRoom,
+            parametres: ["gameRoomId": gameRoomId]
         )
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request

@@ -19,8 +19,8 @@ final class RoomService: RoomServiceProtocol {
     
     func listAllRooms(token: String, completion: @escaping (Result<[Room], Error>) -> Void) {
         do {
-             let request = try requestFactory.listRooms(with: token)
-             networkService.sendRequest(request, completion: completion)
+            let request = try requestFactory.listRooms(with: token)
+            networkService.sendRequest(request, completion: completion)
         } catch {
             completion(.failure(error))
         }
@@ -29,7 +29,25 @@ final class RoomService: RoomServiceProtocol {
     func createRoom(name: String, isPrivate: Bool, token: String, completion: @escaping (Result<GameRoom, Error>) -> Void) {
         do {
             let request = try requestFactory.createRoom(with: token, name: name, isPrivate: isPrivate)
-             networkService.sendRequest(request, completion: completion)
+            networkService.sendRequest(request, completion: completion)
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
+    func joinRoom(gameRoomId: String, invitationCode: String, token: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        do {
+            let request = try requestFactory.joinRoom(with: token, gameRoomId: gameRoomId, invitationCode: invitationCode)
+            networkService.sendRequest(request, completion: completion)
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
+    func leaveRoom(gameRoomId: String, token: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        do {
+            let request = try requestFactory.leaveRoom(with: token, gameRoomId: gameRoomId)
+            networkService.sendRequest(request, completion: completion)
         } catch {
             completion(.failure(error))
         }

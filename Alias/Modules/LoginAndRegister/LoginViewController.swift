@@ -83,6 +83,27 @@ final class LoginViewController: UIViewController {
 //                print(result)
 //            }
 //        }
+        
+//        let service = RoomService(networkService: NetworkService(), requestFactory: URLRequestFactory(host: Constants.localBaseURL))
+//        service.joinRoom(gameRoomId: "4F4E50DE-CED8-4B84-A925-C93CE11C90A3", invitationCode: "I1S2t", token: "Lpsb/o7rPel2Aqws0SQIu3kiXRF4aNN9p96gBuaaNpc=") { result in
+//            switch result {
+//            case let .success(room):
+//                print(room)
+//            case .failure:
+//                print(result)
+//            }
+//        }
+        
+//        let service = RoomService(networkService: NetworkService(), requestFactory: URLRequestFactory(host: Constants.localBaseURL))
+//        service.leaveRoom(gameRoomId: "4F4E50DE-CED8-4B84-A925-C93CE11C90A3",
+//                           token: "Lpsb/o7rPel2Aqws0SQIu3kiXRF4aNN9p96gBuaaNpc=") { result in
+//            switch result {
+//            case let .success(room):
+//                print(room)
+//            case .failure:
+//                print(result)
+//            }
+//        }
     }
     
     private func setupEmailInput() {

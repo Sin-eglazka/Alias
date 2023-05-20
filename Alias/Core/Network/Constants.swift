@@ -19,4 +19,6 @@ enum Endpoints{
     static let logout = "/users/logout"
     static let listRooms = "/game-rooms/list-all"
     static let createRoom = "/game-rooms/create"
+    static let joinRoom = "/game-rooms/join-room"
+    static let leaveRoom = "/game-rooms/leave-room"
 }

@@ -16,6 +16,7 @@ protocol URLRequestFactoryProtocol {
     func createRoom(with token: String, name: String, isPrivate: Bool) throws -> URLRequest
     func joinRoom(with token: String, gameRoomId: String, invitationCode: String) throws -> URLRequest
     func leaveRoom(with token: String, gameRoomId: String) throws -> URLRequest
+    func changeSettingsInRoom(for room: String, points: Int, isPrivate: Bool, name: String, with token: String) throws -> URLRequest
     
     func createTeam(with token: String, name: String, gameRoomId: String) throws -> URLRequest
     func listTeams(for room: String, with token: String) throws -> URLRequest
@@ -156,6 +157,15 @@ extension URLRequestFactory: URLRequestFactoryProtocol {
         var request = try makeGetRequest(
             path: Endpoints.listPlayersInRoom,
             parametres: ["gameRoomId": room]
+        )
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    func changeSettingsInRoom(for room: String, points: Int, isPrivate: Bool, name: String, with token: String) throws -> URLRequest {
+        var request = try makePostRequest(
+            path: Endpoints.changeSettings,
+            bodyObject: ["isPrivate": isPrivate, "gameRoomId": room, "points": points, "name": name]
         )
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request

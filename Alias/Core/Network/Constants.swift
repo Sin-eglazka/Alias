@@ -22,6 +22,7 @@ enum Endpoints{
     static let createRoom = "/game-rooms/create"
     static let joinRoom = "/game-rooms/join-room"
     static let leaveRoom = "/game-rooms/leave-room"
+    static let changeSettings = "/game-rooms/change-setting"
     
     static let createTeam = "/teams/create-team"
     static let listTeamsInRoom = "/teams/list-teams"

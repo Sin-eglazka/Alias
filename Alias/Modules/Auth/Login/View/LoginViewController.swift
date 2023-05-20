@@ -10,6 +10,8 @@ import UIKit
 
 final class LoginViewController: UIViewController {
     
+    private var output: LoginViewOutput
+    
     private lazy var emailInput = { () -> UITextField in
         let input = UITextField()
         input.placeholder = "Email"
@@ -41,6 +43,16 @@ final class LoginViewController: UIViewController {
     }()
     
     // MARK: Lifecycle
+    
+    init(output: LoginViewOutput) {
+        self.output = output
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -52,17 +64,6 @@ final class LoginViewController: UIViewController {
         setupPasswordInput()
         setupLoginButton()
         setupSignUpButton()
-        
-        
-        //        let service = UserService(networkService: NetworkService(), requestFactory: URLRequestFactory(host: Constants.localBaseURL))
-        //        service.login(email: "some@gmail.com", password: "qwerty123456789") { result in
-        //                switch result {
-        //                case let .success(user):
-        //                    print(user)
-        //                case .failure:
-        //                    print(result)
-        //                }
-        //        }
         
 //        let service = RoomService(networkService: NetworkService(), requestFactory: URLRequestFactory(host: Constants.localBaseURL))
 //        service.listAllRooms(token: "Lpsb/o7rPel2Aqws0SQIu3kiXRF4aNN9p96gBuaaNpc="){ result in
@@ -152,15 +153,24 @@ final class LoginViewController: UIViewController {
         else { return }
         
         // TODO: login
-        
-        //
-        
-        print("join")
-        let joinController = JoinRoomViewController()
-        self.navigationController?.pushViewController(joinController, animated: true)
-        //present(JoinRoomViewController(), animated: true)
+
+        output.login(email: email, password: password)
     }
     
+}
+
+extension LoginViewController: LoginViewInput {
+    
+    func loginSuccessed() {
+        DispatchQueue.main.async {
+            let joinController = JoinRoomViewController()
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(joinController)
+        }
+    }
+    
+    func showAlert() {
+        
+    }
 }
 
 extension LoginViewController: UITextFieldDelegate {

@@ -25,12 +25,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        let navigationController =
-        UINavigationController(rootViewController:
-        LoginViewController())
-         window.rootViewController = navigationController
-         self.window = window
-         window.makeKeyAndVisible()
+        
+        let serviceAssembly = ServiceAssembly()
+        let loginPresenter = LoginPresenter(userService: serviceAssembly.makeUserService())
+        let loginVC = LoginViewController(output: loginPresenter)
+        loginPresenter.viewInput = loginVC
+        
+        let navigationController = UINavigationController(rootViewController: loginVC)
+        
+        window.rootViewController = navigationController
+        self.window = window
+        window.makeKeyAndVisible()
     }
+    
+    func changeRootViewController(_ vc: UIViewController, animated: Bool = true) {
+            guard let window = self.window else {
+                return
+            }
+            
+            window.rootViewController = vc
+        }
 }
 

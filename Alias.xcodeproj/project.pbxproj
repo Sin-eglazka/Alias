@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		44A19DBC2A1921BA0006523D /* CreateRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A19DBB2A1921BA0006523D /* CreateRoomViewController.swift */; };
+		44A19DBE2A1963CC0006523D /* TeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A19DBD2A1963CC0006523D /* TeamCell.swift */; };
 		44D325382A18266500667BA9 /* JoinRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D325372A18266500667BA9 /* JoinRoomViewController.swift */; };
 		44D3253B2A18272000667BA9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D3253A2A18272000667BA9 /* GameViewController.swift */; };
 		44D3253D2A18272E00667BA9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D3253C2A18272E00667BA9 /* SettingsViewController.swift */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		44A19DBB2A1921BA0006523D /* CreateRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomViewController.swift; sourceTree = "<group>"; };
+		44A19DBD2A1963CC0006523D /* TeamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCell.swift; sourceTree = "<group>"; };
 		44D325372A18266500667BA9 /* JoinRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomViewController.swift; sourceTree = "<group>"; };
 		44D3253A2A18272000667BA9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		44D3253C2A18272E00667BA9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				44D3253F2A18324E00667BA9 /* RoomCell.swift */,
+				44A19DBD2A1963CC0006523D /* TeamCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				CC39584D2A181C57008E4838 /* UserService.swift in Sources */,
 				44D3253D2A18272E00667BA9 /* SettingsViewController.swift in Sources */,
 				44E6C9532A17AABB0016B11C /* Constants.swift in Sources */,
+				44A19DBE2A1963CC0006523D /* TeamCell.swift in Sources */,
 				CC90E9AF2A191548007E06E4 /* UserServiceProtocol.swift in Sources */,
 				44E6C94E2A179D120016B11C /* HttpClient.swift in Sources */,
 				44D325402A18324E00667BA9 /* RoomCell.swift in Sources */,

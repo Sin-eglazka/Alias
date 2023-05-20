@@ -12,6 +12,8 @@ class SettingsViewController: UIViewController{
     
     private var contentView: UIView = UIView()
     
+    var delegate: DeletingRoom = GameViewController(roomId: "", name: "")
+    
     private lazy var adminView = { () -> UIView in
         let view = UIView()
         view.backgroundColor = .white
@@ -64,6 +66,14 @@ class SettingsViewController: UIViewController{
         return button
     }()
     
+    private lazy var deleteButton = { () -> UIButton in
+        let button = UIButton()
+        button.setTitle("Delete room", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.backgroundColor = .red
+        return button
+    }()
+    
     private var isAdmin: Bool = true
     
     init (isAdmin: Bool){
@@ -95,6 +105,18 @@ class SettingsViewController: UIViewController{
         setupApplyButton()
         setupPrivateToggle()
         setupPointsInput()
+        setupDeleteButton()
+    }
+    
+    private func setupDeleteButton() {
+        contentView.addSubview(deleteButton)
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            deleteButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
+            deleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30),
+            deleteButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10)
+        ])
+        deleteButton.addTarget(self, action: #selector(deleteRoom), for: .touchUpInside)
     }
     
     private func setupContentView() {
@@ -151,7 +173,7 @@ class SettingsViewController: UIViewController{
         applyButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             applyButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
-            applyButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30),
+            applyButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -70),
             applyButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10)
         ])
         applyButton.addTarget(self, action: #selector(applyChanges), for: .touchUpInside)
@@ -164,7 +186,20 @@ class SettingsViewController: UIViewController{
         // ToDo change settings
     }
     
-    
+    @objc
+    private func deleteRoom(_ sender: AnyObject) {
+        // ToDo delete room
+        
+        delegate.deleteRoom()
+        self.dismiss(animated: true)
+//        var controllers = self.navigationController?.viewControllers
+//
+//        for vc in controllers!{
+//            if (vc is JoinRoomViewController){
+//                self.navigationController?.popToViewController(vc, animated: true)
+//            }
+//        }
+    }
     
     
 }

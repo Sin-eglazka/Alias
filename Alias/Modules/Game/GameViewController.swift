@@ -87,11 +87,24 @@ class GameViewController: UIViewController{
     private func settingsDidTouch(_ sender: AnyObject) {
         
         // TODO check if user an admin
-        
-        present(SettingsViewController(isAdmin: true), animated: true)
+        let settingsVC = SettingsViewController(isAdmin: true)
+        settingsVC.delegate = self
+        present(settingsVC, animated: true)
     }
     
     
     
     
+}
+
+protocol DeletingRoom: AnyObject{
+    func deleteRoom()
+}
+extension GameViewController: DeletingRoom{
+    
+    func deleteRoom() {
+        // TODO delete room
+        
+        self.navigationController?.popViewController(animated: true)
+    }
 }

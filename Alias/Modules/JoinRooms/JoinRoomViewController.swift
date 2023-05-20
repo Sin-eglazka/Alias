@@ -71,7 +71,6 @@ class JoinRoomViewController: UIViewController{
         tableView.backgroundColor = .clear
         tableView.keyboardDismissMode = .onDrag
         tableView.dataSource = self
-        tableView.delegate = self
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -224,23 +223,7 @@ extension JoinRoomViewController: UITableViewDataSource {
 
 
 
-extension JoinRoomViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-            
-        let deleteAction = UIContextualAction(
-            style: .destructive,
-            title: .none
-        ) { [weak self] (action, view, completion) in
-            self?.handleDelete(indexPath: indexPath)
-            completion(true)
-        }
-        deleteAction.image = UIImage(
-            systemName: "trash.fill",
-            withConfiguration: UIImage.SymbolConfiguration(weight: .bold))?.withTintColor(.white)
-        deleteAction.backgroundColor = .red
-        return UISwipeActionsConfiguration(actions: [deleteAction])
-    }
-}
+
 
 protocol JoiningRoom: AnyObject{
     func joinRoom(id: String, name: String)

@@ -52,7 +52,7 @@ class JoinRoomViewController: UIViewController{
         setupJoinPrivateButton()
         
         tableView.register(RoomCell.self,forCellReuseIdentifier:
-        RoomCell.reuseIdentifier)
+                            RoomCell.reuseIdentifier)
         view.addSubview(tableView)
         tableView.backgroundColor = .clear
         tableView.keyboardDismissMode = .onDrag
@@ -68,7 +68,7 @@ class JoinRoomViewController: UIViewController{
         ])
         
         // test
-        var room = Room(isPrivate: true, id: "ossq", admin: "katya", name: "Hello World", creator: "katya", invitationCode: nil)
+        let room = Room(isPrivate: true, id: "ossq", admin: "katya", name: "Hello World", creator: "katya", invitationCode: nil)
         dataSource.append(room)
         tableView.reloadData()
     }
@@ -113,7 +113,7 @@ class JoinRoomViewController: UIViewController{
     
     @objc
     private func joinPrivateRoom(_ sender: AnyObject) {
-       
+        
     }
     
     @objc
@@ -125,14 +125,14 @@ class JoinRoomViewController: UIViewController{
 }
 
 extension JoinRoomViewController: UITableViewDataSource {
- 
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-     switch section {
+        switch section {
         case 0:
             return 1
         default:
@@ -140,13 +140,12 @@ extension JoinRoomViewController: UITableViewDataSource {
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let room = dataSource[indexPath.row]
+        if let roomCell = tableView.dequeueReusableCell(withIdentifier: RoomCell.reuseIdentifier, for: indexPath) as? RoomCell {
+            roomCell.configure(room: room)
+            return roomCell
+        }
         
-                let room = dataSource[indexPath.row]
-                if let roomCell = tableView.dequeueReusableCell(withIdentifier: RoomCell.reuseIdentifier, for: indexPath) as? RoomCell {
-                    roomCell.configure(room: room)
-                    return roomCell
-                }
-            
         return UITableViewCell()
     }
 }
@@ -155,7 +154,7 @@ extension JoinRoomViewController: UITableViewDataSource {
 
 extension JoinRoomViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-            
+        
         let deleteAction = UIContextualAction(
             style: .destructive,
             title: .none

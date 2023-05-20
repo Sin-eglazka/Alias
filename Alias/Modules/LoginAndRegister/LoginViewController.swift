@@ -53,17 +53,16 @@ final class LoginViewController: UIViewController {
         setupLoginButton()
         setupSignUpButton()
         
-        // test
-        /*
-        let service = UserService(networkService: NetworkService(), requestFactory: URLRequestFactory(host: Constants.baseUrl))
-        service.register(name: "some12345", email: "name@gmail.com", password: "password") { result in
-                switch result {
-                case let .success(user):
-                    print(user)
-                case .failure:
-                    print(result)
-                }
-        }*/
+        
+//        let service = UserService(networkService: NetworkService(), requestFactory: URLRequestFactory(host: Constants.localBaseURL))
+//        service.login(email: "some@gmail.com", password: "qwerty123456789") { result in
+//                switch result {
+//                case let .success(user):
+//                    print(user)
+//                case .failure:
+//                    print(result)
+//                }
+//        }
     }
     
     private func setupEmailInput() {

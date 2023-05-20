@@ -9,7 +9,7 @@ import Foundation
 
 protocol URLRequestFactoryProtocol {
     func registerUser(name: String, email: String, password: String) throws -> URLRequest
-    
+    func loginUser(email: String, password: String) throws -> URLRequest
 }
 
 final class URLRequestFactory {
@@ -33,16 +33,18 @@ final class URLRequestFactory {
     
     private func url(with path: String, parameters: [String: String]) -> URL? {
         var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
+        urlComponents.scheme = "http"
         urlComponents.host = host
+        urlComponents.port = 8080
         urlComponents.path = path
-        urlComponents.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
+        
+        print(urlComponents)
+       // urlComponents.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
         guard let url = urlComponents.url else {
             return nil
         }
         return url
     }
-    
 }
 
 extension URLRequestFactory: URLRequestFactoryProtocol {
@@ -51,6 +53,14 @@ extension URLRequestFactory: URLRequestFactoryProtocol {
         let request = try makePostRequest(
             path: Endpoints.register,
             bodyObject: ["name": name, "email": email, "password": password]
+        )
+        return request
+    }
+    
+    func loginUser(email: String, password: String) throws -> URLRequest {
+        let request = try makePostRequest(
+            path: Endpoints.login,
+            bodyObject: ["email": email, "password": password]
         )
         return request
     }

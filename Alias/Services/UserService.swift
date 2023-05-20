@@ -17,7 +17,7 @@ final class UserService {
         self.requestFactory = requestFactory
     }
     
-    func register(name: String, email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
+    func register(name: String, email: String, password: String, completion: @escaping (Result<RegisterResponse, Error>) -> Void) {
         do {
             let request = try requestFactory.registerUser(name: name, email: email, password: password)
             networkService.sendRequest(request, completion: completion)
@@ -25,4 +25,23 @@ final class UserService {
             completion(.failure(error))
         }
     }
+    
+    func login(email: String, password: String, completion: @escaping (Result<LoginResponse, Error>) -> Void) {
+        do {
+            let request = try requestFactory.loginUser(email: email, password: password)
+            networkService.sendRequest(request, completion: completion)
+        } catch {
+            completion(.failure(error))
+        }
+    }
+}
+
+struct LoginResponse: Codable {
+    let id: String
+    let value: String
+    let user: User
+}
+
+struct User: Codable {
+    let id: String
 }

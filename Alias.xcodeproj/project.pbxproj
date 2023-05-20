@@ -18,7 +18,7 @@
 		44E6C9392A179C030016B11C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44E6C9372A179C030016B11C /* LaunchScreen.storyboard */; };
 		44E6C9432A179C410016B11C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C9422A179C410016B11C /* LoginViewController.swift */; };
 		44E6C9452A179C530016B11C /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C9442A179C530016B11C /* RegisterViewController.swift */; };
-		44E6C9472A179C610016B11C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C9462A179C610016B11C /* User.swift */; };
+		44E6C9472A179C610016B11C /* RegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C9462A179C610016B11C /* RegisterResponse.swift */; };
 		44E6C9492A179C7D0016B11C /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C9482A179C7D0016B11C /* Room.swift */; };
 		44E6C94B2A179C8E0016B11C /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C94A2A179C8E0016B11C /* Team.swift */; };
 		44E6C94E2A179D120016B11C /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C94D2A179D120016B11C /* HttpClient.swift */; };
@@ -42,7 +42,7 @@
 		44E6C93A2A179C030016B11C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44E6C9422A179C410016B11C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		44E6C9442A179C530016B11C /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		44E6C9462A179C610016B11C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		44E6C9462A179C610016B11C /* RegisterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterResponse.swift; sourceTree = "<group>"; };
 		44E6C9482A179C7D0016B11C /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		44E6C94A2A179C8E0016B11C /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		44E6C94D2A179D120016B11C /* HttpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 		44E6C9402A179C0E0016B11C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				44E6C9462A179C610016B11C /* User.swift */,
+				44E6C9462A179C610016B11C /* RegisterResponse.swift */,
 				44E6C9482A179C7D0016B11C /* Room.swift */,
 				44E6C94A2A179C8E0016B11C /* Team.swift */,
 			);
@@ -252,7 +252,7 @@
 				44E6C9432A179C410016B11C /* LoginViewController.swift in Sources */,
 				44E6C9452A179C530016B11C /* RegisterViewController.swift in Sources */,
 				44E6C9492A179C7D0016B11C /* Room.swift in Sources */,
-				44E6C9472A179C610016B11C /* User.swift in Sources */,
+				44E6C9472A179C610016B11C /* RegisterResponse.swift in Sources */,
 				44E6C94B2A179C8E0016B11C /* Team.swift in Sources */,
 				CC39584D2A181C57008E4838 /* UserService.swift in Sources */,
 				44D3253D2A18272E00667BA9 /* SettingsViewController.swift in Sources */,

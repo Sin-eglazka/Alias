@@ -34,7 +34,6 @@ final class NetworkService: NetworkServiceProtocol {
             
             do {
                 print(data)
-                print("111")
                 let model = try JSONDecoder().decode(T.self, from: data)
                 completion(.success(model))
             } catch {

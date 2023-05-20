@@ -10,5 +10,10 @@ import Foundation
 struct Team: Codable {
     let id: String
     let name: String
-    let gameRoomId: String
+    let users: [TeamPlayer]
+}
+
+struct TeamPlayer: Codable {
+    let id: String
+    let name: String
 }

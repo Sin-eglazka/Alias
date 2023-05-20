@@ -11,10 +11,14 @@ protocol URLRequestFactoryProtocol {
     func registerUser(name: String, email: String, password: String) throws -> URLRequest
     func loginUser(email: String, password: String) throws -> URLRequest
     func logout(with token: String) throws -> URLRequest
+    
     func listRooms(with token: String) throws -> URLRequest
     func createRoom(with token: String, name: String, isPrivate: Bool) throws -> URLRequest
     func joinRoom(with token: String, gameRoomId: String, invitationCode: String) throws -> URLRequest
     func leaveRoom(with token: String, gameRoomId: String) throws -> URLRequest
+    
+    func createTeam(with token: String, name: String, gameRoomId: String) throws -> URLRequest
+    func listTeams(for room: String, with token: String) throws -> URLRequest
 }
 
 final class URLRequestFactory {
@@ -124,6 +128,24 @@ extension URLRequestFactory: URLRequestFactoryProtocol {
         var request = try makeGetRequest(
             path: Endpoints.leaveRoom,
             parametres: ["gameRoomId": gameRoomId]
+        )
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    func createTeam(with token: String, name: String, gameRoomId: String) throws -> URLRequest {
+        var request = try makePostRequest(
+            path: Endpoints.createTeam,
+            bodyObject: ["name": name, "gameRoomId": gameRoomId]
+        )
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    func listTeams(for room: String, with token: String) throws -> URLRequest {
+        var request = try makeGetRequest(
+            path: Endpoints.teamsInRoom,
+            parametres: ["gameRoomId": room]
         )
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request

@@ -33,6 +33,8 @@ class JoinRoomViewController: UIViewController{
     
     private lazy var logOutButton = { () -> UIButton in
         let button = UIButton()
+        let image = UIImage(named: "refresh-25")?.withRenderingMode(.alwaysOriginal)
+        button.setImage(image, for: .normal)
         button.setTitle("Logout", for: .normal)
         button.setTitleColor(UIColor.systemBlue, for: .normal)
         return button
@@ -76,7 +78,7 @@ class JoinRoomViewController: UIViewController{
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 4),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -4),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 40)
+            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60)
         ])
     }
     

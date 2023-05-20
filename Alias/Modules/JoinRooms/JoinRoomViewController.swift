@@ -176,7 +176,8 @@ class JoinRoomViewController: UIViewController{
         
         var id = ""
         var name = ""
-        self.navigationController?.pushViewController(GameViewController(roomId: id, name: name), animated: true)
+        var isAdmin = true
+        self.navigationController?.pushViewController(GameViewController(roomId: id, name: name, isAdmin: isAdmin), animated: true)
         
     }
     
@@ -194,15 +195,13 @@ class JoinRoomViewController: UIViewController{
 extension JoinRoomViewController: UITableViewDataSource {
  
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
      switch section {
-        case 0:
-            return 1
-        default:
+            default:
             return dataSource.count
         }
     }
@@ -232,7 +231,8 @@ protocol JoiningRoom: AnyObject{
 extension JoinRoomViewController: JoiningRoom{
     func joinRoom(id: String, name: String) {
         
-        // TODO check if room available, after join it
-        self.navigationController?.pushViewController(GameViewController(roomId: id, name: name), animated: true)
+        // TODO check if room available, after join it and get isAdmin property
+        var isAdmin = true
+        self.navigationController?.pushViewController(GameViewController(roomId: id, name: name, isAdmin: isAdmin), animated: true)
     }
 }

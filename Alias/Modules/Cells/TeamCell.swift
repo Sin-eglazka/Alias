@@ -10,6 +10,7 @@ final class TeamCell: UITableViewCell {
     let scrollView = UIScrollView()
     let content = UIStackView()
     var labels:[UILabel] = []
+    private var isTeam: Bool = true
     
     private lazy var joinButton = { () -> UIButton in
         let button = UIButton()
@@ -59,13 +60,17 @@ final class TeamCell: UITableViewCell {
         
  }
     
+    func setIsTeam(isTeam: Bool){
+        self.isTeam = isTeam
+    }
+    
     @objc
     private func joinTeam(_ sender: AnyObject) {
         // ToDo join user this team
     }
 
     
-    func configure(usernames: [String], isTeam: Bool){
+    func configure(usernames: [String]){
         teamUsers = usernames
         labels = []
         for label in content.subviews{

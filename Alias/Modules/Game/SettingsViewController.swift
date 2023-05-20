@@ -12,7 +12,7 @@ class SettingsViewController: UIViewController{
     
     private var contentView: UIView = UIView()
     
-    var delegate: DeletingRoom = GameViewController(roomId: "", name: "")
+    var delegate: DeletingRoom = GameViewController(roomId: "", name: "", isAdmin: false)
     
     private lazy var adminView = { () -> UIView in
         let view = UIView()

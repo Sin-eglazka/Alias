@@ -12,6 +12,7 @@ class RoomCell : UITableViewCell{
     static let reuseIdentifier = "RoomCell"
     private var roomId: String = " "
     private var roomName: String
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         roomName = ""
         super.init(style: style, reuseIdentifier: reuseIdentifier)

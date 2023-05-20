@@ -12,6 +12,7 @@ class CreateRoomViewController: UIViewController{
     
     private lazy var mainView = { () -> UIView in
         let view = UIView()
+        view.layer.cornerRadius = 20
         view.backgroundColor = .white
         return view
     }()
@@ -21,7 +22,7 @@ class CreateRoomViewController: UIViewController{
         input.placeholder = "Room Name"
         input.borderStyle = .roundedRect
         input.autocapitalizationType = .none
-        input.textColor = .darkGray
+        input.textColor = .black
         return input
     }()
     
@@ -60,6 +61,22 @@ class CreateRoomViewController: UIViewController{
         setupContentView()
         setupjoinNameInput()
         setupcreateRoomButton()
+        setupPrivateToggle()
+        view.backgroundColor = .clear
+//        var horStack = UIStackView(arrangedSubviews: [isPrivteToggle, toggleLabel])
+//        horStack.distribution = .fillEqually
+//        horStack.axis = .horizontal
+//        var stack = UIStackView(arrangedSubviews: [roomNameInput, horStack, createRoomButton])
+//        mainView.addSubview(stack)
+//        stack.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            stack.leftAnchor.constraint(equalTo: mainView.leftAnchor, constant: 5),
+//            stack.rightAnchor.constraint(equalTo: mainView.rightAnchor, constant: -5),
+//            stack.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 5),
+//            stack.bottomAnchor.constraint(equalTo: mainView.topAnchor, constant: -5)
+//        ])
+//        stack.axis = .vertical
+//        stack.distribution = .fillEqually
         
     }
     
@@ -67,10 +84,10 @@ class CreateRoomViewController: UIViewController{
         view.addSubview(mainView)
         mainView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
+            mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60),
             mainView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
-            mainView.rightAnchor.constraint(equalTo: view.centerXAnchor, constant: -30),
-            mainView.topAnchor.constraint(equalTo: view.topAnchor, constant: -40)
+            mainView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30),
+            mainView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60)
         ])
     }
     
@@ -80,7 +97,8 @@ class CreateRoomViewController: UIViewController{
         NSLayoutConstraint.activate([
             roomNameInput.leftAnchor.constraint(equalTo: mainView.leftAnchor, constant: 5),
             roomNameInput.rightAnchor.constraint(equalTo: mainView.rightAnchor, constant: -5),
-            roomNameInput.topAnchor.constraint(equalTo: mainView.bottomAnchor, constant: 5)
+            roomNameInput.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 5),
+            roomNameInput.bottomAnchor.constraint(equalTo: mainView.topAnchor, constant: 55)
         ])
     }
 
@@ -90,7 +108,7 @@ class CreateRoomViewController: UIViewController{
         NSLayoutConstraint.activate([
             isPrivteToggle.leftAnchor.constraint(equalTo: mainView.leftAnchor, constant: 5),
             isPrivteToggle.rightAnchor.constraint(equalTo: mainView.centerXAnchor, constant: -5),
-            isPrivteToggle.topAnchor.constraint(equalTo: mainView.bottomAnchor, constant: 40)
+            isPrivteToggle.topAnchor.constraint(equalTo: mainView.centerYAnchor, constant: 5)
         ])
         
         mainView.addSubview(toggleLabel)
@@ -98,7 +116,7 @@ class CreateRoomViewController: UIViewController{
         NSLayoutConstraint.activate([
             toggleLabel.leftAnchor.constraint(equalTo: mainView.centerXAnchor, constant: 5),
             toggleLabel.rightAnchor.constraint(equalTo: mainView.rightAnchor, constant: -5),
-            toggleLabel.topAnchor.constraint(equalTo: mainView.bottomAnchor, constant: 40)
+            toggleLabel.topAnchor.constraint(equalTo: mainView.centerYAnchor, constant: 5)
         ])
     }
     
@@ -107,7 +125,7 @@ class CreateRoomViewController: UIViewController{
         createRoomButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             createRoomButton.leftAnchor.constraint(equalTo: mainView.leftAnchor, constant: 10),
-            createRoomButton.bottomAnchor.constraint(equalTo: mainView.topAnchor, constant: 10),
+            createRoomButton.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -10),
             createRoomButton.rightAnchor.constraint(equalTo: mainView.rightAnchor, constant: -10)
         ])
         createRoomButton.addTarget(self, action: #selector(createRoom), for: .touchUpInside)

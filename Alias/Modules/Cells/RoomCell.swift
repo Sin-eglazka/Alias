@@ -7,6 +7,8 @@
 
 import UIKit
 class RoomCell : UITableViewCell{
+    
+    var delegate: JoiningRoom = JoinRoomViewController()
     static let reuseIdentifier = "RoomCell"
     private var roomId: String = " "
     private var roomName: String
@@ -57,7 +59,15 @@ class RoomCell : UITableViewCell{
             stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -2)
         ])
         
+        joinButton.addTarget(self, action: #selector(joinRoom), for: .touchUpInside)
+        
  }
+    
+    @objc
+    private func joinRoom(_ sender: AnyObject) {
+        
+        delegate.joinRoom(id: roomId, name: roomName)
+    }
     
     func configure(room: Room){
         roomId = room.id

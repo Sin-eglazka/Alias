@@ -88,6 +88,8 @@ class JoinRoomViewController: UIViewController{
         setupRefreshButton()
         setupCreateRoomButton()
         
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
         // test
         var room = Room(isPrivate: true, id: "ossq", admin: "katya", name: "Hello World", creator: "katya", invitationCode: nil)
         dataSource.append(room)
@@ -103,7 +105,6 @@ class JoinRoomViewController: UIViewController{
             joinCodeInput.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             joinCodeInput.rightAnchor.constraint(equalTo: view.centerXAnchor, constant: -10)
         ])
-        //joinCodeInput.delegate = self
     }
     
     private func setupCreateRoomButton() {
@@ -114,7 +115,7 @@ class JoinRoomViewController: UIViewController{
             createRoomButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
             createRoomButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5)
         ])
-        createRoomButton.addTarget(self, action: #selector(logoutDidTouch), for: .touchUpInside)
+        createRoomButton.addTarget(self, action: #selector(createRoom), for: .touchUpInside)
     }
     
     private func setupLogoutButton() {
@@ -122,7 +123,7 @@ class JoinRoomViewController: UIViewController{
         logOutButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             logOutButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
-            logOutButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 10)
+            logOutButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 30)
         ])
         logOutButton.addTarget(self, action: #selector(logoutDidTouch), for: .touchUpInside)
     }
@@ -132,7 +133,7 @@ class JoinRoomViewController: UIViewController{
         refreshButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             refreshButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
-            refreshButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 10)
+            refreshButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 30)
         ])
         refreshButton.addTarget(self, action: #selector(refreshRooms), for: .touchUpInside)
     }
@@ -162,7 +163,7 @@ class JoinRoomViewController: UIViewController{
     private func refreshRooms(_ sender: AnyObject) {
         dataSource.removeAll()
         
-        // get Rooms
+        //TODO get Rooms
         
         tableView.reloadData()
     }
@@ -170,6 +171,12 @@ class JoinRoomViewController: UIViewController{
     @objc
     private func joinPrivateRoom(_ sender: AnyObject) {
        
+        //TODO get room and join it
+        
+        var id = ""
+        var name = ""
+        self.navigationController?.pushViewController(GameViewController(roomId: id, name: name), animated: true)
+        
     }
     
     @objc
@@ -177,6 +184,9 @@ class JoinRoomViewController: UIViewController{
         
         
         // TODO: logout
+        
+        self.navigationController?.popViewController(animated: true)
+        //self.navigationController?.popToRootViewController(animated: true)
     }
 }
 
@@ -202,6 +212,7 @@ extension JoinRoomViewController: UITableViewDataSource {
                 let room = dataSource[indexPath.row]
                 if let roomCell = tableView.dequeueReusableCell(withIdentifier: RoomCell.reuseIdentifier, for: indexPath) as? RoomCell {
                     roomCell.configure(room: room)
+                    roomCell.delegate = self
                     return roomCell
                 }
             
@@ -226,5 +237,17 @@ extension JoinRoomViewController: UITableViewDelegate {
             withConfiguration: UIImage.SymbolConfiguration(weight: .bold))?.withTintColor(.white)
         deleteAction.backgroundColor = .red
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+}
+
+protocol JoiningRoom: AnyObject{
+    func joinRoom(id: String, name: String)
+}
+
+extension JoinRoomViewController: JoiningRoom{
+    func joinRoom(id: String, name: String) {
+        
+        // TODO check if room available, after join it
+        self.navigationController?.pushViewController(GameViewController(roomId: id, name: name), animated: true)
     }
 }

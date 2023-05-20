@@ -167,9 +167,9 @@ final class LoginViewController: UIViewController {
         //
         
         print("join")
-        //let joinController = JoinRoomViewController()
-        //self.navigationController?.pushViewController(joinController, animated: true)
-        present(JoinRoomViewController(), animated: true)
+        let joinController = JoinRoomViewController()
+        self.navigationController?.pushViewController(joinController, animated: true)
+        //present(JoinRoomViewController(), animated: true)
     }
     
 }

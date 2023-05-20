@@ -63,6 +63,18 @@ final class LoginViewController: UIViewController {
 //                    print(result)
 //                }
 //        }
+        
+        let service = UserService(networkService: NetworkService(), requestFactory: URLRequestFactory(host: Constants.localBaseURL))
+        service.logout(token: "sfn7zknzFXPtcyHil9a19L2TlDiBpQ06ZhLnFKVznmg=") { result in
+            switch result {
+            case let .success(user):
+                print(user)
+            case .failure:
+                print(result)
+            }
+        }
+        
+        // sfn7zknzFXPtcyHil9a19L2TlDiBpQ06ZhLnFKVznmg=
     }
     
     private func setupEmailInput() {

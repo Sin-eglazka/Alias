@@ -10,6 +10,7 @@ import Foundation
 protocol URLRequestFactoryProtocol {
     func registerUser(name: String, email: String, password: String) throws -> URLRequest
     func loginUser(email: String, password: String) throws -> URLRequest
+    func logout(with token: String) throws -> URLRequest
 }
 
 final class URLRequestFactory {
@@ -27,7 +28,9 @@ final class URLRequestFactory {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try JSONSerialization.data(withJSONObject: bodyObject)
+        if !bodyObject.isEmpty {
+            request.httpBody = try JSONSerialization.data(withJSONObject: bodyObject)
+        }
         return request
     }
     
@@ -39,7 +42,9 @@ final class URLRequestFactory {
         urlComponents.path = path
         
         print(urlComponents)
-       // urlComponents.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
+        if !parameters.isEmpty {
+            urlComponents.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
+        }
         guard let url = urlComponents.url else {
             return nil
         }
@@ -62,6 +67,15 @@ extension URLRequestFactory: URLRequestFactoryProtocol {
             path: Endpoints.login,
             bodyObject: ["email": email, "password": password]
         )
+        return request
+    }
+    
+    func logout(with token: String) throws -> URLRequest {
+        var request = try makePostRequest(
+            path: Endpoints.logout,
+            bodyObject: [:]
+        )
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }
 }

@@ -9,6 +9,7 @@ import Foundation
 
 protocol NetworkServiceProtocol {
     func sendRequest<T: Decodable>(_ request: URLRequest, completion: @escaping (Result<T, Error>) -> Void)
+    func sendRequest(_ request: URLRequest, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 final class NetworkService: NetworkServiceProtocol {
@@ -39,6 +40,17 @@ final class NetworkService: NetworkServiceProtocol {
             } catch {
                 completion(.failure(error))
             }
+        }.resume()
+    }
+    
+    func sendRequest(_ request: URLRequest, completion: @escaping (Result<Void, Error>) -> Void) {
+        session.dataTask(with: request) { data, _, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            completion(.success(()))
         }.resume()
     }
 }

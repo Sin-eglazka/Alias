@@ -34,14 +34,13 @@ final class UserService {
             completion(.failure(error))
         }
     }
-}
-
-struct LoginResponse: Codable {
-    let id: String
-    let value: String
-    let user: User
-}
-
-struct User: Codable {
-    let id: String
+    
+    func logout(token: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        do {
+            let request = try requestFactory.logout(with: token)
+            networkService.sendRequest(request, completion: completion)
+        } catch {
+            completion(.failure(error))
+        }
+    }
 }

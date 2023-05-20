@@ -27,6 +27,9 @@
 		CC39584A2A17F2B8008E4838 /* URLRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3958492A17F2B8008E4838 /* URLRequestFactory.swift */; };
 		CC39584D2A181C57008E4838 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC39584C2A181C57008E4838 /* UserService.swift */; };
 		CC90E9A92A190EA5007E06E4 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9A82A190EA5007E06E4 /* LoginResponse.swift */; };
+		CC90E9AB2A191517007E06E4 /* RoomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9AA2A191517007E06E4 /* RoomService.swift */; };
+		CC90E9AF2A191548007E06E4 /* UserServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9AE2A191548007E06E4 /* UserServiceProtocol.swift */; };
+		CC90E9B12A191591007E06E4 /* RoomServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9B02A191591007E06E4 /* RoomServiceProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +55,9 @@
 		CC3958492A17F2B8008E4838 /* URLRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestFactory.swift; sourceTree = "<group>"; };
 		CC39584C2A181C57008E4838 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		CC90E9A82A190EA5007E06E4 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		CC90E9AA2A191517007E06E4 /* RoomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomService.swift; sourceTree = "<group>"; };
+		CC90E9AE2A191548007E06E4 /* UserServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceProtocol.swift; sourceTree = "<group>"; };
+		CC90E9B02A191591007E06E4 /* RoomServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomServiceProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,9 +115,9 @@
 		44E6C92B2A179BF10016B11C /* Alias */ = {
 			isa = PBXGroup;
 			children = (
+				44E6C94F2A17A72E0016B11C /* Core */,
 				CC39584B2A181C40008E4838 /* Services */,
 				44E6C9502A17A7640016B11C /* Modules */,
-				44E6C94F2A17A72E0016B11C /* Core */,
 				44E6C9402A179C0E0016B11C /* Models */,
 				44E6C92C2A179BF10016B11C /* AppDelegate.swift */,
 				44E6C92E2A179BF10016B11C /* SceneDelegate.swift */,
@@ -175,7 +181,8 @@
 		CC39584B2A181C40008E4838 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				CC39584C2A181C57008E4838 /* UserService.swift */,
+				CC90E9AD2A191536007E06E4 /* RoomService */,
+				CC90E9AC2A19152E007E06E4 /* UserService */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -187,6 +194,24 @@
 				CC90E9A82A190EA5007E06E4 /* LoginResponse.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		CC90E9AC2A19152E007E06E4 /* UserService */ = {
+			isa = PBXGroup;
+			children = (
+				CC39584C2A181C57008E4838 /* UserService.swift */,
+				CC90E9AE2A191548007E06E4 /* UserServiceProtocol.swift */,
+			);
+			path = UserService;
+			sourceTree = "<group>";
+		};
+		CC90E9AD2A191536007E06E4 /* RoomService */ = {
+			isa = PBXGroup;
+			children = (
+				CC90E9AA2A191517007E06E4 /* RoomService.swift */,
+				CC90E9B02A191591007E06E4 /* RoomServiceProtocol.swift */,
+			);
+			path = RoomService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,12 +294,15 @@
 				CC39584D2A181C57008E4838 /* UserService.swift in Sources */,
 				44D3253D2A18272E00667BA9 /* SettingsViewController.swift in Sources */,
 				44E6C9532A17AABB0016B11C /* Constants.swift in Sources */,
+				CC90E9AF2A191548007E06E4 /* UserServiceProtocol.swift in Sources */,
 				44E6C94E2A179D120016B11C /* HttpClient.swift in Sources */,
 				44D325402A18324E00667BA9 /* RoomCell.swift in Sources */,
 				44E6C9312A179BF10016B11C /* RootViewController.swift in Sources */,
+				CC90E9B12A191591007E06E4 /* RoomServiceProtocol.swift in Sources */,
 				44D3253B2A18272000667BA9 /* GameViewController.swift in Sources */,
 				44E6C92D2A179BF10016B11C /* AppDelegate.swift in Sources */,
 				CC39584A2A17F2B8008E4838 /* URLRequestFactory.swift in Sources */,
+				CC90E9AB2A191517007E06E4 /* RoomService.swift in Sources */,
 				44E6C92F2A179BF10016B11C /* SceneDelegate.swift in Sources */,
 				44D325382A18266500667BA9 /* JoinRoomViewController.swift in Sources */,
 			);

@@ -17,4 +17,5 @@ enum Endpoints{
     static let register = "/users/register"
     static let profile = "/users/profile"
     static let logout = "/users/logout"
+    static let listRooms = "/game-rooms/list-all"
 }

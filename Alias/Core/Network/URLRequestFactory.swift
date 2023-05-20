@@ -11,6 +11,7 @@ protocol URLRequestFactoryProtocol {
     func registerUser(name: String, email: String, password: String) throws -> URLRequest
     func loginUser(email: String, password: String) throws -> URLRequest
     func logout(with token: String) throws -> URLRequest
+    func listRooms(with token: String) throws -> URLRequest
 }
 
 final class URLRequestFactory {
@@ -34,6 +35,17 @@ final class URLRequestFactory {
         return request
     }
     
+    private func makeGetRequest(path: String) throws -> URLRequest {
+        guard let url = url(with: path, parameters: [:]) else {
+            throw HttpError.badURL
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        return request
+    }
+    
     private func url(with path: String, parameters: [String: String]) -> URL? {
         var urlComponents = URLComponents()
         urlComponents.scheme = "http"
@@ -41,10 +53,12 @@ final class URLRequestFactory {
         urlComponents.port = 8080
         urlComponents.path = path
         
-        print(urlComponents)
         if !parameters.isEmpty {
             urlComponents.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
         }
+        
+        print(urlComponents)
+        
         guard let url = urlComponents.url else {
             return nil
         }
@@ -75,6 +89,12 @@ extension URLRequestFactory: URLRequestFactoryProtocol {
             path: Endpoints.logout,
             bodyObject: [:]
         )
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    func listRooms(with token: String) throws -> URLRequest {
+        var request = try makeGetRequest(path: Endpoints.listRooms)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }

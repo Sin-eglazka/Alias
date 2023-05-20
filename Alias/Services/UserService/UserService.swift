@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class UserService {
+final class UserService: UserServiceProtocol {
     
     private let networkService: NetworkServiceProtocol
     private let requestFactory: URLRequestFactoryProtocol

@@ -54,27 +54,25 @@ final class LoginViewController: UIViewController {
         setupSignUpButton()
         
         
-//        let service = UserService(networkService: NetworkService(), requestFactory: URLRequestFactory(host: Constants.localBaseURL))
-//        service.login(email: "some@gmail.com", password: "qwerty123456789") { result in
-//                switch result {
-//                case let .success(user):
-//                    print(user)
-//                case .failure:
-//                    print(result)
-//                }
+        //        let service = UserService(networkService: NetworkService(), requestFactory: URLRequestFactory(host: Constants.localBaseURL))
+        //        service.login(email: "some@gmail.com", password: "qwerty123456789") { result in
+        //                switch result {
+        //                case let .success(user):
+        //                    print(user)
+        //                case .failure:
+        //                    print(result)
+        //                }
+        //        }
+        
+//        let service = RoomService(networkService: NetworkService(), requestFactory: URLRequestFactory(host: Constants.localBaseURL))
+//        service.listAllRooms(token: "Lpsb/o7rPel2Aqws0SQIu3kiXRF4aNN9p96gBuaaNpc="){ result in
+//            switch result {
+//            case let .success(rooms):
+//                print(rooms)
+//            case .failure:
+//                print(result)
+//            }
 //        }
-        
-        let service = UserService(networkService: NetworkService(), requestFactory: URLRequestFactory(host: Constants.localBaseURL))
-        service.logout(token: "sfn7zknzFXPtcyHil9a19L2TlDiBpQ06ZhLnFKVznmg=") { result in
-            switch result {
-            case let .success(user):
-                print(user)
-            case .failure:
-                print(result)
-            }
-        }
-        
-        // sfn7zknzFXPtcyHil9a19L2TlDiBpQ06ZhLnFKVznmg=
     }
     
     private func setupEmailInput() {
@@ -121,7 +119,7 @@ final class LoginViewController: UIViewController {
     
     @objc
     private func signUpDidTouch(_ sender: AnyObject) {
-       present(RegisterViewController(), animated: true)
+        present(RegisterViewController(), animated: true)
     }
     
     @objc

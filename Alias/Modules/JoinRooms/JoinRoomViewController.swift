@@ -68,8 +68,8 @@ class JoinRoomViewController: UIViewController{
         ])
         
         // test
-        let room = Room(isPrivate: true, id: "ossq", admin: "katya", name: "Hello World", creator: "katya", invitationCode: nil)
-        dataSource.append(room)
+        // let room = Room(isPrivate: true, id: "ossq", admin: "katya", name: "Hello World", creator: "katya", invitationCode: nil)
+        // dataSource.append(room)
         tableView.reloadData()
     }
     

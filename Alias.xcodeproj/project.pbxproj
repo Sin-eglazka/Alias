@@ -33,6 +33,7 @@
 		CC90E9B12A191591007E06E4 /* RoomServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9B02A191591007E06E4 /* RoomServiceProtocol.swift */; };
 		CC90E9B42A1958E8007E06E4 /* TeamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9B32A1958E7007E06E4 /* TeamService.swift */; };
 		CC90E9B62A195931007E06E4 /* TeamServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9B52A195931007E06E4 /* TeamServiceProtocol.swift */; };
+		CC90E9B92A196BE3007E06E4 /* URLRequestFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9B82A196BE3007E06E4 /* URLRequestFactoryProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		CC90E9B02A191591007E06E4 /* RoomServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomServiceProtocol.swift; sourceTree = "<group>"; };
 		CC90E9B32A1958E7007E06E4 /* TeamService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamService.swift; sourceTree = "<group>"; };
 		CC90E9B52A195931007E06E4 /* TeamServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamServiceProtocol.swift; sourceTree = "<group>"; };
+		CC90E9B82A196BE3007E06E4 /* URLRequestFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestFactoryProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,10 +151,10 @@
 		44E6C94C2A179CF80016B11C /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				CC90E9B72A196BC5007E06E4 /* URLRequestFactory */,
 				44E6C94D2A179D120016B11C /* HttpClient.swift */,
 				44E6C9522A17AABB0016B11C /* Constants.swift */,
 				CC3958472A17F259008E4838 /* NetworkService.swift */,
-				CC3958492A17F2B8008E4838 /* URLRequestFactory.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -229,6 +231,15 @@
 				CC90E9B52A195931007E06E4 /* TeamServiceProtocol.swift */,
 			);
 			path = TeamService;
+			sourceTree = "<group>";
+		};
+		CC90E9B72A196BC5007E06E4 /* URLRequestFactory */ = {
+			isa = PBXGroup;
+			children = (
+				CC3958492A17F2B8008E4838 /* URLRequestFactory.swift */,
+				CC90E9B82A196BE3007E06E4 /* URLRequestFactoryProtocol.swift */,
+			);
+			path = URLRequestFactory;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,6 +336,7 @@
 				44E6C92F2A179BF10016B11C /* SceneDelegate.swift in Sources */,
 				CC90E9B42A1958E8007E06E4 /* TeamService.swift in Sources */,
 				44D325382A18266500667BA9 /* JoinRoomViewController.swift in Sources */,
+				CC90E9B92A196BE3007E06E4 /* URLRequestFactoryProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

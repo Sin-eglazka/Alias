@@ -24,5 +24,6 @@ enum Endpoints{
     static let leaveRoom = "/game-rooms/leave-room"
     
     static let createTeam = "/teams/create-team"
-    static let teamsInRoom = "/teams/list-teams"
+    static let listTeamsInRoom = "/teams/list-teams"
+    static let listPlayersInRoom = "/game-rooms/list-members"
 }

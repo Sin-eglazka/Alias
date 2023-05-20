@@ -52,4 +52,14 @@ final class RoomService: RoomServiceProtocol {
             completion(.failure(error))
         }
     }
+    
+    
+    func listPlayersInRoom(gameRoomId: String, token: String, completion: @escaping (Result<[TeamPlayer], Error>) -> Void) {
+        do {
+             let request = try requestFactory.listPlayersInRoom(for: gameRoomId, with: token)
+             networkService.sendRequest(request, completion: completion)
+        } catch {
+            completion(.failure(error))
+        }
+    }
 }

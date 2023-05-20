@@ -19,6 +19,7 @@ protocol URLRequestFactoryProtocol {
     
     func createTeam(with token: String, name: String, gameRoomId: String) throws -> URLRequest
     func listTeams(for room: String, with token: String) throws -> URLRequest
+    func listPlayersInRoom(for room: String, with token: String) throws -> URLRequest
 }
 
 final class URLRequestFactory {
@@ -144,7 +145,16 @@ extension URLRequestFactory: URLRequestFactoryProtocol {
     
     func listTeams(for room: String, with token: String) throws -> URLRequest {
         var request = try makeGetRequest(
-            path: Endpoints.teamsInRoom,
+            path: Endpoints.listTeamsInRoom,
+            parametres: ["gameRoomId": room]
+        )
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    func listPlayersInRoom(for room: String, with token: String) throws -> URLRequest {
+        var request = try makeGetRequest(
+            path: Endpoints.listPlayersInRoom,
             parametres: ["gameRoomId": room]
         )
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")

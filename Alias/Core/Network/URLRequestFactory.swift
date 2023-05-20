@@ -21,6 +21,7 @@ protocol URLRequestFactoryProtocol {
     func createTeam(with token: String, name: String, gameRoomId: String) throws -> URLRequest
     func listTeams(for room: String, with token: String) throws -> URLRequest
     func listPlayersInRoom(for room: String, with token: String) throws -> URLRequest
+    func joinTeam(teamId: String, with token: String) throws -> URLRequest
 }
 
 final class URLRequestFactory {
@@ -77,6 +78,8 @@ final class URLRequestFactory {
 
 extension URLRequestFactory: URLRequestFactoryProtocol {
     
+    // MARK: - UserService requests
+    
     func registerUser(name: String, email: String, password: String) throws -> URLRequest {
         let request = try makePostRequest(
             path: Endpoints.register,
@@ -101,6 +104,8 @@ extension URLRequestFactory: URLRequestFactoryProtocol {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }
+    
+    // MARK: - RoomService requests
     
     func listRooms(with token: String) throws -> URLRequest {
         var request = try makeGetRequest(path: Endpoints.listRooms, parametres: [:])
@@ -135,6 +140,26 @@ extension URLRequestFactory: URLRequestFactoryProtocol {
         return request
     }
     
+    func listPlayersInRoom(for room: String, with token: String) throws -> URLRequest {
+        var request = try makeGetRequest(
+            path: Endpoints.listPlayersInRoom,
+            parametres: ["gameRoomId": room]
+        )
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    func changeSettingsInRoom(for room: String, points: Int, isPrivate: Bool, name: String, with token: String) throws -> URLRequest {
+        var request = try makePostRequest(
+            path: Endpoints.changeSettings,
+            bodyObject: ["isPrivate": isPrivate, "gameRoomId": room, "points": points, "name": name]
+        )
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    // MARK: - TeamService requests
+    
     func createTeam(with token: String, name: String, gameRoomId: String) throws -> URLRequest {
         var request = try makePostRequest(
             path: Endpoints.createTeam,
@@ -153,19 +178,10 @@ extension URLRequestFactory: URLRequestFactoryProtocol {
         return request
     }
     
-    func listPlayersInRoom(for room: String, with token: String) throws -> URLRequest {
-        var request = try makeGetRequest(
-            path: Endpoints.listPlayersInRoom,
-            parametres: ["gameRoomId": room]
-        )
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        return request
-    }
-    
-    func changeSettingsInRoom(for room: String, points: Int, isPrivate: Bool, name: String, with token: String) throws -> URLRequest {
+    func joinTeam(teamId: String, with token: String) throws -> URLRequest {
         var request = try makePostRequest(
-            path: Endpoints.changeSettings,
-            bodyObject: ["isPrivate": isPrivate, "gameRoomId": room, "points": points, "name": name]
+            path: Endpoints.joinTeam,
+            bodyObject: ["teamId": teamId]
         )
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request

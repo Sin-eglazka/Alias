@@ -36,5 +36,14 @@ final class TeamService: TeamServiceProtocol {
             completion(.failure(error))
         }
     }
+    
+    func joinTeam(with teamId: String, token: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        do {
+            let request = try requestFactory.joinTeam(teamId: teamId, with: token)
+            networkService.sendRequest(request, completion: completion)
+        } catch {
+            completion(.failure(error))
+        }
+    }
 }
 

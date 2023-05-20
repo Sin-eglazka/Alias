@@ -7,12 +7,12 @@
 
 import Foundation
 
-enum Constants{
+enum Constants {
     static let baseUrl = "alias-swift-api.onrender.com"
     static let localBaseURL = "127.0.0.1"
 }
 
-enum Endpoints{
+enum Endpoints {
     static let login = "/users/login"
     static let register = "/users/register"
     static let profile = "/users/profile"
@@ -22,9 +22,10 @@ enum Endpoints{
     static let createRoom = "/game-rooms/create"
     static let joinRoom = "/game-rooms/join-room"
     static let leaveRoom = "/game-rooms/leave-room"
+    static let listPlayersInRoom = "/game-rooms/list-members"
     static let changeSettings = "/game-rooms/change-setting"
     
     static let createTeam = "/teams/create-team"
     static let listTeamsInRoom = "/teams/list-teams"
-    static let listPlayersInRoom = "/game-rooms/list-members"
+    static let joinTeam = "/teams/join-team"
 }

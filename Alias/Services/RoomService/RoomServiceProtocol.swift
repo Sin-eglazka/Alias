@@ -8,5 +8,6 @@
 import Foundation
 
 protocol RoomServiceProtocol {
+    func listAllRooms(token: String, completion: @escaping (Result<[Room], Error>) -> Void)
     
 }

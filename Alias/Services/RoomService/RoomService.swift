@@ -25,4 +25,13 @@ final class RoomService: RoomServiceProtocol {
             completion(.failure(error))
         }
     }
+    
+    func createRoom(name: String, isPrivate: Bool, token: String, completion: @escaping (Result<GameRoom, Error>) -> Void) {
+        do {
+            let request = try requestFactory.createRoom(with: token, name: name, isPrivate: isPrivate)
+             networkService.sendRequest(request, completion: completion)
+        } catch {
+            completion(.failure(error))
+        }
+    }
 }

@@ -12,6 +12,7 @@ protocol URLRequestFactoryProtocol {
     func loginUser(email: String, password: String) throws -> URLRequest
     func logout(with token: String) throws -> URLRequest
     func listRooms(with token: String) throws -> URLRequest
+    func createRoom(with token: String, name: String, isPrivate: Bool) throws -> URLRequest
 }
 
 final class URLRequestFactory {
@@ -95,6 +96,15 @@ extension URLRequestFactory: URLRequestFactoryProtocol {
     
     func listRooms(with token: String) throws -> URLRequest {
         var request = try makeGetRequest(path: Endpoints.listRooms)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    func createRoom(with token: String, name: String, isPrivate: Bool) throws -> URLRequest {
+        var request = try makePostRequest(
+            path: Endpoints.createRoom,
+            bodyObject: ["name": name, "isPrivate": isPrivate]
+        )
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }

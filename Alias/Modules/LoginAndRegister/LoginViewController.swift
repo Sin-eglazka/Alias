@@ -73,6 +73,16 @@ final class LoginViewController: UIViewController {
 //                print(result)
 //            }
 //        }
+        
+//        let service = RoomService(networkService: NetworkService(), requestFactory: URLRequestFactory(host: Constants.localBaseURL))
+//        service.createRoom(name: "room name", isPrivate: false, token: "Lpsb/o7rPel2Aqws0SQIu3kiXRF4aNN9p96gBuaaNpc="){ result in
+//            switch result {
+//            case let .success(room):
+//                print(room)
+//            case .failure:
+//                print(result)
+//            }
+//        }
     }
     
     private func setupEmailInput() {

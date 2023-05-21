@@ -124,7 +124,7 @@ extension CreateRoomViewController: CreateRoomViewInput {
         }
     }
     
-    func showAlert() {
+    func showAlert(text: String) {
         
     }
     

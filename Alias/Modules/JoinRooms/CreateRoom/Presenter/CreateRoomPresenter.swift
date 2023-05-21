@@ -23,7 +23,7 @@ extension CreateRoomPresenter: CreateRoomViewOutput {
     
     func createRoom(name: String, isPrivate: Bool) {
         guard let token = (UserDefaults.standard.object(forKey: "bearer token") as? String) else {
-             viewInput?.showAlert()
+             viewInput?.showAlert(text: "Server error")
             return
         }
         
@@ -32,8 +32,7 @@ extension CreateRoomPresenter: CreateRoomViewOutput {
             case let .success(room):
                 self?.viewInput?.roomWasAdded(room)
             case .failure:
-                print(result)
-                self?.viewInput?.showAlert()
+                self?.viewInput?.showAlert(text: "Server error")
             }
         }
     }

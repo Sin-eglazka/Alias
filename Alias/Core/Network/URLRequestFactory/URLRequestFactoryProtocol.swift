@@ -14,7 +14,7 @@ protocol URLRequestFactoryProtocol {
     
     func listRooms(with token: String) throws -> URLRequest
     func createRoom(with token: String, name: String, isPrivate: Bool) throws -> URLRequest
-    func joinRoom(with token: String, gameRoomId: String, invitationCode: String) throws -> URLRequest
+    func joinRoom(with token: String, gameRoomId: String, invitationCode: String?) throws -> URLRequest
     func leaveRoom(with token: String, gameRoomId: String) throws -> URLRequest
     func changeSettingsInRoom(for room: String, points: Int, isPrivate: Bool, name: String, with token: String) throws -> URLRequest
     

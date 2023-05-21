@@ -10,6 +10,8 @@ import UIKit
 
 final class RegisterViewController: UIViewController {
     
+    private var output: RegisterViewOutput
+    
     private lazy var nameInput = { () -> UITextField in
         let input = UITextField()
         input.placeholder = "Name"
@@ -42,6 +44,16 @@ final class RegisterViewController: UIViewController {
     }()
     
     // MARK: Lifecycle
+    
+    init(output: RegisterViewOutput) {
+        self.output = output
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -106,10 +118,25 @@ final class RegisterViewController: UIViewController {
             let password = passwordInput.text,
             !email.isEmpty,
             !password.isEmpty,
+            password.count > 7,
             !name.isEmpty
         else { return }
         
-        // TODO: register
+        output.signUp(name: name, email: email, password: password)
+    }
+}
+
+extension RegisterViewController: RegisterViewInput {
+    
+    func signUpSuccessed() {
+        // TODO: success alert
+        DispatchQueue.main.async { [weak self] in
+            self?.dismiss(animated: true)
+        }
+    }
+    
+    func showAlert() {
+        
     }
     
 }

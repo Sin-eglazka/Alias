@@ -10,7 +10,7 @@ import UIKit
 
 protocol JoinRoomViewInput: AnyObject {
     func showRooms(_ data: [Room])
-    func showAlert()
+    func showAlert(title: String, text: String)
     func presentCreateRoom(vc: UIViewController)
     func updateAfterAddingRoom()
 }

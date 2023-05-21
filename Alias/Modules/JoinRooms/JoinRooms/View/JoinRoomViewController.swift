@@ -219,8 +219,21 @@ extension JoinRoomViewController: JoinRoomViewInput {
         }
     }
     
-    func showAlert() {
-        
+    func showAlert(title: String, text: String) {
+        let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(
+            title: NSLocalizedString("OK", comment: "Default action"),
+            style: .default,
+            handler: { _ in })
+        )
+        alert.addAction(UIAlertAction(
+            title: NSLocalizedString("Copy", comment: "Default action"),
+            style: .default,
+            handler: { _ in
+                UIPasteboard.general.string = alert.message
+            })
+        )
+        present(alert, animated: true)
     }
     
     func presentCreateRoom(vc: UIViewController) {

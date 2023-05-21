@@ -19,7 +19,7 @@ final class JoinRoomPresenter {
     
     private func loadRooms() {
         guard let token = (UserDefaults.standard.object(forKey: "bearer token") as? String) else {
-            viewInput?.showAlert()
+            viewInput?.showAlert(title: "Server error", text: "broken auth")
             return
         }
         
@@ -28,7 +28,7 @@ final class JoinRoomPresenter {
             case let .success(rooms):
                 self?.viewInput?.showRooms(rooms)
             case .failure:
-                self?.viewInput?.showAlert()
+                self?.viewInput?.showAlert(title: "Server error", text: "Couldn't load rooms")
             }
         }
     }

@@ -120,7 +120,9 @@ extension CreateRoomViewController: CreateRoomViewInput {
         DispatchQueue.main.async { [weak self] in
             self?.delegate?.updateAfterAddingRoom()
             self?.dismiss(animated: true)
-            
+            if data.isPrivate {
+                self?.delegate?.showAlert(title: "Invitation code", text: "\(data.id)&\(data.invitationCode ?? "")")
+            }
         }
     }
     

@@ -53,5 +53,6 @@ extension JoinRoomPresenter: JoinRoomViewOutput {
         let createRoomVC = CreateRoomViewController(output: presenter)
         presenter.viewInput = createRoomVC
         viewInput?.presentCreateRoom(vc: createRoomVC)
+        createRoomVC.delegate = viewInput
     }
 }

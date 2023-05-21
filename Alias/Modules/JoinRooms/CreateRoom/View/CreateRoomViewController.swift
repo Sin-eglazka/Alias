@@ -11,6 +11,7 @@ import UIKit
 class CreateRoomViewController: UIViewController {
     
     private var output: CreateRoomViewOutput
+    weak var delegate: JoinRoomViewInput?
     
     private lazy var roomNameInput = { () -> UITextField in
         let input = UITextField()
@@ -59,7 +60,6 @@ class CreateRoomViewController: UIViewController {
         setupView()
     }
     
-    
     private func setupView() {
         setupjoinNameInput()
         setupPrivateToggle()
@@ -74,8 +74,9 @@ class CreateRoomViewController: UIViewController {
             roomNameInput.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
             roomNameInput.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -16),
         ])
+        roomNameInput.delegate = self
     }
-
+    
     private func setupPrivateToggle() {
         view.addSubview(isPrivteToggle)
         isPrivteToggle.translatesAutoresizingMaskIntoConstraints = false
@@ -104,21 +105,35 @@ class CreateRoomViewController: UIViewController {
     
     @objc
     private func createRoom(_ sender: AnyObject) {
-        // ToDo create room
-        
+        guard
+            let name = roomNameInput.text,
+            !name.isEmpty
+        else { return }
+        output.createRoom(name: name, isPrivate: isPrivteToggle.isOn)
     }
-
+    
 }
 
 extension CreateRoomViewController: CreateRoomViewInput {
     
-    func roomWasAdded(_ data: [CreateRoomViewInput]) {
-        
+    func roomWasAdded(_ data: GameRoom) {
+        DispatchQueue.main.async { [weak self] in
+            self?.delegate?.updateAfterAddingRoom()
+            self?.dismiss(animated: true)
+            
+        }
     }
     
     func showAlert() {
         
     }
     
+}
+
+extension CreateRoomViewController: UITextFieldDelegate {
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

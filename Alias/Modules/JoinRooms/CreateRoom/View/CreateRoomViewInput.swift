@@ -8,6 +8,6 @@
 import Foundation
 
 protocol CreateRoomViewInput: AnyObject {
-    func roomWasAdded(_ data: [CreateRoomViewInput])
+    func roomWasAdded(_ data: GameRoom)
     func showAlert()
 }

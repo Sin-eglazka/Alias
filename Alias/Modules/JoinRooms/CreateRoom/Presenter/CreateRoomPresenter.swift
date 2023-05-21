@@ -23,16 +23,17 @@ extension CreateRoomPresenter: CreateRoomViewOutput {
     
     func createRoom(name: String, isPrivate: Bool) {
         guard let token = (UserDefaults.standard.object(forKey: "bearer token") as? String) else {
-            // viewInput?.showAlert()
+             viewInput?.showAlert()
             return
         }
         
-        roomService.createRoom(name: name, isPrivate: isPrivate, token: token) { result in
+        roomService.createRoom(name: name, isPrivate: isPrivate, token: token) { [weak self] result in
             switch result {
             case let .success(room):
-                print(room)
+                self?.viewInput?.roomWasAdded(room)
             case .failure:
                 print(result)
+                self?.viewInput?.showAlert()
             }
         }
     }

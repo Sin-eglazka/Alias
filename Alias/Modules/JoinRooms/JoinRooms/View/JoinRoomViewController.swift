@@ -51,8 +51,8 @@ class JoinRoomViewController: UIViewController {
     
     private lazy var refreshButton = { () -> UIButton in
         let button = UIButton()
-        button.setTitle("Refresh", for: .normal)
-        let image = UIImage(named: "refresh-25")?.withRenderingMode(.alwaysOriginal)
+        // button.setTitle("Refresh", for: .normal)
+        let image = UIImage(systemName: "arrow.triangle.2.circlepath")?.withTintColor(.systemBlue)
         button.setImage(image, for: .normal)
         button.setTitleColor(UIColor.systemBlue, for: .normal)
         return button
@@ -136,7 +136,7 @@ class JoinRoomViewController: UIViewController {
         view.addSubview(logOutButton)
         logOutButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            logOutButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+            logOutButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             logOutButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10)
         ])
         logOutButton.addTarget(self, action: #selector(logoutDidTouch), for: .touchUpInside)
@@ -146,7 +146,7 @@ class JoinRoomViewController: UIViewController {
         view.addSubview(refreshButton)
         refreshButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            refreshButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            refreshButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
             refreshButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10)
         ])
         refreshButton.addTarget(self, action: #selector(refreshRooms), for: .touchUpInside)
@@ -158,7 +158,7 @@ class JoinRoomViewController: UIViewController {
         NSLayoutConstraint.activate([
             joinPrivateButton.leftAnchor.constraint(equalTo: view.centerXAnchor, constant: 10),
             joinPrivateButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            joinPrivateButton.topAnchor.constraint(equalTo: logOutButton.bottomAnchor, constant: 16),
+            joinPrivateButton.topAnchor.constraint(equalTo: refreshButton.bottomAnchor, constant: 16),
         ])
         joinPrivateButton.addTarget(self, action: #selector(joinPrivateRoom), for: .touchUpInside)
     }
@@ -205,6 +205,12 @@ class JoinRoomViewController: UIViewController {
 }
 
 extension JoinRoomViewController: JoinRoomViewInput {
+    
+    func updateAfterAddingRoom() {
+        DispatchQueue.main.async { [weak self] in
+            self?.output.refreshRooms()
+        }
+    }
     
     func showRooms(_ data: [Room]) {
         dataSource = data

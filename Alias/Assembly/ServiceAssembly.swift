@@ -21,5 +21,7 @@ final class ServiceAssembly {
         UserService(networkService: networkService, requestFactory: requestFactory)
     }
     
-    
+    func makeRoomService() -> RoomServiceProtocol {
+        RoomService(networkService: networkService, requestFactory: requestFactory)
+    }
 }

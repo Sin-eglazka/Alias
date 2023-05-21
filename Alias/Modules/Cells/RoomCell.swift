@@ -8,7 +8,7 @@
 import UIKit
 class RoomCell : UITableViewCell{
     
-    var delegate: JoiningRoom = JoinRoomViewController()
+    // var delegate: JoiningRoom = JoinRoomViewController()
     static let reuseIdentifier = "RoomCell"
     private var roomId: String = " "
     private var roomName: String
@@ -67,7 +67,7 @@ class RoomCell : UITableViewCell{
     @objc
     private func joinRoom(_ sender: AnyObject) {
         
-        delegate.joinRoom(id: roomId, name: roomName)
+        // delegate.joinRoom(id: roomId, name: roomName)
     }
     
     func configure(room: Room){

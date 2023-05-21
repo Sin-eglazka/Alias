@@ -221,14 +221,18 @@ extension JoinRoomViewController: JoinRoomViewInput {
             style: .default,
             handler: { _ in })
         )
-        alert.addAction(UIAlertAction(
-            title: NSLocalizedString("Copy", comment: "Default action"),
-            style: .default,
-            handler: { _ in
-                UIPasteboard.general.string = alert.message
-            })
-        )
-        present(alert, animated: true)
+        if title == "Invitation code" {
+            alert.addAction(UIAlertAction(
+                title: NSLocalizedString("Copy", comment: "Default action"),
+                style: .default,
+                handler: { _ in
+                    UIPasteboard.general.string = alert.message
+                })
+            )
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alert, animated: true)
+        }
     }
     
     func presentCreateRoom(vc: UIViewController) {

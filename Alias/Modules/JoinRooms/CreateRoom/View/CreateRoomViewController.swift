@@ -127,7 +127,10 @@ extension CreateRoomViewController: CreateRoomViewInput {
     }
     
     func showAlert(text: String) {
-        
+        DispatchQueue.main.async { [weak self] in
+            self?.dismiss(animated: true)
+            self?.delegate?.showAlert(title: "Error", text: "Couldn't create room")
+        }
     }
     
 }

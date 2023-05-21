@@ -138,7 +138,6 @@ extension RegisterViewController: RegisterViewInput {
     func showAlert() {
         
     }
-    
 }
 
 extension RegisterViewController: UITextFieldDelegate {

@@ -24,7 +24,8 @@ extension LoginPresenter: LoginViewOutput {
         userService.login(email: email, password: password) { [weak self] result in
             switch result {
             case let .success(user):
-                print(user)
+                UserDefaults.standard.set(user.value, forKey: "bearer token")
+                print(user.value)
                 self?.viewInput?.loginSuccessed()
             case .failure:
                 // TODO: show alert

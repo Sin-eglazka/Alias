@@ -140,7 +140,7 @@ final class LoginViewController: UIViewController {
     
     @objc
     private func signUpDidTouch(_ sender: AnyObject) {
-        present(RegisterViewController(), animated: true)
+        output.signUp()
     }
     
     @objc
@@ -151,12 +151,9 @@ final class LoginViewController: UIViewController {
             !email.isEmpty,
             !password.isEmpty
         else { return }
-        
-        // TODO: login
 
         output.login(email: email, password: password)
     }
-    
 }
 
 extension LoginViewController: LoginViewInput {
@@ -170,6 +167,10 @@ extension LoginViewController: LoginViewInput {
     
     func showAlert() {
         
+    }
+    
+    func presentSignUp(vc: UIViewController) {
+        present(vc, animated: true)
     }
 }
 

@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import UIKit
 
 protocol LoginViewInput: AnyObject {
     func loginSuccessed()
     func showAlert()
+    func presentSignUp(vc: UIViewController)
 }
 
 

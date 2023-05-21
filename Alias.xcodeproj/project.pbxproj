@@ -39,6 +39,9 @@
 		CC90E9C12A197660007E06E4 /* LoginViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9C02A197660007E06E4 /* LoginViewInput.swift */; };
 		CC90E9C32A19766A007E06E4 /* LoginViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9C22A19766A007E06E4 /* LoginViewOutput.swift */; };
 		CC90E9C62A19781D007E06E4 /* ServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9C52A19781D007E06E4 /* ServiceAssembly.swift */; };
+		CCF05DFE2A1A298900F26C1A /* RegisterViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF05DFD2A1A298900F26C1A /* RegisterViewOutput.swift */; };
+		CCF05E002A1A29C300F26C1A /* RegisterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF05DFF2A1A29C300F26C1A /* RegisterPresenter.swift */; };
+		CCF05E022A1A2A1700F26C1A /* RegisterViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF05E012A1A2A1700F26C1A /* RegisterViewInput.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +79,9 @@
 		CC90E9C02A197660007E06E4 /* LoginViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewInput.swift; sourceTree = "<group>"; };
 		CC90E9C22A19766A007E06E4 /* LoginViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewOutput.swift; sourceTree = "<group>"; };
 		CC90E9C52A19781D007E06E4 /* ServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAssembly.swift; sourceTree = "<group>"; };
+		CCF05DFD2A1A298900F26C1A /* RegisterViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewOutput.swift; sourceTree = "<group>"; };
+		CCF05DFF2A1A29C300F26C1A /* RegisterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPresenter.swift; sourceTree = "<group>"; };
+		CCF05E012A1A2A1700F26C1A /* RegisterViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewInput.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,7 +272,8 @@
 		CC90E9BB2A1975C9007E06E4 /* Register */ = {
 			isa = PBXGroup;
 			children = (
-				44E6C9442A179C530016B11C /* RegisterViewController.swift */,
+				CCF05DFB2A1A296A00F26C1A /* View */,
+				CCF05DFC2A1A297100F26C1A /* Presenter */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -295,6 +302,24 @@
 				CC90E9C52A19781D007E06E4 /* ServiceAssembly.swift */,
 			);
 			path = Assembly;
+			sourceTree = "<group>";
+		};
+		CCF05DFB2A1A296A00F26C1A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				44E6C9442A179C530016B11C /* RegisterViewController.swift */,
+				CCF05DFD2A1A298900F26C1A /* RegisterViewOutput.swift */,
+				CCF05E012A1A2A1700F26C1A /* RegisterViewInput.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CCF05DFC2A1A297100F26C1A /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				CCF05DFF2A1A29C300F26C1A /* RegisterPresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -382,6 +407,8 @@
 				44E6C9532A17AABB0016B11C /* Constants.swift in Sources */,
 				CC90E9BF2A19762F007E06E4 /* LoginPresenter.swift in Sources */,
 				44A19DBE2A1963CC0006523D /* TeamCell.swift in Sources */,
+				CCF05E022A1A2A1700F26C1A /* RegisterViewInput.swift in Sources */,
+				CCF05E002A1A29C300F26C1A /* RegisterPresenter.swift in Sources */,
 				CC90E9C62A19781D007E06E4 /* ServiceAssembly.swift in Sources */,
 				CC90E9AF2A191548007E06E4 /* UserServiceProtocol.swift in Sources */,
 				44E6C94E2A179D120016B11C /* HttpClient.swift in Sources */,
@@ -392,6 +419,7 @@
 				44E6C92D2A179BF10016B11C /* AppDelegate.swift in Sources */,
 				CC39584A2A17F2B8008E4838 /* URLRequestFactory.swift in Sources */,
 				CC90E9AB2A191517007E06E4 /* RoomService.swift in Sources */,
+				CCF05DFE2A1A298900F26C1A /* RegisterViewOutput.swift in Sources */,
 				44E6C92F2A179BF10016B11C /* SceneDelegate.swift in Sources */,
 				CC90E9B42A1958E8007E06E4 /* TeamService.swift in Sources */,
 				44D325382A18266500667BA9 /* JoinRoomViewController.swift in Sources */,

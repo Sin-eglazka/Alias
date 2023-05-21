@@ -29,11 +29,15 @@ extension LoginPresenter: LoginViewOutput {
             case .failure:
                 // TODO: show alert
                 print(result)
+                self?.viewInput?.showAlert()
             }
         }
     }
     
     func signUp() {
-        
+        let presenter = RegisterPresenter(userService: userService)
+        let registerVC = RegisterViewController(output: presenter)
+        presenter.viewInput = registerVC
+        viewInput?.presentSignUp(vc: registerVC)
     }
 }

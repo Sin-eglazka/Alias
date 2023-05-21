@@ -15,3 +15,13 @@ struct Room: Codable {
     let creator: String
     let invitationCode: String?
 }
+
+struct GameRoom: Codable {
+    let isPrivate: Bool
+    let id: String
+    let admin: User
+    let name: String
+    let creator: User
+    let invitationCode: String?
+    let pointsPerWord: Int
+}

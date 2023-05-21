@@ -7,33 +7,93 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44A19DBC2A1921BA0006523D /* CreateRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A19DBB2A1921BA0006523D /* CreateRoomViewController.swift */; };
+		44A19DBE2A1963CC0006523D /* TeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A19DBD2A1963CC0006523D /* TeamCell.swift */; };
+		44D325382A18266500667BA9 /* JoinRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D325372A18266500667BA9 /* JoinRoomViewController.swift */; };
+		44D3253B2A18272000667BA9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D3253A2A18272000667BA9 /* GameViewController.swift */; };
+		44D3253D2A18272E00667BA9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D3253C2A18272E00667BA9 /* SettingsViewController.swift */; };
+		44D325402A18324E00667BA9 /* RoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D3253F2A18324E00667BA9 /* RoomCell.swift */; };
 		44E6C92D2A179BF10016B11C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C92C2A179BF10016B11C /* AppDelegate.swift */; };
 		44E6C92F2A179BF10016B11C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C92E2A179BF10016B11C /* SceneDelegate.swift */; };
-		44E6C9312A179BF10016B11C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C9302A179BF10016B11C /* ViewController.swift */; };
+		44E6C9312A179BF10016B11C /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C9302A179BF10016B11C /* RootViewController.swift */; };
 		44E6C9362A179C030016B11C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44E6C9352A179C030016B11C /* Assets.xcassets */; };
 		44E6C9392A179C030016B11C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44E6C9372A179C030016B11C /* LaunchScreen.storyboard */; };
 		44E6C9432A179C410016B11C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C9422A179C410016B11C /* LoginViewController.swift */; };
 		44E6C9452A179C530016B11C /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C9442A179C530016B11C /* RegisterViewController.swift */; };
-		44E6C9472A179C610016B11C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C9462A179C610016B11C /* User.swift */; };
+		44E6C9472A179C610016B11C /* RegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C9462A179C610016B11C /* RegisterResponse.swift */; };
 		44E6C9492A179C7D0016B11C /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C9482A179C7D0016B11C /* Room.swift */; };
 		44E6C94B2A179C8E0016B11C /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C94A2A179C8E0016B11C /* Team.swift */; };
-		44E6C94E2A179D120016B11C /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C94D2A179D120016B11C /* HttpClient.swift */; };
+		44E6C94E2A179D120016B11C /* HttpError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C94D2A179D120016B11C /* HttpError.swift */; };
+		44E6C9532A17AABB0016B11C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6C9522A17AABB0016B11C /* Constants.swift */; };
+		CC3958482A17F259008E4838 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3958472A17F259008E4838 /* NetworkService.swift */; };
+		CC39584A2A17F2B8008E4838 /* URLRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3958492A17F2B8008E4838 /* URLRequestFactory.swift */; };
+		CC39584D2A181C57008E4838 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC39584C2A181C57008E4838 /* UserService.swift */; };
+		CC90E9A92A190EA5007E06E4 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9A82A190EA5007E06E4 /* LoginResponse.swift */; };
+		CC90E9AB2A191517007E06E4 /* RoomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9AA2A191517007E06E4 /* RoomService.swift */; };
+		CC90E9AF2A191548007E06E4 /* UserServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9AE2A191548007E06E4 /* UserServiceProtocol.swift */; };
+		CC90E9B12A191591007E06E4 /* RoomServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9B02A191591007E06E4 /* RoomServiceProtocol.swift */; };
+		CC90E9B42A1958E8007E06E4 /* TeamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9B32A1958E7007E06E4 /* TeamService.swift */; };
+		CC90E9B62A195931007E06E4 /* TeamServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9B52A195931007E06E4 /* TeamServiceProtocol.swift */; };
+		CC90E9B92A196BE3007E06E4 /* URLRequestFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9B82A196BE3007E06E4 /* URLRequestFactoryProtocol.swift */; };
+		CC90E9BF2A19762F007E06E4 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9BE2A19762F007E06E4 /* LoginPresenter.swift */; };
+		CC90E9C12A197660007E06E4 /* LoginViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9C02A197660007E06E4 /* LoginViewInput.swift */; };
+		CC90E9C32A19766A007E06E4 /* LoginViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9C22A19766A007E06E4 /* LoginViewOutput.swift */; };
+		CC90E9C62A19781D007E06E4 /* ServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9C52A19781D007E06E4 /* ServiceAssembly.swift */; };
+		CCF05DFE2A1A298900F26C1A /* RegisterViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF05DFD2A1A298900F26C1A /* RegisterViewOutput.swift */; };
+		CCF05E002A1A29C300F26C1A /* RegisterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF05DFF2A1A29C300F26C1A /* RegisterPresenter.swift */; };
+		CCF05E022A1A2A1700F26C1A /* RegisterViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF05E012A1A2A1700F26C1A /* RegisterViewInput.swift */; };
+		CCF05E092A1A400A00F26C1A /* JoinRoomPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF05E082A1A400A00F26C1A /* JoinRoomPresenter.swift */; };
+		CCF05E0B2A1A403F00F26C1A /* JoinRoomViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF05E0A2A1A403F00F26C1A /* JoinRoomViewInput.swift */; };
+		CCF05E0D2A1A404A00F26C1A /* JoinRoomViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF05E0C2A1A404A00F26C1A /* JoinRoomViewOutput.swift */; };
+		CCF05E0F2A1A4FC900F26C1A /* CreateRoomViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF05E0E2A1A4FC900F26C1A /* CreateRoomViewOutput.swift */; };
+		CCF05E132A1A4FF300F26C1A /* CreateRoomPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF05E122A1A4FF300F26C1A /* CreateRoomPresenter.swift */; };
+		CCF05E152A1A510100F26C1A /* CreateRoomViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF05E142A1A510100F26C1A /* CreateRoomViewInput.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		44A19DBB2A1921BA0006523D /* CreateRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomViewController.swift; sourceTree = "<group>"; };
+		44A19DBD2A1963CC0006523D /* TeamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCell.swift; sourceTree = "<group>"; };
+		44D325372A18266500667BA9 /* JoinRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomViewController.swift; sourceTree = "<group>"; };
+		44D3253A2A18272000667BA9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		44D3253C2A18272E00667BA9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		44D3253F2A18324E00667BA9 /* RoomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCell.swift; sourceTree = "<group>"; };
 		44E6C9292A179BF10016B11C /* Alias.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alias.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44E6C92C2A179BF10016B11C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44E6C92E2A179BF10016B11C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		44E6C9302A179BF10016B11C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		44E6C9302A179BF10016B11C /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		44E6C9352A179C030016B11C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44E6C9382A179C030016B11C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44E6C93A2A179C030016B11C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44E6C9422A179C410016B11C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		44E6C9442A179C530016B11C /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		44E6C9462A179C610016B11C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		44E6C9462A179C610016B11C /* RegisterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterResponse.swift; sourceTree = "<group>"; };
 		44E6C9482A179C7D0016B11C /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		44E6C94A2A179C8E0016B11C /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
-		44E6C94D2A179D120016B11C /* HttpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
+		44E6C94D2A179D120016B11C /* HttpError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpError.swift; sourceTree = "<group>"; };
+		44E6C9522A17AABB0016B11C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		CC3958472A17F259008E4838 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		CC3958492A17F2B8008E4838 /* URLRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestFactory.swift; sourceTree = "<group>"; };
+		CC39584C2A181C57008E4838 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		CC90E9A82A190EA5007E06E4 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		CC90E9AA2A191517007E06E4 /* RoomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomService.swift; sourceTree = "<group>"; };
+		CC90E9AE2A191548007E06E4 /* UserServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceProtocol.swift; sourceTree = "<group>"; };
+		CC90E9B02A191591007E06E4 /* RoomServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomServiceProtocol.swift; sourceTree = "<group>"; };
+		CC90E9B32A1958E7007E06E4 /* TeamService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamService.swift; sourceTree = "<group>"; };
+		CC90E9B52A195931007E06E4 /* TeamServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamServiceProtocol.swift; sourceTree = "<group>"; };
+		CC90E9B82A196BE3007E06E4 /* URLRequestFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestFactoryProtocol.swift; sourceTree = "<group>"; };
+		CC90E9BE2A19762F007E06E4 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
+		CC90E9C02A197660007E06E4 /* LoginViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewInput.swift; sourceTree = "<group>"; };
+		CC90E9C22A19766A007E06E4 /* LoginViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewOutput.swift; sourceTree = "<group>"; };
+		CC90E9C52A19781D007E06E4 /* ServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAssembly.swift; sourceTree = "<group>"; };
+		CCF05DFD2A1A298900F26C1A /* RegisterViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewOutput.swift; sourceTree = "<group>"; };
+		CCF05DFF2A1A29C300F26C1A /* RegisterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPresenter.swift; sourceTree = "<group>"; };
+		CCF05E012A1A2A1700F26C1A /* RegisterViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewInput.swift; sourceTree = "<group>"; };
+		CCF05E082A1A400A00F26C1A /* JoinRoomPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomPresenter.swift; sourceTree = "<group>"; };
+		CCF05E0A2A1A403F00F26C1A /* JoinRoomViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomViewInput.swift; sourceTree = "<group>"; };
+		CCF05E0C2A1A404A00F26C1A /* JoinRoomViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomViewOutput.swift; sourceTree = "<group>"; };
+		CCF05E0E2A1A4FC900F26C1A /* CreateRoomViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomViewOutput.swift; sourceTree = "<group>"; };
+		CCF05E122A1A4FF300F26C1A /* CreateRoomPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomPresenter.swift; sourceTree = "<group>"; };
+		CCF05E142A1A510100F26C1A /* CreateRoomViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomViewInput.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +107,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		44D325362A18262900667BA9 /* JoinRooms */ = {
+			isa = PBXGroup;
+			children = (
+				CCF05E052A1A367300F26C1A /* CreateRoom */,
+				CCF05E042A1A366600F26C1A /* JoinRooms */,
+			);
+			path = JoinRooms;
+			sourceTree = "<group>";
+		};
+		44D325392A18268800667BA9 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				44D3253A2A18272000667BA9 /* GameViewController.swift */,
+				44D3253C2A18272E00667BA9 /* SettingsViewController.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		44D3253E2A18323500667BA9 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				44D3253F2A18324E00667BA9 /* RoomCell.swift */,
+				44A19DBD2A1963CC0006523D /* TeamCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		44E6C9202A179BF00016B11C = {
 			isa = PBXGroup;
 			children = (
@@ -66,12 +153,14 @@
 		44E6C92B2A179BF10016B11C /* Alias */ = {
 			isa = PBXGroup;
 			children = (
-				44E6C9502A17A7640016B11C /* Modules */,
+				CC90E9C42A19780B007E06E4 /* Assembly */,
 				44E6C94F2A17A72E0016B11C /* Core */,
+				CC39584B2A181C40008E4838 /* Services */,
+				44E6C9502A17A7640016B11C /* Modules */,
 				44E6C9402A179C0E0016B11C /* Models */,
 				44E6C92C2A179BF10016B11C /* AppDelegate.swift */,
 				44E6C92E2A179BF10016B11C /* SceneDelegate.swift */,
-				44E6C9302A179BF10016B11C /* ViewController.swift */,
+				44E6C9302A179BF10016B11C /* RootViewController.swift */,
 				44E6C9352A179C030016B11C /* Assets.xcassets */,
 				44E6C9372A179C030016B11C /* LaunchScreen.storyboard */,
 				44E6C93A2A179C030016B11C /* Info.plist */,
@@ -82,7 +171,7 @@
 		44E6C9402A179C0E0016B11C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				44E6C9462A179C610016B11C /* User.swift */,
+				CC90E9A72A190E94007E06E4 /* Auth */,
 				44E6C9482A179C7D0016B11C /* Room.swift */,
 				44E6C94A2A179C8E0016B11C /* Team.swift */,
 			);
@@ -92,7 +181,10 @@
 		44E6C94C2A179CF80016B11C /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				44E6C94D2A179D120016B11C /* HttpClient.swift */,
+				CC90E9B72A196BC5007E06E4 /* URLRequestFactory */,
+				44E6C94D2A179D120016B11C /* HttpError.swift */,
+				44E6C9522A17AABB0016B11C /* Constants.swift */,
+				CC3958472A17F259008E4838 /* NetworkService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -108,18 +200,192 @@
 		44E6C9502A17A7640016B11C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				44E6C9512A17A76C0016B11C /* LoginAndRegister */,
+				44D3253E2A18323500667BA9 /* Cells */,
+				44D325392A18268800667BA9 /* Game */,
+				44D325362A18262900667BA9 /* JoinRooms */,
+				44E6C9512A17A76C0016B11C /* Auth */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
 		};
-		44E6C9512A17A76C0016B11C /* LoginAndRegister */ = {
+		44E6C9512A17A76C0016B11C /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				CC90E9BB2A1975C9007E06E4 /* Register */,
+				CC90E9BA2A1975BF007E06E4 /* Login */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		CC39584B2A181C40008E4838 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CC90E9B22A1958D9007E06E4 /* TeamService */,
+				CC90E9AD2A191536007E06E4 /* RoomService */,
+				CC90E9AC2A19152E007E06E4 /* UserService */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		CC90E9A72A190E94007E06E4 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				44E6C9462A179C610016B11C /* RegisterResponse.swift */,
+				CC90E9A82A190EA5007E06E4 /* LoginResponse.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		CC90E9AC2A19152E007E06E4 /* UserService */ = {
+			isa = PBXGroup;
+			children = (
+				CC39584C2A181C57008E4838 /* UserService.swift */,
+				CC90E9AE2A191548007E06E4 /* UserServiceProtocol.swift */,
+			);
+			path = UserService;
+			sourceTree = "<group>";
+		};
+		CC90E9AD2A191536007E06E4 /* RoomService */ = {
+			isa = PBXGroup;
+			children = (
+				CC90E9AA2A191517007E06E4 /* RoomService.swift */,
+				CC90E9B02A191591007E06E4 /* RoomServiceProtocol.swift */,
+			);
+			path = RoomService;
+			sourceTree = "<group>";
+		};
+		CC90E9B22A1958D9007E06E4 /* TeamService */ = {
+			isa = PBXGroup;
+			children = (
+				CC90E9B32A1958E7007E06E4 /* TeamService.swift */,
+				CC90E9B52A195931007E06E4 /* TeamServiceProtocol.swift */,
+			);
+			path = TeamService;
+			sourceTree = "<group>";
+		};
+		CC90E9B72A196BC5007E06E4 /* URLRequestFactory */ = {
+			isa = PBXGroup;
+			children = (
+				CC3958492A17F2B8008E4838 /* URLRequestFactory.swift */,
+				CC90E9B82A196BE3007E06E4 /* URLRequestFactoryProtocol.swift */,
+			);
+			path = URLRequestFactory;
+			sourceTree = "<group>";
+		};
+		CC90E9BA2A1975BF007E06E4 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				CC90E9BC2A1975D8007E06E4 /* View */,
+				CC90E9BD2A1975E4007E06E4 /* Presenter */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		CC90E9BB2A1975C9007E06E4 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				CCF05DFB2A1A296A00F26C1A /* View */,
+				CCF05DFC2A1A297100F26C1A /* Presenter */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		CC90E9BC2A1975D8007E06E4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				44E6C9422A179C410016B11C /* LoginViewController.swift */,
+				CC90E9C02A197660007E06E4 /* LoginViewInput.swift */,
+				CC90E9C22A19766A007E06E4 /* LoginViewOutput.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CC90E9BD2A1975E4007E06E4 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				CC90E9BE2A19762F007E06E4 /* LoginPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		CC90E9C42A19780B007E06E4 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				CC90E9C52A19781D007E06E4 /* ServiceAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		CCF05DFB2A1A296A00F26C1A /* View */ = {
 			isa = PBXGroup;
 			children = (
 				44E6C9442A179C530016B11C /* RegisterViewController.swift */,
-				44E6C9422A179C410016B11C /* LoginViewController.swift */,
+				CCF05DFD2A1A298900F26C1A /* RegisterViewOutput.swift */,
+				CCF05E012A1A2A1700F26C1A /* RegisterViewInput.swift */,
 			);
-			path = LoginAndRegister;
+			path = View;
+			sourceTree = "<group>";
+		};
+		CCF05DFC2A1A297100F26C1A /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				CCF05DFF2A1A29C300F26C1A /* RegisterPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		CCF05E042A1A366600F26C1A /* JoinRooms */ = {
+			isa = PBXGroup;
+			children = (
+				CCF05E062A1A3FEF00F26C1A /* View */,
+				CCF05E072A1A3FF500F26C1A /* Presenter */,
+			);
+			path = JoinRooms;
+			sourceTree = "<group>";
+		};
+		CCF05E052A1A367300F26C1A /* CreateRoom */ = {
+			isa = PBXGroup;
+			children = (
+				CCF05E102A1A4FCD00F26C1A /* View */,
+				CCF05E112A1A4FD200F26C1A /* Presenter */,
+			);
+			path = CreateRoom;
+			sourceTree = "<group>";
+		};
+		CCF05E062A1A3FEF00F26C1A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				44D325372A18266500667BA9 /* JoinRoomViewController.swift */,
+				CCF05E0A2A1A403F00F26C1A /* JoinRoomViewInput.swift */,
+				CCF05E0C2A1A404A00F26C1A /* JoinRoomViewOutput.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CCF05E072A1A3FF500F26C1A /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				CCF05E082A1A400A00F26C1A /* JoinRoomPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		CCF05E102A1A4FCD00F26C1A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				44A19DBB2A1921BA0006523D /* CreateRoomViewController.swift */,
+				CCF05E0E2A1A4FC900F26C1A /* CreateRoomViewOutput.swift */,
+				CCF05E142A1A510100F26C1A /* CreateRoomViewInput.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CCF05E112A1A4FD200F26C1A /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				CCF05E122A1A4FF300F26C1A /* CreateRoomPresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,15 +458,45 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCF05E0D2A1A404A00F26C1A /* JoinRoomViewOutput.swift in Sources */,
+				CC3958482A17F259008E4838 /* NetworkService.swift in Sources */,
 				44E6C9432A179C410016B11C /* LoginViewController.swift in Sources */,
+				CC90E9A92A190EA5007E06E4 /* LoginResponse.swift in Sources */,
 				44E6C9452A179C530016B11C /* RegisterViewController.swift in Sources */,
 				44E6C9492A179C7D0016B11C /* Room.swift in Sources */,
-				44E6C9472A179C610016B11C /* User.swift in Sources */,
+				44A19DBC2A1921BA0006523D /* CreateRoomViewController.swift in Sources */,
+				CCF05E132A1A4FF300F26C1A /* CreateRoomPresenter.swift in Sources */,
+				CC90E9B62A195931007E06E4 /* TeamServiceProtocol.swift in Sources */,
+				CCF05E152A1A510100F26C1A /* CreateRoomViewInput.swift in Sources */,
+				CC90E9C32A19766A007E06E4 /* LoginViewOutput.swift in Sources */,
+				CCF05E0B2A1A403F00F26C1A /* JoinRoomViewInput.swift in Sources */,
+				44E6C9472A179C610016B11C /* RegisterResponse.swift in Sources */,
 				44E6C94B2A179C8E0016B11C /* Team.swift in Sources */,
-				44E6C94E2A179D120016B11C /* HttpClient.swift in Sources */,
-				44E6C9312A179BF10016B11C /* ViewController.swift in Sources */,
+				CC39584D2A181C57008E4838 /* UserService.swift in Sources */,
+				44D3253D2A18272E00667BA9 /* SettingsViewController.swift in Sources */,
+				44E6C9532A17AABB0016B11C /* Constants.swift in Sources */,
+				CC90E9BF2A19762F007E06E4 /* LoginPresenter.swift in Sources */,
+				44A19DBE2A1963CC0006523D /* TeamCell.swift in Sources */,
+				CCF05E022A1A2A1700F26C1A /* RegisterViewInput.swift in Sources */,
+				CCF05E002A1A29C300F26C1A /* RegisterPresenter.swift in Sources */,
+				CC90E9C62A19781D007E06E4 /* ServiceAssembly.swift in Sources */,
+				CC90E9AF2A191548007E06E4 /* UserServiceProtocol.swift in Sources */,
+				44E6C94E2A179D120016B11C /* HttpError.swift in Sources */,
+				44D325402A18324E00667BA9 /* RoomCell.swift in Sources */,
+				44E6C9312A179BF10016B11C /* RootViewController.swift in Sources */,
+				CC90E9B12A191591007E06E4 /* RoomServiceProtocol.swift in Sources */,
+				CCF05E092A1A400A00F26C1A /* JoinRoomPresenter.swift in Sources */,
+				44D3253B2A18272000667BA9 /* GameViewController.swift in Sources */,
 				44E6C92D2A179BF10016B11C /* AppDelegate.swift in Sources */,
+				CC39584A2A17F2B8008E4838 /* URLRequestFactory.swift in Sources */,
+				CC90E9AB2A191517007E06E4 /* RoomService.swift in Sources */,
+				CCF05DFE2A1A298900F26C1A /* RegisterViewOutput.swift in Sources */,
 				44E6C92F2A179BF10016B11C /* SceneDelegate.swift in Sources */,
+				CC90E9B42A1958E8007E06E4 /* TeamService.swift in Sources */,
+				CCF05E0F2A1A4FC900F26C1A /* CreateRoomViewOutput.swift in Sources */,
+				44D325382A18266500667BA9 /* JoinRoomViewController.swift in Sources */,
+				CC90E9B92A196BE3007E06E4 /* URLRequestFactoryProtocol.swift in Sources */,
+				CC90E9C12A197660007E06E4 /* LoginViewInput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

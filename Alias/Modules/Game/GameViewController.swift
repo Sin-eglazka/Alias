@@ -13,7 +13,7 @@ class GameViewController: UIViewController{
     
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
-    private var dataSource = [[String]]()
+    private var dataSource = [Team]()
     
     private lazy var settingsButton = { () -> UIButton in
         let button = UIButton()
@@ -27,6 +27,54 @@ class GameViewController: UIViewController{
         button.setTitle("Leave", for: .normal)
         button.setTitleColor(UIColor.systemBlue, for: .normal)
         return button
+    }()
+    
+    private lazy var startRoundButton = { () -> UIButton in
+        let button = UIButton()
+        button.setTitle("Start", for: .normal)
+        button.setTitleColor(UIColor.systemBlue, for: .normal)
+        return button
+    }()
+    
+    private lazy var pauseRoundButton = { () -> UIButton in
+        let button = UIButton()
+        button.setTitle("Pause", for: .normal)
+        button.setTitleColor(UIColor.systemBlue, for: .normal)
+        return button
+    }()
+    
+    private lazy var createTeamButton = { () -> UIButton in
+        let button = UIButton()
+        button.setTitle("Create Team", for: .normal)
+        button.setTitleColor(UIColor.systemBlue, for: .normal)
+        return button
+    }()
+    
+    private lazy var teamNameField = { () -> UITextField in
+        let input = UITextField()
+        input.placeholder = "Team Name"
+        input.borderStyle = .roundedRect
+        input.autocapitalizationType = .none
+        input.textColor = .darkGray
+        return input
+    }()
+    
+    private lazy var mainTitle = { () -> UILabel in
+        let label = UILabel()
+        label.text = name
+        label.textColor = .systemBlue
+        label.textAlignment = .center
+        //label.font = .systemFont(ofSize: 25,weight: .regular)
+        return label
+    }()
+    
+    private lazy var infoLabel = { () -> UILabel in
+        let label = UILabel()
+        label.text = "Game not started"
+        label.textColor = .black
+        label.textAlignment = .center
+        //label.font = .systemFont(ofSize: 25, weight: .regular)
+        return label
     }()
     
     private var roomId, name: String
@@ -53,6 +101,12 @@ class GameViewController: UIViewController{
     private func setupView() {
         setupSettingsButton()
         setupLeaveButton()
+        setupTitleLabel()
+        setupStartButton()
+        setupPauseButton()
+        setupInfoLabel()
+        setupCreateTeamButton()	
+        setupInputTeamName()
         setupTableView()
         view.backgroundColor = .white
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -60,7 +114,6 @@ class GameViewController: UIViewController{
         
         // Test
         
-        dataSource = [["Katya", "Liza"], ["Vova"]]
         
         // end Test
     }
@@ -75,11 +128,74 @@ class GameViewController: UIViewController{
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
+            tableView.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 10),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 80)
+            tableView.bottomAnchor.constraint(equalTo: teamNameField.topAnchor, constant: -10)
         ])
+    }
+    
+    private func setupInfoLabel() {
+        view.addSubview(infoLabel)
+        infoLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            infoLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+            infoLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
+            infoLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20)
+        ])
+    }
+    
+    private func setupTitleLabel() {
+        view.addSubview(mainTitle)
+        mainTitle.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            mainTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            mainTitle.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -70),
+            mainTitle.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 70)
+        ])
+    }
+    
+    private func setupInputTeamName() {
+        view.addSubview(teamNameField)
+        teamNameField.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            teamNameField.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60),
+            teamNameField.rightAnchor.constraint(equalTo: view.centerXAnchor, constant: -10),
+            teamNameField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10)
+        ])
+    }
+    
+    private func setupCreateTeamButton() {
+        view.addSubview(createTeamButton)
+        createTeamButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            createTeamButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60),
+            createTeamButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            createTeamButton.leftAnchor.constraint(equalTo: view.centerXAnchor, constant: 10)
+        ])
+        createTeamButton.addTarget(self, action: #selector(createTeam), for: .touchUpInside)
+    }
+    
+    private func setupPauseButton() {
+        view.addSubview(pauseRoundButton)
+        pauseRoundButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pauseRoundButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+            pauseRoundButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            pauseRoundButton.leftAnchor.constraint(equalTo: view.centerXAnchor, constant: 10)
+        ])
+        pauseRoundButton.addTarget(self, action: #selector(pauseRound), for: .touchUpInside)
+    }
+    
+    private func setupStartButton() {
+        view.addSubview(startRoundButton)
+        startRoundButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            startRoundButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+            startRoundButton.rightAnchor.constraint(equalTo: view.centerXAnchor, constant: -10),
+            startRoundButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10)
+        ])
+        startRoundButton.addTarget(self, action: #selector(startRound), for: .touchUpInside)
     }
     
     private func setupSettingsButton() {
@@ -103,13 +219,47 @@ class GameViewController: UIViewController{
     }
     
     @objc
+    private func pauseRound(_ sender: AnyObject) {
+        
+        // TODO send request pause round
+        
+        infoLabel.text = "Game was paused"
+
+        
+    }
+    
+    @objc
+    private func startRound(_ sender: AnyObject) {
+        
+        // TODO send request for start round
+        
+        infoLabel.text = "Game was started"
+    }
+    
+    @objc
     private func leaveRoom(_ sender: AnyObject) {
         
         // TODO send request for leaving room
         
 
         
-        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc
+    private func createTeam(_ sender: AnyObject) {
+        
+        guard let name = teamNameField.text, !name.isEmpty else{return}
+        
+        // TODO send request for adding team
+        
+        var users = TeamPlayer(id: "", name: "Katya")
+        var usr2 = TeamPlayer(id: "", name: "Liza")
+        var team = Team(id: "", name: teamNameField.text ?? "", users: [users, usr2])
+        
+        dataSource.append(team)
+        tableView.reloadData()
+        teamNameField.text = ""
+        
     }
     
     @objc
@@ -182,13 +332,14 @@ extension GameViewController: UITableViewDataSource {
             case 0:
                 if let participantCell = tableView.dequeueReusableCell(withIdentifier: TeamCell.reuseIdentifier, for: indexPath) as? TeamCell {
                     participantCell.setIsTeam(isTeam: false)
-                    participantCell.configure(usernames: dataSource[indexPath.row])
+                    participantCell.configure(usernames: dataSource[indexPath.row].users, title: "Participants")
                     return participantCell
                 }
             default:
-                let list = dataSource[indexPath.row]
+            let list = dataSource[indexPath.row]
                 if let teamCell = tableView.dequeueReusableCell(withIdentifier: TeamCell.reuseIdentifier, for: indexPath) as? TeamCell {
-                    teamCell.configure(usernames: list)
+                    teamCell.setIsTeam(isTeam: true)
+                    teamCell.configure(usernames: list.users, title: list.name)
                         return teamCell
                 }
             }

@@ -41,9 +41,9 @@ final class URLRequestFactory {
     
     private func url(with path: String, parameters: [String: String]) -> URL? {
         var urlComponents = URLComponents()
-        urlComponents.scheme = "http"
+        urlComponents.scheme = "https"
         urlComponents.host = host
-        urlComponents.port = 8080
+        //urlComponents.port = 8080
         urlComponents.path = path
         
         if !parameters.isEmpty {

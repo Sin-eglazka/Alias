@@ -6,7 +6,7 @@ import UIKit
 final class TeamCell: UITableViewCell {
     
     static let reuseIdentifier = "TeamCell"
-    private var teamUsers: [String]
+    private var teamUsers: [TeamPlayer]
     let scrollView = UIScrollView()
     let content = UIStackView()
     var labels:[UILabel] = []
@@ -19,6 +19,17 @@ final class TeamCell: UITableViewCell {
         button.addTarget(self, action: #selector(joinTeam), for: .touchUpInside)
         return button
     }()
+    
+    private lazy var mainTitle = { () -> UILabel in
+        let label = UILabel()
+        label.text = ""
+        label.backgroundColor = .lightGray
+        label.textColor = .black
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 40, weight: .regular)
+        return label
+    }()
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         teamUsers = []
@@ -70,14 +81,16 @@ final class TeamCell: UITableViewCell {
     }
 
     
-    func configure(usernames: [String]){
+    func configure(usernames: [TeamPlayer], title: String){
         teamUsers = usernames
         labels = []
         for label in content.subviews{
             label.removeFromSuperview()
         }
+        mainTitle.text = title
+        content.addArrangedSubview(mainTitle)
         for i in 0..<teamUsers.count{
-            labels.append(makeUserLabel(text: teamUsers[i]))
+            labels.append(makeUserLabel(text: teamUsers[i].name))
             content.addArrangedSubview(labels.last!)
         }
         if (isTeam){

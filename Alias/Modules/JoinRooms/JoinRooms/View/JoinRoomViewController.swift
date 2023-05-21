@@ -182,7 +182,7 @@ class JoinRoomViewController: UIViewController {
         //TODO get room and join it
         
         var id = ""
-        var name = ""
+        var name = "First Room"
         var isAdmin = true
         self.navigationController?.pushViewController(GameViewController(roomId: id, name: name, isAdmin: isAdmin), animated: true)
         
@@ -194,8 +194,8 @@ class JoinRoomViewController: UIViewController {
         
         // TODO: logout
         
-        self.navigationController?.popViewController(animated: true)
-        //self.navigationController?.popToRootViewController(animated: true)
+        //self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }
 
@@ -239,6 +239,9 @@ extension JoinRoomViewController: JoinRoomViewInput {
 extension JoinRoomViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // TO DO join room at indexPath.row
+        
         navigationController?.pushViewController(GameViewController(roomId: "id", name: "name", isAdmin: true), animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }

@@ -14,7 +14,7 @@ final class ServiceAssembly {
     }()
     
     private lazy var requestFactory: URLRequestFactoryProtocol = {
-        URLRequestFactory(host: Constants.localBaseURL)
+        URLRequestFactory(host: Constants.baseUrl)
     }()
 
     func makeUserService() -> UserServiceProtocol {

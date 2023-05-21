@@ -10,12 +10,7 @@ import UIKit
 
 class CreateRoomViewController: UIViewController {
     
-//    private lazy var mainView = { () -> UIView in
-//        let view = UIView()
-//        view.layer.cornerRadius = 20
-//        view.backgroundColor = .white
-//        return view
-//    }()
+    private var output: CreateRoomViewOutput
     
     private lazy var roomNameInput = { () -> UITextField in
         let input = UITextField()
@@ -47,9 +42,17 @@ class CreateRoomViewController: UIViewController {
         return button
     }()
     
-    
-    
     // MARK: Lifecycle
+    
+    init(output: CreateRoomViewOutput) {
+        self.output = output
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -58,37 +61,10 @@ class CreateRoomViewController: UIViewController {
     
     
     private func setupView() {
-        // setupContentView()
         setupjoinNameInput()
         setupPrivateToggle()
         setupcreateRoomButton()
-//        var horStack = UIStackView(arrangedSubviews: [isPrivteToggle, toggleLabel])
-//        horStack.distribution = .fillEqually
-//        horStack.axis = .horizontal
-//        var stack = UIStackView(arrangedSubviews: [roomNameInput, horStack, createRoomButton])
-//        mainView.addSubview(stack)
-//        stack.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            stack.leftAnchor.constraint(equalTo: mainView.leftAnchor, constant: 5),
-//            stack.rightAnchor.constraint(equalTo: mainView.rightAnchor, constant: -5),
-//            stack.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 5),
-//            stack.bottomAnchor.constraint(equalTo: mainView.topAnchor, constant: -5)
-//        ])
-//        stack.axis = .vertical
-//        stack.distribution = .fillEqually
-        
     }
-    
-//    private func setupContentView() {
-//        view.addSubview(mainView)
-//        mainView.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60),
-//            mainView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
-//            mainView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30),
-//            mainView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60)
-//        ])
-//    }
     
     private func setupjoinNameInput() {
         view.addSubview(roomNameInput)
@@ -126,11 +102,23 @@ class CreateRoomViewController: UIViewController {
         createRoomButton.addTarget(self, action: #selector(createRoom), for: .touchUpInside)
     }
     
-    
-    
     @objc
     private func createRoom(_ sender: AnyObject) {
-        // ToDo create room 
+        // ToDo create room
+        
     }
 
+}
+
+extension CreateRoomViewController: CreateRoomViewInput {
+    
+    func roomWasAdded(_ data: [CreateRoomViewInput]) {
+        
+    }
+    
+    func showAlert() {
+        
+    }
+    
+    
 }

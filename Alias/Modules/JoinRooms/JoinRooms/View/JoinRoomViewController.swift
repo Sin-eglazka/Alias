@@ -8,7 +8,9 @@
 import Foundation
 import UIKit
 
-class JoinRoomViewController: UIViewController{
+class JoinRoomViewController: UIViewController {
+    
+    private var output: JoinRoomViewOutput
     
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
@@ -58,6 +60,16 @@ class JoinRoomViewController: UIViewController{
     
     
     // MARK: Lifecycle
+    
+    init(output: JoinRoomViewOutput) {
+        self.output = output
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -77,7 +89,7 @@ class JoinRoomViewController: UIViewController{
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 4),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -4),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60)
+            tableView.topAnchor.constraint(equalTo: refreshButton.bottomAnchor, constant: 8)
         ])
     }
     
@@ -85,16 +97,17 @@ class JoinRoomViewController: UIViewController{
         setupJoinCodeInput()
         setupLogoutButton()
         setupJoinPrivateButton()
-        setupTableView()
         setupRefreshButton()
+        setupTableView()
         setupCreateRoomButton()
+        output.viewIsReady()
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
         // test
-        var room = Room(isPrivate: true, id: "ossq", admin: "katya", name: "Hello World", creator: "katya", invitationCode: nil)
-        dataSource.append(room)
-        tableView.reloadData()
+        // var room = Room(isPrivate: true, id: "ossq", admin: "katya", name: "Hello World", creator: "katya", invitationCode: nil)
+        // dataSource.append(room)
+        // tableView.reloadData()
         // end test
     }
     
@@ -134,7 +147,7 @@ class JoinRoomViewController: UIViewController{
         refreshButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             refreshButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
-            refreshButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 30)
+            refreshButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10)
         ])
         refreshButton.addTarget(self, action: #selector(refreshRooms), for: .touchUpInside)
     }
@@ -152,26 +165,33 @@ class JoinRoomViewController: UIViewController{
     
     private func handleDelete(indexPath: IndexPath) {
         dataSource.remove(at: indexPath.row)
+        
+        // TODO: delete room
+        
         tableView.reloadData()
     }
     
     @objc
     private func createRoom(_ sender: AnyObject) {
-        present(CreateRoomViewController(), animated: true)
+        output.wantToCreateRoom()
     }
     
     @objc
     private func refreshRooms(_ sender: AnyObject) {
         dataSource.removeAll()
         
-        //TODO get Rooms
+        let presenter = JoinRoomPresenter(
+            roomService: RoomService(networkService: NetworkService(),
+                                     requestFactory: URLRequestFactory(host: Constants.localBaseURL))
+        )
+        presenter.viewIsReady()
         
         tableView.reloadData()
     }
     
     @objc
     private func joinPrivateRoom(_ sender: AnyObject) {
-       
+        
         //TODO get room and join it
         
         var id = ""
@@ -192,37 +212,51 @@ class JoinRoomViewController: UIViewController{
     }
 }
 
+extension JoinRoomViewController: JoinRoomViewInput {
+    
+    func showRooms(_ data: [Room]) {
+        dataSource = data
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
+    }
+    
+    func showAlert() {
+        
+    }
+    
+    func presentCreateRoom(vc: UIViewController) {
+        present(vc, animated: true)
+    }
+}
+
 extension JoinRoomViewController: UITableViewDataSource {
- 
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
-     switch section {
-            default:
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        default:
             return dataSource.count
         }
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (dataSource.isEmpty){
             return UITableViewCell()
         }
-                let room = dataSource[indexPath.row]
-                if let roomCell = tableView.dequeueReusableCell(withIdentifier: RoomCell.reuseIdentifier, for: indexPath) as? RoomCell {
-                    roomCell.configure(room: room)
-                    roomCell.delegate = self
-                    return roomCell
-                }
-            
+        let room = dataSource[indexPath.row]
+        if let roomCell = tableView.dequeueReusableCell(withIdentifier: RoomCell.reuseIdentifier, for: indexPath) as? RoomCell {
+            roomCell.configure(room: room)
+            // roomCell.delegate = self
+            return roomCell
+        }
+        
         return UITableViewCell()
     }
 }
-
-
-
-
 
 protocol JoiningRoom: AnyObject{
     func joinRoom(id: String, name: String)

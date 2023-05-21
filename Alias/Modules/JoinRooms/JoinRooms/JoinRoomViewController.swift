@@ -102,7 +102,7 @@ class JoinRoomViewController: UIViewController{
         view.addSubview(joinCodeInput)
         joinCodeInput.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            joinCodeInput.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
+            joinCodeInput.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
             joinCodeInput.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             joinCodeInput.rightAnchor.constraint(equalTo: view.centerXAnchor, constant: -10)
         ])
@@ -114,7 +114,7 @@ class JoinRoomViewController: UIViewController{
         NSLayoutConstraint.activate([
             createRoomButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
             createRoomButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
-            createRoomButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5)
+            createRoomButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
         ])
         createRoomButton.addTarget(self, action: #selector(createRoom), for: .touchUpInside)
     }
@@ -145,7 +145,7 @@ class JoinRoomViewController: UIViewController{
         NSLayoutConstraint.activate([
             joinPrivateButton.leftAnchor.constraint(equalTo: view.centerXAnchor, constant: 10),
             joinPrivateButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            joinPrivateButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40)
+            joinPrivateButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40)
         ])
         joinPrivateButton.addTarget(self, action: #selector(joinPrivateRoom), for: .touchUpInside)
     }

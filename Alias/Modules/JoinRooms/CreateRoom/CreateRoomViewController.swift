@@ -8,14 +8,14 @@
 import Foundation
 import UIKit
 
-class CreateRoomViewController: UIViewController{
+class CreateRoomViewController: UIViewController {
     
-    private lazy var mainView = { () -> UIView in
-        let view = UIView()
-        view.layer.cornerRadius = 20
-        view.backgroundColor = .white
-        return view
-    }()
+//    private lazy var mainView = { () -> UIView in
+//        let view = UIView()
+//        view.layer.cornerRadius = 20
+//        view.backgroundColor = .white
+//        return view
+//    }()
     
     private lazy var roomNameInput = { () -> UITextField in
         let input = UITextField()
@@ -58,11 +58,10 @@ class CreateRoomViewController: UIViewController{
     
     
     private func setupView() {
-        setupContentView()
+        // setupContentView()
         setupjoinNameInput()
-        setupcreateRoomButton()
         setupPrivateToggle()
-        view.backgroundColor = .clear
+        setupcreateRoomButton()
 //        var horStack = UIStackView(arrangedSubviews: [isPrivteToggle, toggleLabel])
 //        horStack.distribution = .fillEqually
 //        horStack.axis = .horizontal
@@ -80,53 +79,49 @@ class CreateRoomViewController: UIViewController{
         
     }
     
-    private func setupContentView() {
-        view.addSubview(mainView)
-        mainView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60),
-            mainView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
-            mainView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30),
-            mainView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60)
-        ])
-    }
+//    private func setupContentView() {
+//        view.addSubview(mainView)
+//        mainView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60),
+//            mainView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
+//            mainView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30),
+//            mainView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60)
+//        ])
+//    }
     
     private func setupjoinNameInput() {
-        mainView.addSubview(roomNameInput)
+        view.addSubview(roomNameInput)
         roomNameInput.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            roomNameInput.leftAnchor.constraint(equalTo: mainView.leftAnchor, constant: 5),
-            roomNameInput.rightAnchor.constraint(equalTo: mainView.rightAnchor, constant: -5),
-            roomNameInput.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 5),
-            roomNameInput.bottomAnchor.constraint(equalTo: mainView.topAnchor, constant: 55)
+            roomNameInput.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            roomNameInput.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            roomNameInput.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -16),
         ])
     }
 
     private func setupPrivateToggle() {
-        mainView.addSubview(isPrivteToggle)
+        view.addSubview(isPrivteToggle)
         isPrivteToggle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            isPrivteToggle.leftAnchor.constraint(equalTo: mainView.leftAnchor, constant: 5),
-            isPrivteToggle.rightAnchor.constraint(equalTo: mainView.centerXAnchor, constant: -5),
-            isPrivteToggle.topAnchor.constraint(equalTo: mainView.centerYAnchor, constant: 5)
+            isPrivteToggle.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            isPrivteToggle.topAnchor.constraint(equalTo: roomNameInput.bottomAnchor, constant: 16)
         ])
         
-        mainView.addSubview(toggleLabel)
+        view.addSubview(toggleLabel)
         toggleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            toggleLabel.leftAnchor.constraint(equalTo: mainView.centerXAnchor, constant: 5),
-            toggleLabel.rightAnchor.constraint(equalTo: mainView.rightAnchor, constant: -5),
-            toggleLabel.topAnchor.constraint(equalTo: mainView.centerYAnchor, constant: 5)
+            toggleLabel.trailingAnchor.constraint(equalTo: isPrivteToggle.leadingAnchor, constant: -5),
+            toggleLabel.topAnchor.constraint(equalTo: roomNameInput.bottomAnchor, constant: 16)
         ])
     }
     
     private func setupcreateRoomButton() {
-        mainView.addSubview(createRoomButton)
+        view.addSubview(createRoomButton)
         createRoomButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            createRoomButton.leftAnchor.constraint(equalTo: mainView.leftAnchor, constant: 10),
-            createRoomButton.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -10),
-            createRoomButton.rightAnchor.constraint(equalTo: mainView.rightAnchor, constant: -10)
+            createRoomButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            createRoomButton.topAnchor.constraint(equalTo: isPrivteToggle.bottomAnchor, constant: 16)
         ])
         createRoomButton.addTarget(self, action: #selector(createRoom), for: .touchUpInside)
     }
@@ -137,8 +132,5 @@ class CreateRoomViewController: UIViewController{
     private func createRoom(_ sender: AnyObject) {
         // ToDo create room 
     }
-    
-    
-    
-    
+
 }

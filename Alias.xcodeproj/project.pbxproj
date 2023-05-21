@@ -98,8 +98,8 @@
 		44D325362A18262900667BA9 /* JoinRooms */ = {
 			isa = PBXGroup;
 			children = (
-				44D325372A18266500667BA9 /* JoinRoomViewController.swift */,
-				44A19DBB2A1921BA0006523D /* CreateRoomViewController.swift */,
+				CCF05E052A1A367300F26C1A /* CreateRoom */,
+				CCF05E042A1A366600F26C1A /* JoinRooms */,
 			);
 			path = JoinRooms;
 			sourceTree = "<group>";
@@ -320,6 +320,22 @@
 				CCF05DFF2A1A29C300F26C1A /* RegisterPresenter.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		CCF05E042A1A366600F26C1A /* JoinRooms */ = {
+			isa = PBXGroup;
+			children = (
+				44D325372A18266500667BA9 /* JoinRoomViewController.swift */,
+			);
+			path = JoinRooms;
+			sourceTree = "<group>";
+		};
+		CCF05E052A1A367300F26C1A /* CreateRoom */ = {
+			isa = PBXGroup;
+			children = (
+				44A19DBB2A1921BA0006523D /* CreateRoomViewController.swift */,
+			);
+			path = CreateRoom;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

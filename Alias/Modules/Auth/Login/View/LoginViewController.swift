@@ -159,9 +159,10 @@ final class LoginViewController: UIViewController {
 extension LoginViewController: LoginViewInput {
     
     func loginSuccessed() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
             let joinController = JoinRoomViewController()
-            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(joinController)
+            // (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(joinController)
+            self?.navigationController?.pushViewController(joinController, animated: true)
         }
     }
     

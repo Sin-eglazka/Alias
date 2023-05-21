@@ -26,12 +26,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-        let serviceAssembly = ServiceAssembly()
-        let loginPresenter = LoginPresenter(userService: serviceAssembly.makeUserService())
-        let loginVC = LoginViewController(output: loginPresenter)
-        loginPresenter.viewInput = loginVC
+//        let serviceAssembly = ServiceAssembly()
+//        let loginPresenter = LoginPresenter(userService: serviceAssembly.makeUserService())
+//        let loginVC = LoginViewController(output: loginPresenter)
+//        loginPresenter.viewInput = loginVC
         
-        let navigationController = UINavigationController(rootViewController: loginVC)
+        let navigationController = UINavigationController(rootViewController: JoinRoomViewController())
         
         window.rootViewController = navigationController
         self.window = window

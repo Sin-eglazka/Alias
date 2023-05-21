@@ -10,4 +10,5 @@ import Foundation
 protocol JoinRoomViewOutput {
     func viewIsReady()
     func wantToCreateRoom()
+    func refreshRooms()
 }

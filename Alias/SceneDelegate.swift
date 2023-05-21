@@ -12,14 +12,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-//        guard let windowScene = (scene as? UIWindowScene) else { return }
-//        
-//        let window = UIWindow(windowScene: windowScene)
-//        window.rootViewController = LoginViewController()
-//        self.window = window
-//        
-//
-//        window.makeKeyAndVisible()
+        //        guard let windowScene = (scene as? UIWindowScene) else { return }
+        //
+        //        let window = UIWindow(windowScene: windowScene)
+        //        window.rootViewController = LoginViewController()
+        //        self.window = window
+        //
+        //
+        //        window.makeKeyAndVisible()
         
         guard let windowScene = (scene as? UIWindowScene)
         else { return }
@@ -27,9 +27,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         let serviceAssembly = ServiceAssembly()
-//        let loginPresenter = LoginPresenter(userService: serviceAssembly.makeUserService())
-//        let loginVC = LoginViewController(output: loginPresenter)
-//        loginPresenter.viewInput = loginVC
+        //        let loginPresenter = LoginPresenter(userService: serviceAssembly.makeUserService())
+        //        let loginVC = LoginViewController(output: loginPresenter)
+        //        loginPresenter.viewInput = loginVC
         let presenter = JoinRoomPresenter(roomService: serviceAssembly.makeRoomService())
         let vc = JoinRoomViewController(output: presenter)
         presenter.viewInput = vc
@@ -42,11 +42,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func changeRootViewController(_ vc: UIViewController, animated: Bool = true) {
-            guard let window = self.window else {
-                return
-            }
-            
-            window.rootViewController = vc
+        guard let window = self.window else {
+            return
         }
+        
+        window.rootViewController = vc
+    }
 }
 

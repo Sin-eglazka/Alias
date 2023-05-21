@@ -76,30 +76,30 @@ class JoinRoomViewController: UIViewController {
         setupView()
     }
     
-    fileprivate func setupTableView() {
-        tableView.register(RoomCell.self,forCellReuseIdentifier:
-                            RoomCell.reuseIdentifier)
+    private func setupTableView() {
+        tableView.register(RoomCell.self,forCellReuseIdentifier: RoomCell.reuseIdentifier)
         view.addSubview(tableView)
-        tableView.backgroundColor = .clear
         tableView.keyboardDismissMode = .onDrag
+        tableView.backgroundColor = .clear
+        // TODO: Presenter
         tableView.dataSource = self
-        view.addSubview(tableView)
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 4),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -4),
-            tableView.topAnchor.constraint(equalTo: refreshButton.bottomAnchor, constant: 8)
+            tableView.bottomAnchor.constraint(equalTo: createRoomButton.topAnchor, constant: -16),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8),
+            tableView.topAnchor.constraint(equalTo: joinCodeInput.bottomAnchor, constant: 8)
         ])
     }
     
     private func setupView() {
-        setupJoinCodeInput()
         setupLogoutButton()
-        setupJoinPrivateButton()
         setupRefreshButton()
-        setupTableView()
+        setupJoinCodeInput()
+        setupJoinPrivateButton()
         setupCreateRoomButton()
+        setupTableView()
         output.viewIsReady()
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -115,7 +115,7 @@ class JoinRoomViewController: UIViewController {
         view.addSubview(joinCodeInput)
         joinCodeInput.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            joinCodeInput.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
+            joinCodeInput.topAnchor.constraint(equalTo: refreshButton.bottomAnchor, constant: 16),
             joinCodeInput.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             joinCodeInput.rightAnchor.constraint(equalTo: view.centerXAnchor, constant: -10)
         ])
@@ -137,7 +137,7 @@ class JoinRoomViewController: UIViewController {
         logOutButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             logOutButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
-            logOutButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 30)
+            logOutButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10)
         ])
         logOutButton.addTarget(self, action: #selector(logoutDidTouch), for: .touchUpInside)
     }
@@ -158,7 +158,7 @@ class JoinRoomViewController: UIViewController {
         NSLayoutConstraint.activate([
             joinPrivateButton.leftAnchor.constraint(equalTo: view.centerXAnchor, constant: 10),
             joinPrivateButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            joinPrivateButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40)
+            joinPrivateButton.topAnchor.constraint(equalTo: logOutButton.bottomAnchor, constant: 16),
         ])
         joinPrivateButton.addTarget(self, action: #selector(joinPrivateRoom), for: .touchUpInside)
     }
@@ -178,15 +178,7 @@ class JoinRoomViewController: UIViewController {
     
     @objc
     private func refreshRooms(_ sender: AnyObject) {
-        dataSource.removeAll()
-        
-        let presenter = JoinRoomPresenter(
-            roomService: RoomService(networkService: NetworkService(),
-                                     requestFactory: URLRequestFactory(host: Constants.localBaseURL))
-        )
-        presenter.viewIsReady()
-        
-        tableView.reloadData()
+        output.refreshRooms()
     }
     
     @objc

@@ -26,10 +26,9 @@ final class JoinRoomPresenter {
         roomService.listAllRooms(token: token) { [weak self] result in
             switch result {
             case let .success(rooms):
-                print(rooms)
                 self?.viewInput?.showRooms(rooms)
             case .failure:
-                print(result)
+                self?.viewInput?.showAlert()
             }
         }
     }
@@ -39,6 +38,14 @@ extension JoinRoomPresenter: JoinRoomViewOutput {
     
     func viewIsReady() {
         loadRooms()
+    }
+    
+    func refreshRooms() {
+        loadRooms()
+    }
+    
+    func joinRoom() {
+        
     }
     
     func wantToCreateRoom() {

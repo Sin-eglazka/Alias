@@ -29,7 +29,7 @@ extension RegisterPresenter: RegisterViewOutput {
             case .failure:
                 // TODO: show alert
                 print(result)
-                self?.viewInput?.showAlert()
+                self?.viewInput?.showAlert(title: "Server Error", text: "Couldn't register this user")
             }
         }
     }

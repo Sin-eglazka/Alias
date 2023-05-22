@@ -131,12 +131,28 @@ extension RegisterViewController: RegisterViewInput {
     func signUpSuccessed() {
         // TODO: success alert
         DispatchQueue.main.async { [weak self] in
-            self?.dismiss(animated: true)
+            let alert = UIAlertController(title: "Message", message: "Success registration", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(
+                title: NSLocalizedString("OK", comment: "Default action"),
+                style: .default,
+                handler: { _ in
+                    self?.dismiss(animated: true)
+                })
+            )
+            self?.present(alert, animated: true)
         }
     }
     
-    func showAlert() {
-        
+    func showAlert(title: String, text: String) {
+        DispatchQueue.main.async { [weak self] in
+            let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(
+                title: NSLocalizedString("OK", comment: "Default action"),
+                style: .default,
+                handler: { _ in })
+            )
+            self?.present(alert, animated: true)
+        }
     }
 }
 

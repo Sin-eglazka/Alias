@@ -30,7 +30,7 @@ extension LoginPresenter: LoginViewOutput {
             case .failure:
                 // TODO: show alert
                 print(result)
-                self?.viewInput?.showAlert()
+                self?.viewInput?.showAlert(title: "Server Error", text: "Couldn't login this user")
             }
         }
     }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		447DD6F92A1BC26800727FE5 /* ParticipantsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447DD6F82A1BC26800727FE5 /* ParticipantsCell.swift */; };
 		44A19DBC2A1921BA0006523D /* CreateRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A19DBB2A1921BA0006523D /* CreateRoomViewController.swift */; };
 		44A19DBE2A1963CC0006523D /* TeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A19DBD2A1963CC0006523D /* TeamCell.swift */; };
 		44D325382A18266500667BA9 /* JoinRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D325372A18266500667BA9 /* JoinRoomViewController.swift */; };
@@ -51,6 +52,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		447DD6F82A1BC26800727FE5 /* ParticipantsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsCell.swift; sourceTree = "<group>"; };
 		44A19DBB2A1921BA0006523D /* CreateRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomViewController.swift; sourceTree = "<group>"; };
 		44A19DBD2A1963CC0006523D /* TeamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCell.swift; sourceTree = "<group>"; };
 		44D325372A18266500667BA9 /* JoinRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			children = (
 				44D3253F2A18324E00667BA9 /* RoomCell.swift */,
 				44A19DBD2A1963CC0006523D /* TeamCell.swift */,
+				447DD6F82A1BC26800727FE5 /* ParticipantsCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -469,6 +472,7 @@
 				CC90E9B62A195931007E06E4 /* TeamServiceProtocol.swift in Sources */,
 				CCF05E152A1A510100F26C1A /* CreateRoomViewInput.swift in Sources */,
 				CC90E9C32A19766A007E06E4 /* LoginViewOutput.swift in Sources */,
+				447DD6F92A1BC26800727FE5 /* ParticipantsCell.swift in Sources */,
 				CCF05E0B2A1A403F00F26C1A /* JoinRoomViewInput.swift in Sources */,
 				44E6C9472A179C610016B11C /* RegisterResponse.swift in Sources */,
 				44E6C94B2A179C8E0016B11C /* Team.swift in Sources */,

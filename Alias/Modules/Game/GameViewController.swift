@@ -15,6 +15,8 @@ class GameViewController: UIViewController{
     
     private var dataSource = [Team]()
     
+    private var participants = [TeamPlayer]()
+    
     private lazy var settingsButton = { () -> UIButton in
         let button = UIButton()
         button.setTitle("Settings", for: .normal)
@@ -114,12 +116,14 @@ class GameViewController: UIViewController{
         
         // Test
         
+        participants.append(TeamPlayer(id: "dks", name: "Vasya"))
         
         // end Test
     }
     
     private func setupTableView() {
         tableView.register(TeamCell.self,forCellReuseIdentifier: TeamCell.reuseIdentifier)
+        tableView.register(ParticipantsCell.self, forCellReuseIdentifier: ParticipantsCell.reuseIdentifier)
         view.addSubview(tableView)
         tableView.backgroundColor = .clear
         tableView.keyboardDismissMode = .onDrag
@@ -285,22 +289,20 @@ class GameViewController: UIViewController{
     
     func updateParticipants(){
         dataSource.removeAll()
+        participants.removeAll()
+        // TODO add in dataSource list of groups and add in participants all participants
         
-        // TODO add in dataSource list of groups (at index 0 participants without team)
-        
-        // dataSource = list of groups (at index 0 participants without team)
+        // dataSource = list of groups
+        // participants = list of TeamPlayer
         
         tableView.reloadData()
     }
     
     private func handleDelete(indexPath: IndexPath) {
-        if (indexPath.row == 0){
-            return
-        }
         
         if (isAdmin){
             
-            // TODo delete team with index indexPath.row - 1
+            // TODo delete team with index indexPath.row
             
             dataSource.remove(at: indexPath.row)
             tableView.reloadData()
@@ -326,25 +328,25 @@ extension GameViewController: DeletingRoom{
 extension GameViewController: UITableViewDataSource {
  
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
      switch section {
-        default:
+     case 0:
+         return 1
+     default:
             return dataSource.count
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (dataSource.isEmpty){
-            return UITableViewCell()
-        }
-        switch indexPath.row {
+        
+        switch indexPath.section {
             case 0:
-                if let participantCell = tableView.dequeueReusableCell(withIdentifier: TeamCell.reuseIdentifier, for: indexPath) as? TeamCell {
-                    participantCell.setIsTeam(isTeam: false)
-                    participantCell.configure(usernames: dataSource[indexPath.row].users, title: "Participants")
+                if let participantCell = tableView.dequeueReusableCell(withIdentifier: ParticipantsCell.reuseIdentifier, for: indexPath) as? ParticipantsCell {
+                    
+                    participantCell.configure(usernames: participants)
                     return participantCell
                 }
             default:

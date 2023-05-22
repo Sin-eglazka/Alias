@@ -55,8 +55,8 @@ extension JoinRoomPresenter: JoinRoomViewOutput {
         userService.logout(token: token) { [weak self] result in
             switch result {
             case .success(()):
+                UserDefaults.standard.removeObject(forKey: "bearer token")
                 DispatchQueue.main.async {
-                    UserDefaults.standard.removeObject(forKey: "bearer token")
                     self?.viewInput?.logoutSuccess()
                 }
             case .failure:

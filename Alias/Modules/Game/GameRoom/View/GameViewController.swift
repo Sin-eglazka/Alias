@@ -100,6 +100,9 @@ class GameViewController: UIViewController{
         super.viewDidLoad()
         setupView()
         output.viewIsReady()
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
     
     private func setupView() {
@@ -253,7 +256,7 @@ class GameViewController: UIViewController{
     @objc
     private func createTeam(_ sender: AnyObject) {
         guard let name = teamNameField.text,
-                !name.isEmpty
+              !name.isEmpty
         else {
             return
         }
@@ -317,9 +320,7 @@ extension GameViewController: GameViewInput {
     }
     
     func updateAfterAddingTeam() {
-        DispatchQueue.main.async { [weak self] in
-            self?.output.refreshTeams()
-        }
+        output.refreshTeams()
     }
     
     func leaveRoom() {

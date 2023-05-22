@@ -25,6 +25,7 @@ final class LoginViewController: UIViewController {
         input.placeholder = "Password"
         input.borderStyle = .roundedRect
         input.autocapitalizationType = .none
+        input.isSecureTextEntry = true
         return input
     }()
     
@@ -123,6 +124,8 @@ final class LoginViewController: UIViewController {
         else { return }
         
         output.login(email: email, password: password)
+        emailInput.text = ""
+        passwordInput.text = ""
     }
 }
 

@@ -20,20 +20,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let serviceAssembly = ServiceAssembly()
         let userService = serviceAssembly.makeUserService()
         let roomService = serviceAssembly.makeRoomService()
+        
+        let loginPresenter = LoginPresenter(userService: userService, roomService: roomService)
+        let loginVC = LoginViewController(output: loginPresenter)
+        loginPresenter.viewInput = loginVC
+        let navigationController = UINavigationController(rootViewController: loginVC)
+        
         if (UserDefaults.standard.object(forKey: "bearer token") is String) {
             let presenter = JoinRoomPresenter(roomService: roomService, userService: userService)
             let vc = JoinRoomViewController(output: presenter)
             presenter.viewInput = vc
-            let navigationController = UINavigationController(rootViewController:vc)
-            window.rootViewController = navigationController
-        } else {
-            let loginPresenter = LoginPresenter(userService: userService, roomService: roomService)
-            let loginVC = LoginViewController(output: loginPresenter)
-            loginPresenter.viewInput = loginVC
-            let navigationController = UINavigationController(rootViewController: loginVC)
-            window.rootViewController = navigationController
+            navigationController.pushViewController(vc, animated: true)
         }
-        
+        window.rootViewController = navigationController
         self.window = window
         window.makeKeyAndVisible()
     }

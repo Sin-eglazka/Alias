@@ -176,7 +176,7 @@ extension URLRequestFactory: URLRequestFactoryProtocol {
         return request
     }
     
-    // MARK: - RoomService requests
+    // MARK: - GameService requests
     
     func startRoundInRoom(for roomId: String, with token: String) throws -> URLRequest {
         var request = try makePostRequest(

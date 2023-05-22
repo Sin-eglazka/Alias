@@ -231,8 +231,20 @@ class GameViewController: UIViewController{
     @objc
     private func startRound(_ sender: AnyObject) {
         
+        if (dataSource.count < 3){
+            DispatchQueue.main.async { [weak self] in
+                let alert = UIAlertController(title: "Game Error", message: "Number of teams must be more than 1", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(
+                    title: NSLocalizedString("OK", comment: "Default action"),
+                    style: .default,
+                    handler: { _ in })
+                )
+                self?.present(alert, animated: true)
+            }
+            return
+        }
         // TODO send request for start round
-        
+
         infoLabel.text = "Game was started"
     }
     

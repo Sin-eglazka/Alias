@@ -120,12 +120,17 @@ extension CreateRoomViewController: CreateRoomViewInput {
         DispatchQueue.main.async { [weak self] in
             self?.delegate?.updateAfterAddingRoom()
             self?.dismiss(animated: true)
-            
+            if data.isPrivate {
+                self?.delegate?.showAlert(title: "Invitation code", text: "\(data.id)&\(data.invitationCode ?? "")")
+            }
         }
     }
     
-    func showAlert() {
-        
+    func showAlert(text: String) {
+        DispatchQueue.main.async { [weak self] in
+            self?.dismiss(animated: true)
+            self?.delegate?.showAlert(title: "Error", text: "Couldn't create room")
+        }
     }
     
 }

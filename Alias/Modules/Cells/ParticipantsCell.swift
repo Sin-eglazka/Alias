@@ -3,36 +3,47 @@
 import UIKit
 
 
-final class TeamCell: UITableViewCell {
+final class ParticipantsCell: UITableViewCell {
     
-    static let reuseIdentifier = "TeamCell"
-    private var teamUsers: [TeamPlayer]
+    static let reuseIdentifier = "ParticipantsCell"
+    private var users: [TeamPlayer]
     let scrollView = UIScrollView()
     let content = UIStackView()
-    var labels:[UILabel] = []
-    private var isTeam: Bool = true
+    var stacks:[UIStackView] = []
     
-    private lazy var joinButton = { () -> UIButton in
-        let button = UIButton()
-        button.setTitle("Join team", for: .normal)
-        button.setTitleColor(UIColor.systemBlue, for: .normal)
-        button.addTarget(self, action: #selector(joinTeam), for: .touchUpInside)
-        return button
-    }()
+    
+    
     
     private lazy var mainTitle = { () -> UILabel in
         let label = UILabel()
-        label.text = ""
+        label.text = "Participants"
         label.backgroundColor = .lightGray
         label.textColor = .black
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 40, weight: .regular)
+        label.font = .systemFont(ofSize: 30, weight: .regular)
         return label
+    }()
+    
+    private lazy var deleteButton = { () -> UIButton in
+        let button = UIButton()
+        button.setImage(UIImage(
+            systemName: "trash.fill",
+            withConfiguration: UIImage.SymbolConfiguration(weight: .bold))?.withTintColor(.white), for: .normal)
+        button.addTarget(self, action: #selector(deleteParticipant), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var passAdminButton = { () -> UIButton in
+        let button = UIButton()
+        button.setTitle("Set admin", for: .normal)
+        button.setTitleColor(UIColor.systemBlue, for: .normal)
+        button.addTarget(self, action: #selector(passAdminStatus), for: .touchUpInside)
+        return button
     }()
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        teamUsers = []
+        users = []
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
         setupView()
@@ -70,31 +81,34 @@ final class TeamCell: UITableViewCell {
         
         
  }
+
+    @objc
+    private func passAdminStatus(_ sender: AnyObject) {
     
-    func setIsTeam(isTeam: Bool){
-        self.isTeam = isTeam
+        
     }
     
     @objc
-    private func joinTeam(_ sender: AnyObject) {
+    private func deleteParticipant(_ sender: AnyObject) {
         // ToDo join user this team
     }
 
     
-    func configure(usernames: [TeamPlayer], title: String){
-        teamUsers = usernames
-        labels = []
-        for label in content.subviews{
-            label.removeFromSuperview()
+    func configure(usernames: [TeamPlayer]){
+        users = usernames
+        stacks = []
+        for stack in content.subviews{
+            stack.removeFromSuperview()
         }
-        mainTitle.text = title
         content.addArrangedSubview(mainTitle)
-        for i in 0..<teamUsers.count{
-            labels.append(makeUserLabel(text: teamUsers[i].name))
-            content.addArrangedSubview(labels.last!)
-        }
-        if (isTeam){
-            content.addArrangedSubview(joinButton)
+        for i in 0..<users.count{
+            	
+            let l = makeUserLabel(text: users[i].name)
+            
+            var stack = UIStackView(arrangedSubviews: [l, passAdminButton, deleteButton])
+            stack.axis = .horizontal
+            stacks.append(stack)
+            content.addArrangedSubview(stacks.last!)
         }
     }
     
@@ -103,7 +117,7 @@ final class TeamCell: UITableViewCell {
         label.text = text
         label.textColor = .black
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 30, weight: .regular)
+        label.font = .systemFont(ofSize: 20, weight: .regular)
         return label
      }
     

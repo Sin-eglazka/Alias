@@ -9,5 +9,5 @@ import Foundation
 
 protocol RegisterViewInput: AnyObject {
     func signUpSuccessed()
-    func showAlert()
+    func showAlert(title: String, text: String)
 }

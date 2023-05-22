@@ -105,10 +105,16 @@ extension URLRequestFactory: URLRequestFactoryProtocol {
         return request
     }
     
-    func joinRoom(with token: String, gameRoomId: String, invitationCode: String) throws -> URLRequest {
+    func joinRoom(with token: String, gameRoomId: String, invitationCode: String?) throws -> URLRequest {
+        var body: [String : String]
+        if let invitationCode = invitationCode {
+            body = ["gameRoomId": gameRoomId, "invitationCode": invitationCode]
+        } else {
+            body = ["gameRoomId": gameRoomId]
+        }
         var request = try makePostRequest(
             path: Endpoints.joinRoom,
-            bodyObject: ["gameRoomId": gameRoomId, "invitationCode": invitationCode]
+            bodyObject: body
         )
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
@@ -169,4 +175,25 @@ extension URLRequestFactory: URLRequestFactoryProtocol {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }
+    
+    // MARK: - GameService requests
+    
+    func startRoundInRoom(for roomId: String, with token: String) throws -> URLRequest {
+        var request = try makePostRequest(
+            path: Endpoints.startGameRound,
+            bodyObject: ["gameRoomId": roomId]
+        )
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    func pauseRoundInRoom(for roomId: String, with token: String) throws -> URLRequest {
+        var request = try makePostRequest(
+            path: Endpoints.pauseGameRound,
+            bodyObject: ["gameRoomId": roomId]
+        )
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
 }

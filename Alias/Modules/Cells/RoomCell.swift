@@ -8,7 +8,6 @@
 import UIKit
 class RoomCell : UITableViewCell{
     
-    // var delegate: JoiningRoom = JoinRoomViewController()
     static let reuseIdentifier = "RoomCell"
     private var roomId: String = " "
     private var roomName: String
@@ -47,27 +46,18 @@ class RoomCell : UITableViewCell{
     }()
     
     private func setupView() {
-         let stackView = UIStackView(arrangedSubviews: [nameLabel, joinButton])
-         stackView.axis = .horizontal
-         stackView.spacing = 8
-         stackView.distribution = .fill
+        let stackView = UIStackView(arrangedSubviews: [nameLabel, joinButton])
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        stackView.distribution = .fill
         stackView.backgroundColor = .lightGray
-         contentView.addSubview(stackView)
+        contentView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -2),
             stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 2),
             stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -2)
         ])
-        
-        joinButton.addTarget(self, action: #selector(joinRoom), for: .touchUpInside)
-        
- }
-    
-    @objc
-    private func joinRoom(_ sender: AnyObject) {
-        
-        // delegate.joinRoom(id: roomId, name: roomName)
     }
     
     func configure(room: Room){

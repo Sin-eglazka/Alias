@@ -9,5 +9,5 @@ import Foundation
 
 protocol CreateRoomViewInput: AnyObject {
     func roomWasAdded(_ data: GameRoom)
-    func showAlert()
+    func showAlert(text: String)
 }

@@ -51,7 +51,6 @@ class JoinRoomViewController: UIViewController {
     
     private lazy var refreshButton = { () -> UIButton in
         let button = UIButton()
-        // button.setTitle("Refresh", for: .normal)
         let image = UIImage(systemName: "arrow.triangle.2.circlepath")?.withTintColor(.systemBlue)
         button.setImage(image, for: .normal)
         button.setTitleColor(UIColor.systemBlue, for: .normal)
@@ -91,6 +90,7 @@ class JoinRoomViewController: UIViewController {
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8),
             tableView.topAnchor.constraint(equalTo: joinCodeInput.bottomAnchor, constant: 8)
         ])
+        tableView.delegate = self
     }
     
     private func setupView() {
@@ -101,14 +101,7 @@ class JoinRoomViewController: UIViewController {
         setupCreateRoomButton()
         setupTableView()
         output.viewIsReady()
-        
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        
-        // test
-        // var room = Room(isPrivate: true, id: "ossq", admin: "katya", name: "Hello World", creator: "katya", invitationCode: nil)
-        // dataSource.append(room)
-        // tableView.reloadData()
-        // end test
     }
     
     private func setupJoinCodeInput() {
@@ -183,14 +176,22 @@ class JoinRoomViewController: UIViewController {
     
     @objc
     private func joinPrivateRoom(_ sender: AnyObject) {
+        guard let code = joinCodeInput.text,
+              !code.isEmpty
+        else {
+            return
+        }
         
-        //TODO get room and join it
+        let parts = code.split(separator: "&")
+        if (parts.count < 2) {
+            showAlert(title: "Wrong code", text: "There isn't room with such code")
+            return
+        }
+        let roomId = String(parts[0])
+        let invitation = String(parts[1])
         
-        var id = ""
-        var name = ""
-        var isAdmin = true
-        self.navigationController?.pushViewController(GameViewController(roomId: id, name: name, isAdmin: isAdmin), animated: true)
-        
+        // TODO: fix admin and name
+        output.joinRoom(roomId: roomId, name: "private room", invitationCode: invitation, isAdmin: true)
     }
     
     @objc
@@ -199,8 +200,8 @@ class JoinRoomViewController: UIViewController {
         
         // TODO: logout
         
-        self.navigationController?.popViewController(animated: true)
-        //self.navigationController?.popToRootViewController(animated: true)
+        //self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }
 
@@ -219,12 +220,49 @@ extension JoinRoomViewController: JoinRoomViewInput {
         }
     }
     
-    func showAlert() {
-        
+    func showAlert(title: String, text: String) {
+        let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(
+            title: NSLocalizedString("OK", comment: "Default action"),
+            style: .default,
+            handler: { _ in })
+        )
+        if title == "Invitation code" {
+            alert.addAction(UIAlertAction(
+                title: NSLocalizedString("Copy", comment: "Default action"),
+                style: .default,
+                handler: { _ in
+                    UIPasteboard.general.string = alert.message
+                })
+            )
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alert, animated: true)
+        }
     }
     
     func presentCreateRoom(vc: UIViewController) {
         present(vc, animated: true)
+    }
+    
+    func presentRoom(vc: UIViewController) {
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension JoinRoomViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // TODO: fix isAdmin
+        
+        output.joinRoom(
+            roomId: dataSource[indexPath.row].id,
+            name: dataSource[indexPath.row].name,
+            invitationCode: nil,
+            isAdmin: true
+        )
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -248,23 +286,9 @@ extension JoinRoomViewController: UITableViewDataSource {
         let room = dataSource[indexPath.row]
         if let roomCell = tableView.dequeueReusableCell(withIdentifier: RoomCell.reuseIdentifier, for: indexPath) as? RoomCell {
             roomCell.configure(room: room)
-            // roomCell.delegate = self
             return roomCell
         }
         
         return UITableViewCell()
-    }
-}
-
-protocol JoiningRoom: AnyObject{
-    func joinRoom(id: String, name: String)
-}
-
-extension JoinRoomViewController: JoiningRoom{
-    func joinRoom(id: String, name: String) {
-        
-        // TODO check if room available, after join it and get isAdmin property
-        var isAdmin = true
-        self.navigationController?.pushViewController(GameViewController(roomId: id, name: name, isAdmin: isAdmin), animated: true)
     }
 }

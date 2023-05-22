@@ -19,7 +19,7 @@ final class JoinRoomPresenter {
     
     private func loadRooms() {
         guard let token = (UserDefaults.standard.object(forKey: "bearer token") as? String) else {
-            viewInput?.showAlert()
+            viewInput?.showAlert(title: "Server error", text: "broken auth")
             return
         }
         
@@ -28,7 +28,7 @@ final class JoinRoomPresenter {
             case let .success(rooms):
                 self?.viewInput?.showRooms(rooms)
             case .failure:
-                self?.viewInput?.showAlert()
+                self?.viewInput?.showAlert(title: "Server error", text: "Couldn't load rooms")
             }
         }
     }
@@ -44,8 +44,32 @@ extension JoinRoomPresenter: JoinRoomViewOutput {
         loadRooms()
     }
     
-    func joinRoom() {
+    func joinRoom(roomId: String, name: String, invitationCode: String? ,isAdmin: Bool) {
+        guard let token = (UserDefaults.standard.object(forKey: "bearer token") as? String) else {
+            viewInput?.showAlert(title: "Server error", text: "broken auth")
+            return
+        }
         
+        roomService.joinRoom(gameRoomId: roomId, invitationCode: invitationCode, token: token) { [weak self] result in
+            switch result {
+            case .success(()):
+                DispatchQueue.main.async {
+                    let assembly = ServiceAssembly()
+                    guard let roomService = self?.roomService else { return }
+                    let presenter = GamePresenter(
+                        roomId: roomId,
+                        roomService: roomService,
+                        gameService: assembly.makeGameService(),
+                        teamService: assembly.makeTeamService()
+                    )
+                    let gameRoomVC = GameViewController(roomId: roomId, name: name, isAdmin: isAdmin, output: presenter)
+                    presenter.viewInput = gameRoomVC
+                    self?.viewInput?.presentRoom(vc: gameRoomVC)
+                }
+            case .failure:
+                self?.viewInput?.showAlert(title: "Server error", text: "Couldn't join room")
+            }
+        }
     }
     
     func wantToCreateRoom() {

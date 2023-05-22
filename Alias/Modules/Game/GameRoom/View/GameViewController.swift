@@ -139,7 +139,7 @@ class GameViewController: UIViewController{
         view.addSubview(infoLabel)
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            infoLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+            infoLabel.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: 16),
             infoLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
             infoLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20)
         ])
@@ -149,7 +149,7 @@ class GameViewController: UIViewController{
         view.addSubview(mainTitle)
         mainTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            mainTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            mainTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             mainTitle.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -70),
             mainTitle.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 70)
         ])
@@ -202,7 +202,7 @@ class GameViewController: UIViewController{
         view.addSubview(settingsButton)
         settingsButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            settingsButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 30),
+            settingsButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             settingsButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10)
         ])
         settingsButton.addTarget(self, action: #selector(settingsDidTouch), for: .touchUpInside)
@@ -212,10 +212,10 @@ class GameViewController: UIViewController{
         view.addSubview(leaveButton)
         leaveButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            leaveButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 30),
+            leaveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             leaveButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10)
         ])
-        leaveButton.addTarget(self, action: #selector(leaveRoom), for: .touchUpInside)
+        leaveButton.addTarget(self, action: #selector(wantToLeaveRoom), for: .touchUpInside)
     }
     
     @objc
@@ -224,13 +224,10 @@ class GameViewController: UIViewController{
         // TODO send request pause round
         
         infoLabel.text = "Game was paused"
-        
-        
     }
     
     @objc
     private func startRound(_ sender: AnyObject) {
-        
         if (dataSource.count < 3){
             DispatchQueue.main.async { [weak self] in
                 let alert = UIAlertController(title: "Game Error", message: "Number of teams must be more than 1", preferredStyle: .alert)
@@ -249,33 +246,18 @@ class GameViewController: UIViewController{
     }
     
     @objc
-    private func leaveRoom(_ sender: AnyObject) {
-        
-        // TODO send request for leaving room
-        
+    private func wantToLeaveRoom(_ sender: AnyObject) {
+        output.leaveRoom()
     }
     
     @objc
     private func createTeam(_ sender: AnyObject) {
-        
         guard let name = teamNameField.text,
                 !name.isEmpty
         else {
             return
         }
-        
         output.createTeam(with: name)
-        
-        // TODO send request for adding team
-//
-//        var users = TeamPlayer(id: "", name: "Katya")
-//        var usr2 = TeamPlayer(id: "", name: "Liza")
-//        var team = Team(id: "", name: teamNameField.text ?? "", users: [users, usr2])
-//
-//        dataSource.append(team)
-//        tableView.reloadData()
-//        teamNameField.text = ""
-//
     }
     
     @objc
@@ -337,6 +319,12 @@ extension GameViewController: GameViewInput {
     func updateAfterAddingTeam() {
         DispatchQueue.main.async { [weak self] in
             self?.output.refreshTeams()
+        }
+    }
+    
+    func leaveRoom() {
+        DispatchQueue.main.async { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
         }
     }
 }

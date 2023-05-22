@@ -64,14 +64,13 @@ extension GamePresenter: GameViewOutput {
         
         teamService.createTeam(name: name, gameRoomId: roomId, token: token) { [weak self] result in
             switch result {
-            case let .success(_):
+            case .success(_):
                 DispatchQueue.main.async {
                     self?.viewInput?.updateAfterAddingTeam()
                 }
             case .failure:
                 self?.viewInput?.showAlert(title: "Server error", text: "Couldn't create team")
             }
-            
         }
     }
     
@@ -80,7 +79,21 @@ extension GamePresenter: GameViewOutput {
     }
     
     func leaveRoom() {
+        guard let token = token else {
+            viewInput?.showAlert(title: "Server error", text: "broken auth")
+            return
+        }
         
+        roomService.leaveRoom(gameRoomId: roomId, token: token) { [weak self] result in
+            switch result {
+            case .success(_):
+                DispatchQueue.main.async {
+                    self?.viewInput?.leaveRoom()
+                }
+            case .failure:
+                self?.viewInput?.showAlert(title: "Server error", text: "Couldn't leave room")
+            }
+        }
     }
     
     func joinTeam() {

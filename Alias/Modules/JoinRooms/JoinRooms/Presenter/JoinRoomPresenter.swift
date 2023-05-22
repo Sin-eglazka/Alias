@@ -44,13 +44,13 @@ extension JoinRoomPresenter: JoinRoomViewOutput {
         loadRooms()
     }
     
-    func joinRoom(roomId: String, name: String, isAdmin: Bool) {
+    func joinRoom(roomId: String, name: String, invitationCode: String? ,isAdmin: Bool) {
         guard let token = (UserDefaults.standard.object(forKey: "bearer token") as? String) else {
             viewInput?.showAlert(title: "Server error", text: "broken auth")
             return
         }
         
-        roomService.joinRoom(gameRoomId: roomId, invitationCode: nil, token: token) { [weak self] result in
+        roomService.joinRoom(gameRoomId: roomId, invitationCode: invitationCode, token: token) { [weak self] result in
             switch result {
             case .success(()):
                 DispatchQueue.main.async {

@@ -176,14 +176,22 @@ class JoinRoomViewController: UIViewController {
     
     @objc
     private func joinPrivateRoom(_ sender: AnyObject) {
+        guard let code = joinCodeInput.text,
+              !code.isEmpty
+        else {
+            return
+        }
         
-        //TODO get room and join it
+        let parts = code.split(separator: "&")
+        if (parts.count < 2) {
+            showAlert(title: "Wrong code", text: "There isn't room with such code")
+            return
+        }
+        let roomId = String(parts[0])
+        let invitation = String(parts[1])
         
-        //        var id = ""
-        //        var name = "First Room"
-        //        var isAdmin = true
-        // self.navigationController?.pushViewController(GameViewController(roomId: id, name: name, isAdmin: isAdmin), animated: true)
-        
+        // TODO: fix admin and name
+        output.joinRoom(roomId: roomId, name: "private room", invitationCode: invitation, isAdmin: true)
     }
     
     @objc
@@ -246,11 +254,14 @@ extension JoinRoomViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // TO DO join room at indexPath.row
-        // navigationController?.pushViewController(GameViewController(roomId: "id", name: "name", isAdmin: true), animated: true)
-        
         // TODO: fix isAdmin
-        output.joinRoom(roomId: dataSource[indexPath.row].id, name: dataSource[indexPath.row].name, isAdmin: true)
+        
+        output.joinRoom(
+            roomId: dataSource[indexPath.row].id,
+            name: dataSource[indexPath.row].name,
+            invitationCode: nil,
+            isAdmin: true
+        )
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

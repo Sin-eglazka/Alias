@@ -12,7 +12,7 @@ class SettingsViewController: UIViewController{
     
     private var contentView: UIView = UIView()
     
-    var delegate: DeletingRoom = GameViewController(roomId: "", name: "", isAdmin: false)
+    // var delegate: DeletingRoom = GameViewController(roomId: "", name: "", isAdmin: false)
     
     private lazy var adminView = { () -> UIView in
         let view = UIView()
@@ -190,7 +190,7 @@ class SettingsViewController: UIViewController{
     private func deleteRoom(_ sender: AnyObject) {
         // ToDo delete room
         
-        delegate.deleteRoom()
+        // delegate.deleteRoom()
         self.dismiss(animated: true)
 //        var controllers = self.navigationController?.viewControllers
 //

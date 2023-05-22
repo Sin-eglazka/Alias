@@ -15,18 +15,37 @@ final class GamePresenter {
     private let gameService: GameServiceProtocol
     private let teamService: TeamServiceProtocol
     
-    init(roomService: RoomServiceProtocol, gameService: GameServiceProtocol, teamService: TeamServiceProtocol) {
+    private let token = (UserDefaults.standard.object(forKey: "bearer token") as? String)
+    private let roomId: String
+    
+    init(roomId: String, roomService: RoomServiceProtocol, gameService: GameServiceProtocol, teamService: TeamServiceProtocol) {
         self.roomService = roomService
         self.gameService = gameService
         self.teamService = teamService
+        self.roomId = roomId
     }
     
+    private func loadTeams() {
+        guard let token = token else {
+            viewInput?.showAlert(title: "Server error", text: "broken auth")
+            return
+        }
+        
+        teamService.listTeamsForRoom(gameRoomId: roomId, token: token) { [weak self] result in
+            switch result {
+            case let .success(teams):
+                self?.viewInput?.showTeams(teams)
+            case .failure:
+                self?.viewInput?.showAlert(title: "Server error", text: "Couldn't load teams")
+            }
+        }
+    }
 }
 
 extension GamePresenter: GameViewOutput {
     
     func viewIsReady() {
-        
+        loadTeams()
     }
     
     func wantToStartRound() {
@@ -38,7 +57,22 @@ extension GamePresenter: GameViewOutput {
     }
     
     func createTeam(with name: String) {
+        guard let token = token else {
+            viewInput?.showAlert(title: "Server error", text: "broken auth")
+            return
+        }
         
+        teamService.createTeam(name: name, gameRoomId: roomId, token: token) { [weak self] result in
+            switch result {
+            case let .success(_):
+                DispatchQueue.main.async {
+                    self?.viewInput?.updateAfterAddingTeam()
+                }
+            case .failure:
+                self?.viewInput?.showAlert(title: "Server error", text: "Couldn't create team")
+            }
+            
+        }
     }
     
     func changeSettings() {
@@ -53,5 +87,7 @@ extension GamePresenter: GameViewOutput {
         
     }
     
-    
+    func refreshTeams() {
+        loadTeams()
+    }
 }

@@ -13,8 +13,9 @@ class GameViewController: UIViewController{
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
     private var dataSource = [Team]()
-    
     private var participants = [TeamPlayer]()
+    
+    private var output: GameViewOutput
     
     private lazy var settingsButton = { () -> UIButton in
         let button = UIButton()
@@ -81,10 +82,13 @@ class GameViewController: UIViewController{
     private var roomId, name: String
     private var isAdmin: Bool
     
-    init (roomId: String, name: String, isAdmin: Bool){
+    // MARK: Lifecycle
+    
+    init (roomId: String, name: String, isAdmin: Bool, output: GameViewOutput){
         self.roomId = roomId
         self.name = name
         self.isAdmin = isAdmin
+        self.output = output
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -92,12 +96,11 @@ class GameViewController: UIViewController{
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        output.viewIsReady()
     }
-    
     
     private func setupView() {
         setupSettingsButton()
@@ -106,17 +109,10 @@ class GameViewController: UIViewController{
         setupStartButton()
         setupPauseButton()
         setupInfoLabel()
-        setupCreateTeamButton()	
+        setupCreateTeamButton()
         setupInputTeamName()
         setupTableView()
         
-           
-           // Test
-           
-           participants.append(TeamPlayer(id: "dks", name: "Vasya"))
-           
-           // end Test
-
         view.backgroundColor = .white
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
@@ -228,7 +224,7 @@ class GameViewController: UIViewController{
         // TODO send request pause round
         
         infoLabel.text = "Game was paused"
-
+        
         
     }
     
@@ -248,7 +244,7 @@ class GameViewController: UIViewController{
             return
         }
         // TODO send request for start round
-
+        
         infoLabel.text = "Game was started"
     }
     
@@ -257,25 +253,29 @@ class GameViewController: UIViewController{
         
         // TODO send request for leaving room
         
-
-        
     }
     
     @objc
     private func createTeam(_ sender: AnyObject) {
         
-        guard let name = teamNameField.text, !name.isEmpty else{return}
+        guard let name = teamNameField.text,
+                !name.isEmpty
+        else {
+            return
+        }
+        
+        output.createTeam(with: name)
         
         // TODO send request for adding team
-        
-        var users = TeamPlayer(id: "", name: "Katya")
-        var usr2 = TeamPlayer(id: "", name: "Liza")
-        var team = Team(id: "", name: teamNameField.text ?? "", users: [users, usr2])
-        
-        dataSource.append(team)
-        tableView.reloadData()
-        teamNameField.text = ""
-        
+//
+//        var users = TeamPlayer(id: "", name: "Katya")
+//        var usr2 = TeamPlayer(id: "", name: "Liza")
+//        var team = Team(id: "", name: teamNameField.text ?? "", users: [users, usr2])
+//
+//        dataSource.append(team)
+//        tableView.reloadData()
+//        teamNameField.text = ""
+//
     }
     
     @objc
@@ -283,7 +283,7 @@ class GameViewController: UIViewController{
         
         // TODO check if user an admin
         let settingsVC = SettingsViewController(isAdmin: true)
-        settingsVC.delegate = self
+        // settingsVC.delegate = self
         present(settingsVC, animated: true)
     }
     
@@ -299,7 +299,6 @@ class GameViewController: UIViewController{
     }
     
     private func handleDelete(indexPath: IndexPath) {
-        
         if (isAdmin){
             
             // TODo delete team with index indexPath.row
@@ -308,9 +307,38 @@ class GameViewController: UIViewController{
             tableView.reloadData()
         }
     }
+}
+
+extension GameViewController: GameViewInput {
     
+    func showTeams(_ data: [Team]) {
+        dataSource = data
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
+    }
     
+    func showAlert(title: String, text: String) {
+        let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(
+            title: NSLocalizedString("OK", comment: "Default action"),
+            style: .default,
+            handler: { _ in })
+        )
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alert, animated: true)
+        }
+    }
     
+    func presentSettings(vc: UIViewController) {
+        
+    }
+    
+    func updateAfterAddingTeam() {
+        DispatchQueue.main.async { [weak self] in
+            self?.output.refreshTeams()
+        }
+    }
 }
 
 protocol DeletingRoom: AnyObject{
@@ -326,44 +354,44 @@ extension GameViewController: DeletingRoom{
 }
 
 extension GameViewController: UITableViewDataSource {
- 
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-     switch section {
-     case 0:
-         return 1
-     default:
+        switch section {
+        case 0:
+            return 1
+        default:
             return dataSource.count
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.section {
-            case 0:
-                if let participantCell = tableView.dequeueReusableCell(withIdentifier: ParticipantsCell.reuseIdentifier, for: indexPath) as? ParticipantsCell {
-                    
-                    participantCell.configure(usernames: participants)
-                    return participantCell
-                }
-            default:
-            let list = dataSource[indexPath.row]
-                if let teamCell = tableView.dequeueReusableCell(withIdentifier: TeamCell.reuseIdentifier, for: indexPath) as? TeamCell {
-                    teamCell.setIsTeam(isTeam: true)
-                    teamCell.configure(usernames: list.users, title: list.name)
-                        return teamCell
-                }
+        case 0:
+            if let participantCell = tableView.dequeueReusableCell(withIdentifier: ParticipantsCell.reuseIdentifier, for: indexPath) as? ParticipantsCell {
+                
+                participantCell.configure(usernames: participants)
+                return participantCell
             }
+        default:
+            let list = dataSource[indexPath.row]
+            if let teamCell = tableView.dequeueReusableCell(withIdentifier: TeamCell.reuseIdentifier, for: indexPath) as? TeamCell {
+                teamCell.setIsTeam(isTeam: true)
+                teamCell.configure(usernames: list.users, title: list.name)
+                return teamCell
+            }
+        }
         return UITableViewCell()
     }
 }
 
 extension GameViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-            
+        
         let deleteAction = UIContextualAction(
             style: .destructive,
             title: .none

@@ -54,7 +54,16 @@ extension JoinRoomPresenter: JoinRoomViewOutput {
             switch result {
             case .success(()):
                 DispatchQueue.main.async {
-                    let gameRoomVC = GameViewController(roomId: roomId, name: name, isAdmin: isAdmin)
+                    let assembly = ServiceAssembly()
+                    guard let roomService = self?.roomService else { return }
+                    let presenter = GamePresenter(
+                        roomId: roomId,
+                        roomService: roomService,
+                        gameService: assembly.makeGameService(),
+                        teamService: assembly.makeTeamService()
+                    )
+                    let gameRoomVC = GameViewController(roomId: roomId, name: name, isAdmin: isAdmin, output: presenter)
+                    presenter.viewInput = gameRoomVC
                     self?.viewInput?.presentRoom(vc: gameRoomVC)
                 }
             case .failure:

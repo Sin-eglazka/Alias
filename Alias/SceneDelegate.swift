@@ -27,9 +27,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         let serviceAssembly = ServiceAssembly()
-//                let loginPresenter = LoginPresenter(userService: serviceAssembly.makeUserService())
-//                let loginVC = LoginViewController(output: loginPresenter)
-//                loginPresenter.viewInput = loginVC
+        //        let loginPresenter = LoginPresenter(userService: serviceAssembly.makeUserService())
+        //        let loginVC = LoginViewController(output: loginPresenter)
+        //        loginPresenter.viewInput = loginVC
+        //        window.rootViewController = loginVC
+        
         let presenter = JoinRoomPresenter(roomService: serviceAssembly.makeRoomService())
         let vc = JoinRoomViewController(output: presenter)
         presenter.viewInput = vc
@@ -37,6 +39,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigationController = UINavigationController(rootViewController:vc)
         
         window.rootViewController = navigationController
+        
         self.window = window
         window.makeKeyAndVisible()
     }

@@ -28,4 +28,7 @@ enum Endpoints {
     static let createTeam = "/teams/create-team"
     static let listTeamsInRoom = "/teams/list-teams"
     static let joinTeam = "/teams/join-team"
+    
+    static let startGameRound = "/round/start"
+    static let pauseGameRound = "/round/pause"
 }

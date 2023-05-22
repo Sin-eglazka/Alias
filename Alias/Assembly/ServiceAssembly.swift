@@ -14,7 +14,7 @@ final class ServiceAssembly {
     }()
     
     private lazy var requestFactory: URLRequestFactoryProtocol = {
-        URLRequestFactory(host: Constants.baseUrl)
+        URLRequestFactory(host: Constants.localBaseURL)
     }()
 
     func makeUserService() -> UserServiceProtocol {
@@ -23,5 +23,13 @@ final class ServiceAssembly {
     
     func makeRoomService() -> RoomServiceProtocol {
         RoomService(networkService: networkService, requestFactory: requestFactory)
+    }
+    
+    func makeGameService() -> GameServiceProtocol {
+        GameService(networkService: networkService, requestFactory: requestFactory)
+    }
+    
+    func makeTeamService() -> TeamServiceProtocol {
+        TeamService(networkService: networkService, requestFactory: requestFactory)
     }
 }

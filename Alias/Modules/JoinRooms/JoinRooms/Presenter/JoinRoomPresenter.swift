@@ -44,8 +44,23 @@ extension JoinRoomPresenter: JoinRoomViewOutput {
         loadRooms()
     }
     
-    func joinRoom() {
+    func joinRoom(roomId: String, name: String, isAdmin: Bool) {
+        guard let token = (UserDefaults.standard.object(forKey: "bearer token") as? String) else {
+            viewInput?.showAlert(title: "Server error", text: "broken auth")
+            return
+        }
         
+        roomService.joinRoom(gameRoomId: roomId, invitationCode: nil, token: token) { [weak self] result in
+            switch result {
+            case .success(()):
+                DispatchQueue.main.async {
+                    let gameRoomVC = GameViewController(roomId: roomId, name: name, isAdmin: isAdmin)
+                    self?.viewInput?.presentRoom(vc: gameRoomVC)
+                }
+            case .failure:
+                self?.viewInput?.showAlert(title: "Server error", text: "Couldn't join room")
+            }
+        }
     }
     
     func wantToCreateRoom() {

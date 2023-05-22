@@ -51,7 +51,6 @@ class JoinRoomViewController: UIViewController {
     
     private lazy var refreshButton = { () -> UIButton in
         let button = UIButton()
-        // button.setTitle("Refresh", for: .normal)
         let image = UIImage(systemName: "arrow.triangle.2.circlepath")?.withTintColor(.systemBlue)
         button.setImage(image, for: .normal)
         button.setTitleColor(UIColor.systemBlue, for: .normal)
@@ -102,7 +101,6 @@ class JoinRoomViewController: UIViewController {
         setupCreateRoomButton()
         setupTableView()
         output.viewIsReady()
-        
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
@@ -181,10 +179,10 @@ class JoinRoomViewController: UIViewController {
         
         //TODO get room and join it
         
-        var id = ""
-        var name = "First Room"
-        var isAdmin = true
-        self.navigationController?.pushViewController(GameViewController(roomId: id, name: name, isAdmin: isAdmin), animated: true)
+        //        var id = ""
+        //        var name = "First Room"
+        //        var isAdmin = true
+        // self.navigationController?.pushViewController(GameViewController(roomId: id, name: name, isAdmin: isAdmin), animated: true)
         
     }
     
@@ -238,6 +236,10 @@ extension JoinRoomViewController: JoinRoomViewInput {
     func presentCreateRoom(vc: UIViewController) {
         present(vc, animated: true)
     }
+    
+    func presentRoom(vc: UIViewController) {
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension JoinRoomViewController: UITableViewDelegate {
@@ -245,8 +247,10 @@ extension JoinRoomViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         // TO DO join room at indexPath.row
+        // navigationController?.pushViewController(GameViewController(roomId: "id", name: "name", isAdmin: true), animated: true)
         
-        navigationController?.pushViewController(GameViewController(roomId: "id", name: "name", isAdmin: true), animated: true)
+        // TODO: fix isAdmin
+        output.joinRoom(roomId: dataSource[indexPath.row].id, name: dataSource[indexPath.row].name, isAdmin: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
@@ -271,7 +275,6 @@ extension JoinRoomViewController: UITableViewDataSource {
         let room = dataSource[indexPath.row]
         if let roomCell = tableView.dequeueReusableCell(withIdentifier: RoomCell.reuseIdentifier, for: indexPath) as? RoomCell {
             roomCell.configure(room: room)
-            // roomCell.delegate = self
             return roomCell
         }
         

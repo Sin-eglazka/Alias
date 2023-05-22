@@ -12,6 +12,7 @@ protocol JoinRoomViewInput: AnyObject {
     func showRooms(_ data: [Room])
     func showAlert(title: String, text: String)
     func presentCreateRoom(vc: UIViewController)
+    func presentRoom(vc: UIViewController)
     func updateAfterAddingRoom()
 }
 

@@ -41,9 +41,9 @@ final class URLRequestFactory {
     
     private func url(with path: String, parameters: [String: String]) -> URL? {
         var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
+        urlComponents.scheme = "http"
         urlComponents.host = host
-        //urlComponents.port = 8080
+        urlComponents.port = 8080
         urlComponents.path = path
         
         if !parameters.isEmpty {
@@ -175,4 +175,25 @@ extension URLRequestFactory: URLRequestFactoryProtocol {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }
+    
+    // MARK: - GameService requests
+    
+    func startRoundInRoom(for roomId: String, with token: String) throws -> URLRequest {
+        var request = try makePostRequest(
+            path: Endpoints.startGameRound,
+            bodyObject: ["gameRoomId": roomId]
+        )
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
+    func pauseRoundInRoom(for roomId: String, with token: String) throws -> URLRequest {
+        var request = try makePostRequest(
+            path: Endpoints.pauseGameRound,
+            bodyObject: ["gameRoomId": roomId]
+        )
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+    }
+    
 }

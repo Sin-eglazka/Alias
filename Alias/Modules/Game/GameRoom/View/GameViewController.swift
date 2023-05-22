@@ -10,7 +10,6 @@ import UIKit
 
 class GameViewController: UIViewController{
     
-    
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
     private var dataSource = [Team]()
@@ -110,15 +109,16 @@ class GameViewController: UIViewController{
         setupCreateTeamButton()	
         setupInputTeamName()
         setupTableView()
+        
+           
+           // Test
+           
+           participants.append(TeamPlayer(id: "dks", name: "Vasya"))
+           
+           // end Test
+
         view.backgroundColor = .white
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        
-        
-        // Test
-        
-        participants.append(TeamPlayer(id: "dks", name: "Vasya"))
-        
-        // end Test
     }
     
     private func setupTableView() {

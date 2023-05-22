@@ -13,8 +13,9 @@ class GameViewController: UIViewController{
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
     private var dataSource = [Team]()
-    
     private var participants = [TeamPlayer]()
+    
+    private var output: GameViewOutput
     
     private lazy var settingsButton = { () -> UIButton in
         let button = UIButton()
@@ -81,10 +82,13 @@ class GameViewController: UIViewController{
     private var roomId, name: String
     private var isAdmin: Bool
     
-    init (roomId: String, name: String, isAdmin: Bool){
+    // MARK: Lifecycle
+    
+    init (roomId: String, name: String, isAdmin: Bool, output: GameViewOutput){
         self.roomId = roomId
         self.name = name
         self.isAdmin = isAdmin
+        self.output = output
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -92,12 +96,11 @@ class GameViewController: UIViewController{
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        output.viewIsReady()
     }
-    
     
     private func setupView() {
         setupSettingsButton()
@@ -106,17 +109,10 @@ class GameViewController: UIViewController{
         setupStartButton()
         setupPauseButton()
         setupInfoLabel()
-        setupCreateTeamButton()	
+        setupCreateTeamButton()
         setupInputTeamName()
         setupTableView()
         
-           
-           // Test
-           
-           participants.append(TeamPlayer(id: "dks", name: "Vasya"))
-           
-           // end Test
-
         view.backgroundColor = .white
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
@@ -143,7 +139,7 @@ class GameViewController: UIViewController{
         view.addSubview(infoLabel)
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            infoLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+            infoLabel.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: 16),
             infoLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
             infoLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20)
         ])
@@ -153,7 +149,7 @@ class GameViewController: UIViewController{
         view.addSubview(mainTitle)
         mainTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            mainTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            mainTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             mainTitle.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -70),
             mainTitle.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 70)
         ])
@@ -206,7 +202,7 @@ class GameViewController: UIViewController{
         view.addSubview(settingsButton)
         settingsButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            settingsButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 30),
+            settingsButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             settingsButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10)
         ])
         settingsButton.addTarget(self, action: #selector(settingsDidTouch), for: .touchUpInside)
@@ -216,10 +212,10 @@ class GameViewController: UIViewController{
         view.addSubview(leaveButton)
         leaveButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            leaveButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 30),
+            leaveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             leaveButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10)
         ])
-        leaveButton.addTarget(self, action: #selector(leaveRoom), for: .touchUpInside)
+        leaveButton.addTarget(self, action: #selector(wantToLeaveRoom), for: .touchUpInside)
     }
     
     @objc
@@ -228,13 +224,10 @@ class GameViewController: UIViewController{
         // TODO send request pause round
         
         infoLabel.text = "Game was paused"
-
-        
     }
     
     @objc
     private func startRound(_ sender: AnyObject) {
-        
         if (dataSource.count < 3){
             DispatchQueue.main.async { [weak self] in
                 let alert = UIAlertController(title: "Game Error", message: "Number of teams must be more than 1", preferredStyle: .alert)
@@ -248,34 +241,23 @@ class GameViewController: UIViewController{
             return
         }
         // TODO send request for start round
-
+        
         infoLabel.text = "Game was started"
     }
     
     @objc
-    private func leaveRoom(_ sender: AnyObject) {
-        
-        // TODO send request for leaving room
-        
-
-        
+    private func wantToLeaveRoom(_ sender: AnyObject) {
+        output.leaveRoom()
     }
     
     @objc
     private func createTeam(_ sender: AnyObject) {
-        
-        guard let name = teamNameField.text, !name.isEmpty else{return}
-        
-        // TODO send request for adding team
-        
-        var users = TeamPlayer(id: "", name: "Katya")
-        var usr2 = TeamPlayer(id: "", name: "Liza")
-        var team = Team(id: "", name: teamNameField.text ?? "", users: [users, usr2])
-        
-        dataSource.append(team)
-        tableView.reloadData()
-        teamNameField.text = ""
-        
+        guard let name = teamNameField.text,
+                !name.isEmpty
+        else {
+            return
+        }
+        output.createTeam(with: name)
     }
     
     @objc
@@ -283,7 +265,7 @@ class GameViewController: UIViewController{
         
         // TODO check if user an admin
         let settingsVC = SettingsViewController(isAdmin: true)
-        settingsVC.delegate = self
+        // settingsVC.delegate = self
         present(settingsVC, animated: true)
     }
     
@@ -299,7 +281,6 @@ class GameViewController: UIViewController{
     }
     
     private func handleDelete(indexPath: IndexPath) {
-        
         if (isAdmin){
             
             // TODo delete team with index indexPath.row
@@ -308,9 +289,44 @@ class GameViewController: UIViewController{
             tableView.reloadData()
         }
     }
+}
+
+extension GameViewController: GameViewInput {
     
+    func showTeams(_ data: [Team]) {
+        dataSource = data
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
+    }
     
+    func showAlert(title: String, text: String) {
+        let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(
+            title: NSLocalizedString("OK", comment: "Default action"),
+            style: .default,
+            handler: { _ in })
+        )
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alert, animated: true)
+        }
+    }
     
+    func presentSettings(vc: UIViewController) {
+        
+    }
+    
+    func updateAfterAddingTeam() {
+        DispatchQueue.main.async { [weak self] in
+            self?.output.refreshTeams()
+        }
+    }
+    
+    func leaveRoom() {
+        DispatchQueue.main.async { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
+    }
 }
 
 protocol DeletingRoom: AnyObject{
@@ -326,44 +342,44 @@ extension GameViewController: DeletingRoom{
 }
 
 extension GameViewController: UITableViewDataSource {
- 
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-     switch section {
-     case 0:
-         return 1
-     default:
+        switch section {
+        case 0:
+            return 1
+        default:
             return dataSource.count
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.section {
-            case 0:
-                if let participantCell = tableView.dequeueReusableCell(withIdentifier: ParticipantsCell.reuseIdentifier, for: indexPath) as? ParticipantsCell {
-                    
-                    participantCell.configure(usernames: participants)
-                    return participantCell
-                }
-            default:
-            let list = dataSource[indexPath.row]
-                if let teamCell = tableView.dequeueReusableCell(withIdentifier: TeamCell.reuseIdentifier, for: indexPath) as? TeamCell {
-                    teamCell.setIsTeam(isTeam: true)
-                    teamCell.configure(usernames: list.users, title: list.name)
-                        return teamCell
-                }
+        case 0:
+            if let participantCell = tableView.dequeueReusableCell(withIdentifier: ParticipantsCell.reuseIdentifier, for: indexPath) as? ParticipantsCell {
+                
+                participantCell.configure(usernames: participants)
+                return participantCell
             }
+        default:
+            let list = dataSource[indexPath.row]
+            if let teamCell = tableView.dequeueReusableCell(withIdentifier: TeamCell.reuseIdentifier, for: indexPath) as? TeamCell {
+                teamCell.setIsTeam(isTeam: true)
+                teamCell.configure(usernames: list.users, title: list.name)
+                return teamCell
+            }
+        }
         return UITableViewCell()
     }
 }
 
 extension GameViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-            
+        
         let deleteAction = UIContextualAction(
             style: .destructive,
             title: .none

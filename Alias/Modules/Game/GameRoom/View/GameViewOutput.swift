@@ -15,4 +15,5 @@ protocol GameViewOutput {
     func changeSettings()
     func leaveRoom()
     func joinTeam()
+    func refreshTeams()
 }

@@ -13,4 +13,5 @@ protocol GameViewInput: AnyObject {
     func showAlert(title: String, text: String)
     func presentSettings(vc: UIViewController)
     func updateAfterAddingTeam()
+    func leaveRoom()
 }

@@ -196,12 +196,8 @@ class JoinRoomViewController: UIViewController {
     
     @objc
     private func logoutDidTouch(_ sender: AnyObject) {
-        
-        
         // TODO: logout
-        
-        //self.navigationController?.popViewController(animated: true)
-        self.navigationController?.popToRootViewController(animated: true)
+        output.wantToLogout()
     }
 }
 
@@ -246,7 +242,15 @@ extension JoinRoomViewController: JoinRoomViewInput {
     }
     
     func presentRoom(vc: UIViewController) {
-        navigationController?.pushViewController(vc, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func logoutSuccess() {
+        DispatchQueue.main.async { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
     }
 }
 

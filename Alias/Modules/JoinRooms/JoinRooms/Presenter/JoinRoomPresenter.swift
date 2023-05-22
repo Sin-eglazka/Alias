@@ -12,9 +12,11 @@ final class JoinRoomPresenter {
     weak var viewInput: JoinRoomViewInput?
     
     private let roomService: RoomServiceProtocol
+    private let userService: UserServiceProtocol
     
-    init(roomService: RoomServiceProtocol) {
+    init(roomService: RoomServiceProtocol, userService: UserServiceProtocol) {
         self.roomService = roomService
+        self.userService = userService
     }
     
     private func loadRooms() {
@@ -42,6 +44,25 @@ extension JoinRoomPresenter: JoinRoomViewOutput {
     
     func refreshRooms() {
         loadRooms()
+    }
+    
+    func wantToLogout() {
+        guard let token = (UserDefaults.standard.object(forKey: "bearer token") as? String) else {
+            viewInput?.showAlert(title: "Server error", text: "broken auth")
+            return
+        }
+        
+        userService.logout(token: token) { [weak self] result in
+            switch result {
+            case .success(()):
+                DispatchQueue.main.async {
+                    UserDefaults.standard.removeObject(forKey: "bearer token")
+                    self?.viewInput?.logoutSuccess()
+                }
+            case .failure:
+                self?.viewInput?.showAlert(title: "Server error", text: "Couldn't logout")
+            }
+        }
     }
     
     func joinRoom(roomId: String, name: String, invitationCode: String? ,isAdmin: Bool) {

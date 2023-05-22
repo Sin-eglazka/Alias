@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol LoginViewInput: AnyObject {
-    func loginSuccessed()
+    func loginSuccessed(vc: UIViewController)
     func showAlert(title: String, text: String)
     func presentSignUp(vc: UIViewController)
 }

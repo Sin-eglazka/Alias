@@ -64,16 +64,6 @@ final class LoginViewController: UIViewController {
         setupPasswordInput()
         setupLoginButton()
         setupSignUpButton()
-        
-//        let service = RoomService(networkService: NetworkService(), requestFactory: URLRequestFactory(host: Constants.localBaseURL))
-//        service.joinRoom(gameRoomId: "4F4E50DE-CED8-4B84-A925-C93CE11C90A3", invitationCode: "I1S2t", token: "Lpsb/o7rPel2Aqws0SQIu3kiXRF4aNN9p96gBuaaNpc=") { result in
-//            switch result {
-//            case let .success(room):
-//                print(room)
-//            case .failure:
-//                print(result)
-//            }
-//        }
     }
     
     private func setupEmailInput() {
@@ -131,22 +121,15 @@ final class LoginViewController: UIViewController {
             !email.isEmpty,
             !password.isEmpty
         else { return }
-
+        
         output.login(email: email, password: password)
     }
 }
 
 extension LoginViewController: LoginViewInput {
     
-    func loginSuccessed() {
-        DispatchQueue.main.async { [weak self] in
-            let serviceAssembly = ServiceAssembly()
-            let presenter = JoinRoomPresenter(roomService: serviceAssembly.makeRoomService())
-            let vc = JoinRoomViewController(output: presenter)
-            //let joinController = JoinRoomViewController()
-             // (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(vc)
-             self?.navigationController?.pushViewController(vc, animated: true)
-        }
+    func loginSuccessed(vc: UIViewController) {
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func showAlert(title: String, text: String) {

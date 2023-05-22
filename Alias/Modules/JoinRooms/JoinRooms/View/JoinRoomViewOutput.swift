@@ -12,4 +12,5 @@ protocol JoinRoomViewOutput {
     func wantToCreateRoom()
     func refreshRooms()
     func joinRoom(roomId: String, name: String, invitationCode: String? ,isAdmin: Bool)
+    func wantToLogout()
 }

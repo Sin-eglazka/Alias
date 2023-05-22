@@ -28,6 +28,9 @@
 		CC3958482A17F259008E4838 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3958472A17F259008E4838 /* NetworkService.swift */; };
 		CC39584A2A17F2B8008E4838 /* URLRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3958492A17F2B8008E4838 /* URLRequestFactory.swift */; };
 		CC39584D2A181C57008E4838 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC39584C2A181C57008E4838 /* UserService.swift */; };
+		CC4810E02A1BB43400300FD3 /* GameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4810DF2A1BB43400300FD3 /* GameService.swift */; };
+		CC4810E22A1BB44200300FD3 /* GameServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4810E12A1BB44100300FD3 /* GameServiceProtocol.swift */; };
+		CC4810E42A1BB9D500300FD3 /* GameRound.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4810E32A1BB9D500300FD3 /* GameRound.swift */; };
 		CC90E9A92A190EA5007E06E4 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9A82A190EA5007E06E4 /* LoginResponse.swift */; };
 		CC90E9AB2A191517007E06E4 /* RoomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9AA2A191517007E06E4 /* RoomService.swift */; };
 		CC90E9AF2A191548007E06E4 /* UserServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9AE2A191548007E06E4 /* UserServiceProtocol.swift */; };
@@ -74,6 +77,9 @@
 		CC3958472A17F259008E4838 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		CC3958492A17F2B8008E4838 /* URLRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestFactory.swift; sourceTree = "<group>"; };
 		CC39584C2A181C57008E4838 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		CC4810DF2A1BB43400300FD3 /* GameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameService.swift; sourceTree = "<group>"; };
+		CC4810E12A1BB44100300FD3 /* GameServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameServiceProtocol.swift; sourceTree = "<group>"; };
+		CC4810E32A1BB9D500300FD3 /* GameRound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRound.swift; sourceTree = "<group>"; };
 		CC90E9A82A190EA5007E06E4 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		CC90E9AA2A191517007E06E4 /* RoomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomService.swift; sourceTree = "<group>"; };
 		CC90E9AE2A191548007E06E4 /* UserServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceProtocol.swift; sourceTree = "<group>"; };
@@ -174,6 +180,7 @@
 				CC90E9A72A190E94007E06E4 /* Auth */,
 				44E6C9482A179C7D0016B11C /* Room.swift */,
 				44E6C94A2A179C8E0016B11C /* Team.swift */,
+				CC4810E32A1BB9D500300FD3 /* GameRound.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -220,11 +227,21 @@
 		CC39584B2A181C40008E4838 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				CC4810DE2A1BB42100300FD3 /* GameService */,
 				CC90E9B22A1958D9007E06E4 /* TeamService */,
 				CC90E9AD2A191536007E06E4 /* RoomService */,
 				CC90E9AC2A19152E007E06E4 /* UserService */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		CC4810DE2A1BB42100300FD3 /* GameService */ = {
+			isa = PBXGroup;
+			children = (
+				CC4810DF2A1BB43400300FD3 /* GameService.swift */,
+				CC4810E12A1BB44100300FD3 /* GameServiceProtocol.swift */,
+			);
+			path = GameService;
 			sourceTree = "<group>";
 		};
 		CC90E9A72A190E94007E06E4 /* Auth */ = {
@@ -464,7 +481,9 @@
 				CC90E9A92A190EA5007E06E4 /* LoginResponse.swift in Sources */,
 				44E6C9452A179C530016B11C /* RegisterViewController.swift in Sources */,
 				44E6C9492A179C7D0016B11C /* Room.swift in Sources */,
+				CC4810E22A1BB44200300FD3 /* GameServiceProtocol.swift in Sources */,
 				44A19DBC2A1921BA0006523D /* CreateRoomViewController.swift in Sources */,
+				CC4810E02A1BB43400300FD3 /* GameService.swift in Sources */,
 				CCF05E132A1A4FF300F26C1A /* CreateRoomPresenter.swift in Sources */,
 				CC90E9B62A195931007E06E4 /* TeamServiceProtocol.swift in Sources */,
 				CCF05E152A1A510100F26C1A /* CreateRoomViewInput.swift in Sources */,
@@ -496,6 +515,7 @@
 				CCF05E0F2A1A4FC900F26C1A /* CreateRoomViewOutput.swift in Sources */,
 				44D325382A18266500667BA9 /* JoinRoomViewController.swift in Sources */,
 				CC90E9B92A196BE3007E06E4 /* URLRequestFactoryProtocol.swift in Sources */,
+				CC4810E42A1BB9D500300FD3 /* GameRound.swift in Sources */,
 				CC90E9C12A197660007E06E4 /* LoginViewInput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

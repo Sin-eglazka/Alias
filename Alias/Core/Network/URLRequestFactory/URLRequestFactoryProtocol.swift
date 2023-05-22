@@ -22,4 +22,7 @@ protocol URLRequestFactoryProtocol {
     func listTeams(for room: String, with token: String) throws -> URLRequest
     func listPlayersInRoom(for room: String, with token: String) throws -> URLRequest
     func joinTeam(teamId: String, with token: String) throws -> URLRequest
+    
+    func startRoundInRoom(for roomId: String, with token: String) throws -> URLRequest
+    func pauseRoundInRoom(for roomId: String, with token: String) throws -> URLRequest
 }

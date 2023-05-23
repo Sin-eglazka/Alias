@@ -11,8 +11,12 @@ final class JoinRoomPresenter {
     
     weak var viewInput: JoinRoomViewInput?
     
+    // MARK: - Private properties
+    
     private let roomService: RoomServiceProtocol
     private let userService: UserServiceProtocol
+    
+    // MARK: - Lifecycle
     
     init(roomService: RoomServiceProtocol, userService: UserServiceProtocol) {
         self.roomService = roomService

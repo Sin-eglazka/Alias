@@ -37,6 +37,7 @@
 		CC6B3B372A1D6E13007E8384 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6B3B362A1D6E13007E8384 /* SettingsPresenter.swift */; };
 		CC6B3B392A1D6E25007E8384 /* SettingsViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6B3B382A1D6E25007E8384 /* SettingsViewOutput.swift */; };
 		CC6B3B3B2A1D6E2D007E8384 /* SettingsViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6B3B3A2A1D6E2D007E8384 /* SettingsViewInput.swift */; };
+		CC6B3B3E2A1D7840007E8384 /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6B3B3D2A1D7840007E8384 /* NetworkServiceProtocol.swift */; };
 		CC90E9A92A190EA5007E06E4 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9A82A190EA5007E06E4 /* LoginResponse.swift */; };
 		CC90E9AB2A191517007E06E4 /* RoomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9AA2A191517007E06E4 /* RoomService.swift */; };
 		CC90E9AF2A191548007E06E4 /* UserServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9AE2A191548007E06E4 /* UserServiceProtocol.swift */; };
@@ -92,6 +93,7 @@
 		CC6B3B362A1D6E13007E8384 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		CC6B3B382A1D6E25007E8384 /* SettingsViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewOutput.swift; sourceTree = "<group>"; };
 		CC6B3B3A2A1D6E2D007E8384 /* SettingsViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewInput.swift; sourceTree = "<group>"; };
+		CC6B3B3D2A1D7840007E8384 /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
 		CC90E9A82A190EA5007E06E4 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		CC90E9AA2A191517007E06E4 /* RoomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomService.swift; sourceTree = "<group>"; };
 		CC90E9AE2A191548007E06E4 /* UserServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceProtocol.swift; sourceTree = "<group>"; };
@@ -200,10 +202,10 @@
 		44E6C94C2A179CF80016B11C /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				CC6B3B3C2A1D782A007E8384 /* NetworkService */,
 				CC90E9B72A196BC5007E06E4 /* URLRequestFactory */,
 				44E6C94D2A179D120016B11C /* HttpError.swift */,
 				44E6C9522A17AABB0016B11C /* Constants.swift */,
-				CC3958472A17F259008E4838 /* NetworkService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -308,6 +310,15 @@
 				CC6B3B362A1D6E13007E8384 /* SettingsPresenter.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		CC6B3B3C2A1D782A007E8384 /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				CC3958472A17F259008E4838 /* NetworkService.swift */,
+				CC6B3B3D2A1D7840007E8384 /* NetworkServiceProtocol.swift */,
+			);
+			path = NetworkService;
 			sourceTree = "<group>";
 		};
 		CC90E9A72A190E94007E06E4 /* Auth */ = {
@@ -572,6 +583,7 @@
 				CC4810EA2A1BC24700300FD3 /* GamePresenter.swift in Sources */,
 				CC90E9AF2A191548007E06E4 /* UserServiceProtocol.swift in Sources */,
 				44E6C94E2A179D120016B11C /* HttpError.swift in Sources */,
+				CC6B3B3E2A1D7840007E8384 /* NetworkServiceProtocol.swift in Sources */,
 				44D325402A18324E00667BA9 /* RoomCell.swift in Sources */,
 				CC90E9B12A191591007E06E4 /* RoomServiceProtocol.swift in Sources */,
 				CCF05E092A1A400A00F26C1A /* JoinRoomPresenter.swift in Sources */,

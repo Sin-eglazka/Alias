@@ -10,6 +10,8 @@ import UIKit
 
 final class RegisterViewController: UIViewController {
     
+    // MARK: - Private properties
+    
     private var output: RegisterViewOutput
     
     private lazy var nameInput = { () -> UITextField in
@@ -59,6 +61,8 @@ final class RegisterViewController: UIViewController {
         view.backgroundColor = .white
         setupView()
     }
+    
+    // MARK: - View setup
     
     private func setupView() {
         setupNameInput()
@@ -110,6 +114,8 @@ final class RegisterViewController: UIViewController {
         signUpButton.addTarget(self, action: #selector(signUpDidTouch), for: .touchUpInside)
     }
     
+    // MARK: - Action targets
+    
     @objc
     private func signUpDidTouch(_ sender: AnyObject) {
         guard
@@ -125,6 +131,8 @@ final class RegisterViewController: UIViewController {
         output.signUp(name: name, email: email, password: password)
     }
 }
+
+// MARK: - RegisterViewInput
 
 extension RegisterViewController: RegisterViewInput {
     
@@ -154,6 +162,8 @@ extension RegisterViewController: RegisterViewInput {
         }
     }
 }
+
+// MARK: - UITextFieldDelegate
 
 extension RegisterViewController: UITextFieldDelegate {
     

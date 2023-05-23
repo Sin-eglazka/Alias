@@ -8,13 +8,15 @@
 import Foundation
 import UIKit
 
-class GameViewController: UIViewController{
+class GameViewController: UIViewController {
+    
+    // MARK: - Private properties
     
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
     private var dataSource = [Team]()
     private var participants = [TeamPlayer]()
-    
+
     private var output: GameViewOutput
     
     private lazy var settingsButton = { () -> UIButton in
@@ -102,6 +104,8 @@ class GameViewController: UIViewController{
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
+    
+    // MARK: - View setup
     
     private func setupView() {
         setupSettingsButton()
@@ -219,6 +223,8 @@ class GameViewController: UIViewController{
         leaveButton.addTarget(self, action: #selector(wantToLeaveRoom), for: .touchUpInside)
     }
     
+    // MARK: - Action targets
+    
     @objc
     private func pauseRound(_ sender: AnyObject) {
         output.wantToPauseRound()
@@ -262,7 +268,7 @@ class GameViewController: UIViewController{
         output.changeSettings()
     }
     
-    func updateParticipants(){
+    private func updateParticipants(){
         dataSource.removeAll()
         participants.removeAll()
         // TODO add in dataSource list of groups and add in participants all participants
@@ -283,6 +289,8 @@ class GameViewController: UIViewController{
        // }
     }
 }
+
+// MARK: - GameViewInput
 
 extension GameViewController: GameViewInput {
     
@@ -344,6 +352,8 @@ extension GameViewController: DeletingRoom{
     }
 }
 
+// MARK: - UITableViewDataSource
+
 extension GameViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -379,6 +389,8 @@ extension GameViewController: UITableViewDataSource {
         return UITableViewCell()
     }
 }
+
+// MARK: - UITableViewDelegate
 
 extension GameViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

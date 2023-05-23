@@ -11,8 +11,12 @@ final class LoginPresenter {
     
     weak var viewInput: LoginViewInput?
     
+    // MARK: - Private properties
+    
     private let userService: UserServiceProtocol
     private let roomService: RoomServiceProtocol
+    
+    // MARK: - Lifecycle
     
     init(userService: UserServiceProtocol, roomService: RoomServiceProtocol) {
         self.userService = userService

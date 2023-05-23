@@ -11,9 +11,13 @@ final class SettingsPresenter {
     
     weak var viewInput: SettingsViewInput?
     
+    // MARK: - Private properties
+    
     private let roomService: RoomServiceProtocol
     private let room: JoinRoomResponse
     private let token = (UserDefaults.standard.object(forKey: "bearer token") as? String)
+    
+    // MARK: - Lifecycle
     
     init(room: JoinRoomResponse, roomService: RoomServiceProtocol) {
         self.roomService = roomService

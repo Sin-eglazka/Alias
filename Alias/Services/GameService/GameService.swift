@@ -12,10 +12,14 @@ final class GameService: GameServiceProtocol {
     private let networkService: NetworkServiceProtocol
     private let requestFactory: URLRequestFactoryProtocol
     
+    // MARK: - Lifecycle
+    
     init(networkService: NetworkServiceProtocol, requestFactory: URLRequestFactoryProtocol) {
         self.networkService = networkService
         self.requestFactory = requestFactory
     }
+    
+    // MARK: - GameServiceProtocol
     
     func startRound(inRoom gameRoomId: String, token: String, completion: @escaping (Result<GameRound, Error>) -> Void) {
         do {

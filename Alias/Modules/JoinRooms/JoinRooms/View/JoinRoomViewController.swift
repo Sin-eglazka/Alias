@@ -10,10 +10,11 @@ import UIKit
 
 class JoinRoomViewController: UIViewController {
     
+    // MARK: - Private properties
+    
     private var output: JoinRoomViewOutput
     
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
-    
     private var dataSource = [Room]()
     
     private lazy var joinCodeInput = { () -> UITextField in
@@ -97,6 +98,8 @@ class JoinRoomViewController: UIViewController {
         tableView.delegate = self
     }
     
+    // MARK: - View setup
+    
     private func setupView() {
         setupLogoutButton()
         setupRefreshButton()
@@ -159,6 +162,8 @@ class JoinRoomViewController: UIViewController {
         joinPrivateButton.addTarget(self, action: #selector(joinPrivateRoom), for: .touchUpInside)
     }
     
+    // MARK: - Action targets
+    
     private func handleDelete(indexPath: IndexPath) {
         dataSource.remove(at: indexPath.row)
         
@@ -192,8 +197,7 @@ class JoinRoomViewController: UIViewController {
         }
         let roomId = String(parts[0])
         let invitation = String(parts[1])
-        
-        // TODO: fix admin and name
+
         output.joinRoom(roomId: roomId, name: "private room", invitationCode: invitation, isAdmin: true)
     }
     
@@ -202,6 +206,8 @@ class JoinRoomViewController: UIViewController {
         output.wantToLogout()
     }
 }
+
+// MARK: - JoinRoomViewInput
 
 extension JoinRoomViewController: JoinRoomViewInput {
     
@@ -254,6 +260,8 @@ extension JoinRoomViewController: JoinRoomViewInput {
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension JoinRoomViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -269,6 +277,8 @@ extension JoinRoomViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension JoinRoomViewController: UITableViewDataSource {
     

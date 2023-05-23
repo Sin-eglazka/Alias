@@ -6,13 +6,13 @@ import UIKit
 final class ParticipantsCell: UITableViewCell {
     
     static let reuseIdentifier = "ParticipantsCell"
+    
+    // MARK: - Private properties
+    
     private var users: [TeamPlayer]
-    let scrollView = UIScrollView()
-    let content = UIStackView()
-    var stacks:[UIStackView] = []
-    
-    
-    
+    private let scrollView = UIScrollView()
+    private let content = UIStackView()
+    private var stacks:[UIStackView] = []
     
     private lazy var mainTitle = { () -> UILabel in
         let label = UILabel()
@@ -41,6 +41,7 @@ final class ParticipantsCell: UITableViewCell {
         return button
     }()
     
+    // MARK: - Lifecycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         users = []
@@ -77,14 +78,10 @@ final class ParticipantsCell: UITableViewCell {
             content.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10)
         ])
         content.alignment = .fill
-        
-        
-        
  }
 
     @objc
     private func passAdminStatus(_ sender: AnyObject) {
-    
         
     }
     
@@ -92,7 +89,8 @@ final class ParticipantsCell: UITableViewCell {
     private func deleteParticipant(_ sender: AnyObject) {
         // ToDo join user this team
     }
-
+    
+    // MARK: - Configure
     
     func configure(usernames: [TeamPlayer]){
         users = usernames

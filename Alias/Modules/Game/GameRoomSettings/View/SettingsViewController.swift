@@ -10,8 +10,9 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
-    private var output: SettingsViewOutput
+    // MARK: - Private properties
     
+    private var output: SettingsViewOutput
     private var contentView: UIView = UIView()
     
     // weak var delegate: DeletingRoom = GameViewController(roomId: "", name: "", isAdmin: false)
@@ -27,8 +28,7 @@ class SettingsViewController: UIViewController {
         view.backgroundColor = .white
         return view
     }()
-
-
+    
     private lazy var roomNameInput = { () -> UITextField in
         let input = UITextField()
         input.placeholder = "Room Name"
@@ -65,6 +65,8 @@ class SettingsViewController: UIViewController {
     
     private var isAdmin: Bool = true
     
+    // MARK: - Lifecycle
+    
     init (isAdmin: Bool, output: SettingsViewOutput){
         self.isAdmin = isAdmin
         self.output = output
@@ -75,7 +77,6 @@ class SettingsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         if (isAdmin){
@@ -90,6 +91,8 @@ class SettingsViewController: UIViewController {
         view.addGestureRecognizer(tap)
         output.viewIsReady()
     }
+    
+    // MARK: - View setup
     
     private func setupView() {
         setupContentView()
@@ -152,6 +155,8 @@ class SettingsViewController: UIViewController {
         applyButton.addTarget(self, action: #selector(applyChanges), for: .touchUpInside)
     }
     
+    // MARK: - Action targets
+    
     @objc
     private func applyChanges(_ sender: AnyObject) {
         guard let name = roomNameInput.text,
@@ -176,9 +181,10 @@ class SettingsViewController: UIViewController {
 //            }
 //        }
     }
-    
-    
 }
+
+
+// MARK: - SettingsViewInput
 
 extension SettingsViewController: SettingsViewInput {
     

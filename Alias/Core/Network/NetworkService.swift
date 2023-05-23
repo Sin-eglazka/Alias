@@ -59,8 +59,6 @@ final class NetworkService: NetworkServiceProtocol {
             } else {
                 completion(.failure(HttpError.badResponse))
             }
-            
-            completion(.success(()))
         }.resume()
     }
 }

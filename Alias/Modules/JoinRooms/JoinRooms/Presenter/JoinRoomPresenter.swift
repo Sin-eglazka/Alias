@@ -12,9 +12,11 @@ final class JoinRoomPresenter {
     weak var viewInput: JoinRoomViewInput?
     
     private let roomService: RoomServiceProtocol
+    private let userService: UserServiceProtocol
     
-    init(roomService: RoomServiceProtocol) {
+    init(roomService: RoomServiceProtocol, userService: UserServiceProtocol) {
         self.roomService = roomService
+        self.userService = userService
     }
     
     private func loadRooms() {
@@ -44,6 +46,23 @@ extension JoinRoomPresenter: JoinRoomViewOutput {
         loadRooms()
     }
     
+    func wantToLogout() {
+        guard let token = (UserDefaults.standard.object(forKey: "bearer token") as? String) else {
+            viewInput?.showAlert(title: "Server error", text: "broken auth")
+            return
+        }
+        
+        userService.logout(token: token) { [weak self] result in
+            switch result {
+            case .success(()):
+                UserDefaults.standard.removeObject(forKey: "bearer token")
+                self?.viewInput?.logoutSuccess()
+            case .failure:
+                self?.viewInput?.showAlert(title: "Server error", text: "Couldn't logout")
+            }
+        }
+    }
+    
     func joinRoom(roomId: String, name: String, invitationCode: String? ,isAdmin: Bool) {
         guard let token = (UserDefaults.standard.object(forKey: "bearer token") as? String) else {
             viewInput?.showAlert(title: "Server error", text: "broken auth")
@@ -52,16 +71,16 @@ extension JoinRoomPresenter: JoinRoomViewOutput {
         
         roomService.joinRoom(gameRoomId: roomId, invitationCode: invitationCode, token: token) { [weak self] result in
             switch result {
-            case .success(()):
+            case let .success(room):
+                let assembly = ServiceAssembly()
+                guard let roomService = self?.roomService else { return }
+                let presenter = GamePresenter(
+                    room: room,
+                    roomService: roomService,
+                    gameService: assembly.makeGameService(),
+                    teamService: assembly.makeTeamService()
+                )
                 DispatchQueue.main.async {
-                    let assembly = ServiceAssembly()
-                    guard let roomService = self?.roomService else { return }
-                    let presenter = GamePresenter(
-                        roomId: roomId,
-                        roomService: roomService,
-                        gameService: assembly.makeGameService(),
-                        teamService: assembly.makeTeamService()
-                    )
                     let gameRoomVC = GameViewController(roomId: roomId, name: name, isAdmin: isAdmin, output: presenter)
                     presenter.viewInput = gameRoomVC
                     self?.viewInput?.presentRoom(vc: gameRoomVC)

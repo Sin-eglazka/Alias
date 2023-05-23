@@ -16,13 +16,13 @@ final class GamePresenter {
     private let teamService: TeamServiceProtocol
     
     private let token = (UserDefaults.standard.object(forKey: "bearer token") as? String)
-    private let roomId: String
+    private let room: JoinRoomResponse
     
-    init(roomId: String, roomService: RoomServiceProtocol, gameService: GameServiceProtocol, teamService: TeamServiceProtocol) {
+    init(room: JoinRoomResponse, roomService: RoomServiceProtocol, gameService: GameServiceProtocol, teamService: TeamServiceProtocol) {
         self.roomService = roomService
         self.gameService = gameService
         self.teamService = teamService
-        self.roomId = roomId
+        self.room = room
     }
     
     private func loadTeams() {
@@ -31,7 +31,7 @@ final class GamePresenter {
             return
         }
         
-        teamService.listTeamsForRoom(gameRoomId: roomId, token: token) { [weak self] result in
+        teamService.listTeamsForRoom(gameRoomId: room.id, token: token) { [weak self] result in
             switch result {
             case let .success(teams):
                 self?.viewInput?.showTeams(teams)
@@ -49,11 +49,35 @@ extension GamePresenter: GameViewOutput {
     }
     
     func wantToStartRound() {
+        guard let token = token else {
+            viewInput?.showAlert(title: "Server error", text: "broken auth")
+            return
+        }
         
+        gameService.startRound(inRoom: room.id, token: token) { [weak self] result in
+            switch result {
+            case let .success(round):
+                self?.viewInput?.updateRound(state: "Round started at \(round.startTime)")
+            case .failure:
+                self?.viewInput?.showAlert(title: "Server error", text: "Couldn't start round")
+            }
+        }
     }
     
     func wantToPauseRound() {
+        guard let token = token else {
+            viewInput?.showAlert(title: "Server error", text: "broken auth")
+            return
+        }
         
+        gameService.pauseRound(inRoom: room.id, token: token) { [weak self] result in
+            switch result {
+            case let .success(round):
+                self?.viewInput?.updateRound(state: "Round was paused at \(round.endTime ?? "")")
+            case .failure:
+                self?.viewInput?.showAlert(title: "Server error", text: "Couldn't pause round")
+            }
+        }
     }
     
     func createTeam(with name: String) {
@@ -62,12 +86,10 @@ extension GamePresenter: GameViewOutput {
             return
         }
         
-        teamService.createTeam(name: name, gameRoomId: roomId, token: token) { [weak self] result in
+        teamService.createTeam(name: name, gameRoomId: room.id, token: token) { [weak self] result in
             switch result {
             case .success(_):
-                DispatchQueue.main.async {
-                    self?.viewInput?.updateAfterAddingTeam()
-                }
+                self?.viewInput?.updateAfterAddingTeam()
             case .failure:
                 self?.viewInput?.showAlert(title: "Server error", text: "Couldn't create team")
             }
@@ -84,12 +106,10 @@ extension GamePresenter: GameViewOutput {
             return
         }
         
-        roomService.leaveRoom(gameRoomId: roomId, token: token) { [weak self] result in
+        roomService.leaveRoom(gameRoomId: room.id, token: token) { [weak self] result in
             switch result {
-            case .success(_):
-                DispatchQueue.main.async {
-                    self?.viewInput?.leaveRoom()
-                }
+            case .success:
+                self?.viewInput?.leaveRoom()
             case .failure:
                 self?.viewInput?.showAlert(title: "Server error", text: "Couldn't leave room")
             }

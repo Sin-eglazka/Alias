@@ -12,9 +12,11 @@ final class LoginPresenter {
     weak var viewInput: LoginViewInput?
     
     private let userService: UserServiceProtocol
+    private let roomService: RoomServiceProtocol
     
-    init(userService: UserServiceProtocol) {
+    init(userService: UserServiceProtocol, roomService: RoomServiceProtocol) {
         self.userService = userService
+        self.roomService = roomService
     }
 }
 
@@ -24,12 +26,17 @@ extension LoginPresenter: LoginViewOutput {
         userService.login(email: email, password: password) { [weak self] result in
             switch result {
             case let .success(user):
+                guard let roomService = self?.roomService,
+                      let userService = self?.userService else { return }
                 UserDefaults.standard.set(user.value, forKey: "bearer token")
-                print(user.value)
-                self?.viewInput?.loginSuccessed()
+                print(UserDefaults.standard.object(forKey: "bearer token"))
+                DispatchQueue.main.async {
+                    let presenter = JoinRoomPresenter(roomService: roomService, userService: userService)
+                    let vc = JoinRoomViewController(output: presenter)
+                    presenter.viewInput = vc
+                    self?.viewInput?.loginSuccessed(vc: vc)
+                }
             case .failure:
-                // TODO: show alert
-                print(result)
                 self?.viewInput?.showAlert(title: "Server Error", text: "Couldn't login this user")
             }
         }

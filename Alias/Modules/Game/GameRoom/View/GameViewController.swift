@@ -35,6 +35,7 @@ class GameViewController: UIViewController{
         let button = UIButton()
         button.setTitle("Start", for: .normal)
         button.setTitleColor(UIColor.systemBlue, for: .normal)
+        button.setTitleColor(UIColor.systemGray, for: .disabled)
         return button
     }()
     
@@ -42,6 +43,8 @@ class GameViewController: UIViewController{
         let button = UIButton()
         button.setTitle("Pause", for: .normal)
         button.setTitleColor(UIColor.systemBlue, for: .normal)
+        button.setTitleColor(UIColor.systemGray, for: .disabled)
+        button.isEnabled = false
         return button
     }()
     
@@ -100,6 +103,9 @@ class GameViewController: UIViewController{
         super.viewDidLoad()
         setupView()
         output.viewIsReady()
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
     
     private func setupView() {
@@ -128,10 +134,10 @@ class GameViewController: UIViewController{
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 10),
+            tableView.topAnchor.constraint(equalTo: teamNameField.bottomAnchor, constant: 10),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
-            tableView.bottomAnchor.constraint(equalTo: teamNameField.topAnchor, constant: -10)
+            tableView.bottomAnchor.constraint(equalTo: pauseRoundButton.topAnchor, constant: -10)
         ])
     }
     
@@ -159,7 +165,7 @@ class GameViewController: UIViewController{
         view.addSubview(teamNameField)
         teamNameField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            teamNameField.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60),
+            teamNameField.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 10),
             teamNameField.rightAnchor.constraint(equalTo: view.centerXAnchor, constant: -10),
             teamNameField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10)
         ])
@@ -169,7 +175,7 @@ class GameViewController: UIViewController{
         view.addSubview(createTeamButton)
         createTeamButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            createTeamButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60),
+            createTeamButton.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 10),
             createTeamButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
             createTeamButton.leftAnchor.constraint(equalTo: view.centerXAnchor, constant: 10)
         ])
@@ -220,15 +226,12 @@ class GameViewController: UIViewController{
     
     @objc
     private func pauseRound(_ sender: AnyObject) {
-        
-        // TODO send request pause round
-        
-        infoLabel.text = "Game was paused"
+        output.wantToPauseRound()
     }
     
     @objc
     private func startRound(_ sender: AnyObject) {
-        if (dataSource.count < 3){
+        if (dataSource.count < 2){
             DispatchQueue.main.async { [weak self] in
                 let alert = UIAlertController(title: "Game Error", message: "Number of teams must be more than 1", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(
@@ -240,9 +243,7 @@ class GameViewController: UIViewController{
             }
             return
         }
-        // TODO send request for start round
-        
-        infoLabel.text = "Game was started"
+        output.wantToStartRound()
     }
     
     @objc
@@ -253,10 +254,11 @@ class GameViewController: UIViewController{
     @objc
     private func createTeam(_ sender: AnyObject) {
         guard let name = teamNameField.text,
-                !name.isEmpty
+              !name.isEmpty
         else {
             return
         }
+        teamNameField.text = ""
         output.createTeam(with: name)
     }
     
@@ -317,14 +319,20 @@ extension GameViewController: GameViewInput {
     }
     
     func updateAfterAddingTeam() {
-        DispatchQueue.main.async { [weak self] in
-            self?.output.refreshTeams()
-        }
+        output.refreshTeams()
     }
     
     func leaveRoom() {
         DispatchQueue.main.async { [weak self] in
             self?.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    func updateRound(state: String) {
+        DispatchQueue.main.async { [weak self] in
+            self?.infoLabel.text = state
+            self?.pauseRoundButton.isEnabled.toggle()
+            self?.startRoundButton.isEnabled.toggle()
         }
     }
 }

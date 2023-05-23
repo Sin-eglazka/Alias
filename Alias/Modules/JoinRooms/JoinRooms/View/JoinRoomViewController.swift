@@ -73,6 +73,10 @@ class JoinRoomViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupView()
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+        output.viewIsReady()
     }
     
     private func setupTableView() {
@@ -100,7 +104,6 @@ class JoinRoomViewController: UIViewController {
         setupJoinPrivateButton()
         setupCreateRoomButton()
         setupTableView()
-        output.viewIsReady()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
@@ -196,12 +199,7 @@ class JoinRoomViewController: UIViewController {
     
     @objc
     private func logoutDidTouch(_ sender: AnyObject) {
-        
-        
-        // TODO: logout
-        
-        //self.navigationController?.popViewController(animated: true)
-        self.navigationController?.popToRootViewController(animated: true)
+        output.wantToLogout()
     }
 }
 
@@ -247,6 +245,12 @@ extension JoinRoomViewController: JoinRoomViewInput {
     
     func presentRoom(vc: UIViewController) {
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func logoutSuccess() {
+        DispatchQueue.main.async { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
     }
 }
 

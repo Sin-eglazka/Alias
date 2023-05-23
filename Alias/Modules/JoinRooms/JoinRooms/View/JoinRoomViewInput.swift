@@ -14,5 +14,6 @@ protocol JoinRoomViewInput: AnyObject {
     func presentCreateRoom(vc: UIViewController)
     func presentRoom(vc: UIViewController)
     func updateAfterAddingRoom()
+    func logoutSuccess()
 }
 

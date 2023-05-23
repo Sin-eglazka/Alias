@@ -11,8 +11,12 @@ final class LoginPresenter {
     
     weak var viewInput: LoginViewInput?
     
+    // MARK: - Private properties
+    
     private let userService: UserServiceProtocol
     private let roomService: RoomServiceProtocol
+    
+    // MARK: - Lifecycle
     
     init(userService: UserServiceProtocol, roomService: RoomServiceProtocol) {
         self.userService = userService
@@ -29,7 +33,6 @@ extension LoginPresenter: LoginViewOutput {
                 guard let roomService = self?.roomService,
                       let userService = self?.userService else { return }
                 UserDefaults.standard.set(user.value, forKey: "bearer token")
-                print(UserDefaults.standard.object(forKey: "bearer token"))
                 DispatchQueue.main.async {
                     let presenter = JoinRoomPresenter(roomService: roomService, userService: userService)
                     let vc = JoinRoomViewController(output: presenter)

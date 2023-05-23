@@ -6,12 +6,11 @@
 //
 
 import Foundation
-import UIKit
 
 protocol GameViewInput: AnyObject {
     func showTeams(_ data: [Team])
     func showAlert(title: String, text: String)
-    func presentSettings(vc: UIViewController)
+    func presentSettings(output: SettingsViewOutput)
     func updateAfterAddingTeam()
     func leaveRoom()
     func updateRound(state: String)

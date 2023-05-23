@@ -9,25 +9,11 @@ import UIKit
 class RoomCell : UITableViewCell{
     
     static let reuseIdentifier = "RoomCell"
+    
+    // MARK: - Private properties
+    
     private var roomId: String = " "
     private var roomName: String
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        roomName = ""
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.selectionStyle = .none
-        setupView()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
-    
-    @available (*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     
     private lazy var joinButton = { () -> UIButton in
         let button = UIButton()
@@ -45,6 +31,24 @@ class RoomCell : UITableViewCell{
         return label
     }()
     
+    // MARK: - Lifecycle
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        roomName = ""
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.selectionStyle = .none
+        setupView()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+    
+    @available (*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func setupView() {
         let stackView = UIStackView(arrangedSubviews: [nameLabel, joinButton])
         stackView.axis = .horizontal
@@ -59,6 +63,8 @@ class RoomCell : UITableViewCell{
             stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -2)
         ])
     }
+    
+    // MARK: - Configure
     
     func configure(room: Room){
         roomId = room.id

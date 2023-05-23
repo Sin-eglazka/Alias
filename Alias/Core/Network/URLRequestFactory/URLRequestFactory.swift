@@ -15,6 +15,8 @@ final class URLRequestFactory {
         self.host = host
     }
     
+    // MARK: private funcs to factory requests
+     
     private func makePostRequest(path: String, bodyObject: [String: Codable]) throws -> URLRequest {
         guard let url = url(with: path, parameters: [:]) else {
             throw HttpError.badURL
@@ -49,8 +51,6 @@ final class URLRequestFactory {
         if !parameters.isEmpty {
             urlComponents.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
         }
-        
-        print(urlComponents)
         
         guard let url = urlComponents.url else {
             return nil

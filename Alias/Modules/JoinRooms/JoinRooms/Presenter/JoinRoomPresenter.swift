@@ -11,8 +11,12 @@ final class JoinRoomPresenter {
     
     weak var viewInput: JoinRoomViewInput?
     
+    // MARK: - Private properties
+    
     private let roomService: RoomServiceProtocol
     private let userService: UserServiceProtocol
+    
+    // MARK: - Lifecycle
     
     init(roomService: RoomServiceProtocol, userService: UserServiceProtocol) {
         self.roomService = roomService
@@ -81,7 +85,7 @@ extension JoinRoomPresenter: JoinRoomViewOutput {
                     teamService: assembly.makeTeamService()
                 )
                 DispatchQueue.main.async {
-                    let gameRoomVC = GameViewController(roomId: roomId, name: name, isAdmin: isAdmin, output: presenter)
+                    let gameRoomVC = GameViewController(room: room, output: presenter)
                     presenter.viewInput = gameRoomVC
                     self?.viewInput?.presentRoom(vc: gameRoomVC)
                 }

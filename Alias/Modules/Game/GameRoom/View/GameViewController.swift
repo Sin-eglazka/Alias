@@ -8,13 +8,15 @@
 import Foundation
 import UIKit
 
-class GameViewController: UIViewController{
+class GameViewController: UIViewController {
+    
+    // MARK: - Private properties
     
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
     private var dataSource = [Team]()
     private var participants = [TeamPlayer]()
-    
+
     private var output: GameViewOutput
     
     private lazy var settingsButton = { () -> UIButton in
@@ -66,10 +68,9 @@ class GameViewController: UIViewController{
     
     private lazy var mainTitle = { () -> UILabel in
         let label = UILabel()
-        label.text = name
+        label.text = room.name
         label.textColor = .systemBlue
         label.textAlignment = .center
-        //label.font = .systemFont(ofSize: 25,weight: .regular)
         return label
     }()
     
@@ -78,19 +79,15 @@ class GameViewController: UIViewController{
         label.text = "Game not started"
         label.textColor = .black
         label.textAlignment = .center
-        //label.font = .systemFont(ofSize: 25, weight: .regular)
         return label
     }()
     
-    private var roomId, name: String
-    private var isAdmin: Bool
+    private var room: JoinRoomResponse
     
     // MARK: Lifecycle
     
-    init (roomId: String, name: String, isAdmin: Bool, output: GameViewOutput){
-        self.roomId = roomId
-        self.name = name
-        self.isAdmin = isAdmin
+    init (room: JoinRoomResponse, output: GameViewOutput){
+        self.room = room
         self.output = output
         super.init(nibName: nil, bundle: nil)
     }
@@ -107,6 +104,8 @@ class GameViewController: UIViewController{
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
+    
+    // MARK: - View setup
     
     private func setupView() {
         setupSettingsButton()
@@ -224,6 +223,8 @@ class GameViewController: UIViewController{
         leaveButton.addTarget(self, action: #selector(wantToLeaveRoom), for: .touchUpInside)
     }
     
+    // MARK: - Action targets
+    
     @objc
     private func pauseRound(_ sender: AnyObject) {
         output.wantToPauseRound()
@@ -264,14 +265,10 @@ class GameViewController: UIViewController{
     
     @objc
     private func settingsDidTouch(_ sender: AnyObject) {
-        
-        // TODO check if user an admin
-        let settingsVC = SettingsViewController(isAdmin: true)
-        // settingsVC.delegate = self
-        present(settingsVC, animated: true)
+        output.changeSettings()
     }
     
-    func updateParticipants(){
+    private func updateParticipants(){
         dataSource.removeAll()
         participants.removeAll()
         // TODO add in dataSource list of groups and add in participants all participants
@@ -283,15 +280,17 @@ class GameViewController: UIViewController{
     }
     
     private func handleDelete(indexPath: IndexPath) {
-        if (isAdmin){
+        // if (isAdmin) {
             
             // TODo delete team with index indexPath.row
             
             dataSource.remove(at: indexPath.row)
             tableView.reloadData()
-        }
+       // }
     }
 }
+
+// MARK: - GameViewInput
 
 extension GameViewController: GameViewInput {
     
@@ -314,8 +313,12 @@ extension GameViewController: GameViewInput {
         }
     }
     
-    func presentSettings(vc: UIViewController) {
-        
+    func presentSettings(output: SettingsViewOutput) {
+        DispatchQueue.main.async { [weak self] in
+            let settingsVC = SettingsViewController(isAdmin: true, output: output)
+            output.setupView(vc: settingsVC)
+            self?.present(settingsVC, animated: true)
+        }
     }
     
     func updateAfterAddingTeam() {
@@ -348,6 +351,8 @@ extension GameViewController: DeletingRoom{
         self.navigationController?.popViewController(animated: true)
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension GameViewController: UITableViewDataSource {
     
@@ -384,6 +389,8 @@ extension GameViewController: UITableViewDataSource {
         return UITableViewCell()
     }
 }
+
+// MARK: - UITableViewDelegate
 
 extension GameViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

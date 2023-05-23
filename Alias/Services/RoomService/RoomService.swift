@@ -12,10 +12,14 @@ final class RoomService: RoomServiceProtocol {
     private let networkService: NetworkServiceProtocol
     private let requestFactory: URLRequestFactoryProtocol
     
+    // MARK: - Lifecycle
+    
     init(networkService: NetworkServiceProtocol, requestFactory: URLRequestFactoryProtocol) {
         self.networkService = networkService
         self.requestFactory = requestFactory
     }
+    
+    // MARK: - RoomServiceProtocol
     
     func listAllRooms(token: String, completion: @escaping (Result<[Room], Error>) -> Void) {
         do {

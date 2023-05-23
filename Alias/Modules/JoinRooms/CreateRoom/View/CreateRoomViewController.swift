@@ -10,6 +10,8 @@ import UIKit
 
 class CreateRoomViewController: UIViewController {
     
+    // MARK: - Private properties
+    
     private var output: CreateRoomViewOutput
     weak var delegate: JoinRoomViewInput?
     
@@ -60,6 +62,8 @@ class CreateRoomViewController: UIViewController {
         setupView()
     }
     
+    // MARK: - View setup
+    
     private func setupView() {
         setupjoinNameInput()
         setupPrivateToggle()
@@ -103,6 +107,8 @@ class CreateRoomViewController: UIViewController {
         createRoomButton.addTarget(self, action: #selector(createRoom), for: .touchUpInside)
     }
     
+    // MARK: - Action targets
+    
     @objc
     private func createRoom(_ sender: AnyObject) {
         guard
@@ -113,6 +119,8 @@ class CreateRoomViewController: UIViewController {
     }
     
 }
+
+// MARK: - CreateRoomViewInput
 
 extension CreateRoomViewController: CreateRoomViewInput {
     
@@ -132,8 +140,9 @@ extension CreateRoomViewController: CreateRoomViewInput {
             self?.delegate?.showAlert(title: "Error", text: "Couldn't create room")
         }
     }
-    
 }
+
+// MARK: - UITextFieldDelegate
 
 extension CreateRoomViewController: UITextFieldDelegate {
     

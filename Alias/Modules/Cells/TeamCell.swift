@@ -6,17 +6,19 @@ import UIKit
 final class TeamCell: UITableViewCell {
     
     static let reuseIdentifier = "TeamCell"
+    
+    // MARK: - Private properties
+    
     private var teamUsers: [TeamPlayer]
-    let scrollView = UIScrollView()
-    let content = UIStackView()
-    var labels:[UILabel] = []
+    private let scrollView = UIScrollView()
+    private let content = UIStackView()
+    private var labels:[UILabel] = []
     private var isTeam: Bool = true
     
     private lazy var joinButton = { () -> UIButton in
         let button = UIButton()
         button.setTitle("Join team", for: .normal)
         button.setTitleColor(UIColor.systemBlue, for: .normal)
-        button.addTarget(self, action: #selector(joinTeam), for: .touchUpInside)
         return button
     }()
     
@@ -30,6 +32,7 @@ final class TeamCell: UITableViewCell {
         return label
     }()
     
+    // MARK: - Lifecycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         teamUsers = []
@@ -66,20 +69,13 @@ final class TeamCell: UITableViewCell {
             content.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10)
         ])
         content.alignment = .fill
-        
-        
-        
  }
     
     func setIsTeam(isTeam: Bool){
         self.isTeam = isTeam
     }
-    
-    @objc
-    private func joinTeam(_ sender: AnyObject) {
-        // ToDo join user this team
-    }
 
+    // MARK: - Confugure
     
     func configure(usernames: [TeamPlayer], title: String){
         teamUsers = usernames

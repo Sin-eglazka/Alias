@@ -11,12 +11,16 @@ final class GamePresenter {
     
     weak var viewInput: GameViewInput?
     
+    // MARK: - Private properties
+    
     private let roomService: RoomServiceProtocol
     private let gameService: GameServiceProtocol
     private let teamService: TeamServiceProtocol
     
     private let token = (UserDefaults.standard.object(forKey: "bearer token") as? String)
     private let room: JoinRoomResponse
+    
+    // MARK: - Lifecycle
     
     init(room: JoinRoomResponse, roomService: RoomServiceProtocol, gameService: GameServiceProtocol, teamService: TeamServiceProtocol) {
         self.roomService = roomService
@@ -97,7 +101,8 @@ extension GamePresenter: GameViewOutput {
     }
     
     func changeSettings() {
-        
+        let settingsPresenter = SettingsPresenter(room: room, roomService: roomService)
+        viewInput?.presentSettings(output: settingsPresenter)
     }
     
     func leaveRoom() {

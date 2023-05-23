@@ -11,7 +11,11 @@ final class CreateRoomPresenter {
     
     weak var viewInput: CreateRoomViewInput?
     
+    // MARK: - Private properties
+    
     private let roomService: RoomServiceProtocol
+    
+    // MARK: - Lifecycle
     
     init(roomService: RoomServiceProtocol) {
         self.roomService = roomService

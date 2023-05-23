@@ -11,7 +11,11 @@ final class RegisterPresenter {
     
     weak var viewInput: RegisterViewInput?
     
+    // MARK: - Private properties
+    
     private let userService: UserServiceProtocol
+    
+    // MARK: - Lifecycle
     
     init(userService: UserServiceProtocol) {
         self.userService = userService

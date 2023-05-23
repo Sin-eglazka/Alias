@@ -10,6 +10,8 @@ import UIKit
 
 final class LoginViewController: UIViewController {
     
+    // MARK: - Private properties
+    
     private var output: LoginViewOutput
     
     private lazy var emailInput = { () -> UITextField in
@@ -60,6 +62,8 @@ final class LoginViewController: UIViewController {
         setupView()
     }
     
+    // MARK: - View setup
+    
     private func setupView() {
         setupEmailInput()
         setupPasswordInput()
@@ -109,6 +113,8 @@ final class LoginViewController: UIViewController {
         signUpButton.addTarget(self, action: #selector(signUpDidTouch), for: .touchUpInside)
     }
     
+    // MARK: - Action targets
+    
     @objc
     private func signUpDidTouch(_ sender: AnyObject) {
         output.signUp()
@@ -128,6 +134,8 @@ final class LoginViewController: UIViewController {
         passwordInput.text = ""
     }
 }
+
+// MARK: - LoginViewInput
 
 extension LoginViewController: LoginViewInput {
     
@@ -151,6 +159,8 @@ extension LoginViewController: LoginViewInput {
         present(vc, animated: true)
     }
 }
+
+// MARK: - UITextFieldDelegate
 
 extension LoginViewController: UITextFieldDelegate {
     

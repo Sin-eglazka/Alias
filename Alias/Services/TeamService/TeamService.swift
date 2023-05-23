@@ -14,10 +14,14 @@ final class TeamService: TeamServiceProtocol {
     private let networkService: NetworkServiceProtocol
     private let requestFactory: URLRequestFactoryProtocol
     
+    // MARK: - Lifecycle
+    
     init(networkService: NetworkServiceProtocol, requestFactory: URLRequestFactoryProtocol) {
         self.networkService = networkService
         self.requestFactory = requestFactory
     }
+    
+    // MARK: - TeamServiceProtocol
     
     func createTeam(name: String, gameRoomId: String, token: String, completion: @escaping (Result<Team, Error>) -> Void) {
         do {

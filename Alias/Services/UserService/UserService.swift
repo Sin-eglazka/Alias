@@ -12,10 +12,14 @@ final class UserService: UserServiceProtocol {
     private let networkService: NetworkServiceProtocol
     private let requestFactory: URLRequestFactoryProtocol
     
+    // MARK: - Lifecycle
+    
     init(networkService: NetworkServiceProtocol, requestFactory: URLRequestFactoryProtocol) {
         self.networkService = networkService
         self.requestFactory = requestFactory
     }
+    
+    // MARK: - UserServiceProtocol
     
     func register(name: String, email: String, password: String, completion: @escaping (Result<RegisterResponse, Error>) -> Void) {
         do {

@@ -7,11 +7,6 @@
 
 import Foundation
 
-protocol NetworkServiceProtocol {
-    func sendRequest<T: Decodable>(_ request: URLRequest, completion: @escaping (Result<T, Error>) -> Void)
-    func sendRequest(_ request: URLRequest, completion: @escaping (Result<Void, Error>) -> Void)
-}
-
 final class NetworkService: NetworkServiceProtocol {
     
     private let session: URLSession
@@ -20,6 +15,7 @@ final class NetworkService: NetworkServiceProtocol {
         self.session = session
     }
     
+    // Запрос, который возвращает данные
     func sendRequest<T: Decodable>(_ request: URLRequest, completion: @escaping (Result<T, Error>) -> Void) {
         session.dataTask(with: request) { data, response , error in
             if let error = error {
@@ -43,6 +39,7 @@ final class NetworkService: NetworkServiceProtocol {
         }.resume()
     }
     
+    // Запрос, который не возвращает данные, только статус
     func sendRequest(_ request: URLRequest, completion: @escaping (Result<Void, Error>) -> Void) {
         session.dataTask(with: request) { data, response , error in
             if let error = error {

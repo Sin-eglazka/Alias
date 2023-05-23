@@ -8,11 +8,14 @@
 import Foundation
 import UIKit
 
-class SettingsViewController: UIViewController{
+class SettingsViewController: UIViewController {
     
+    // MARK: - Private properties
+    
+    private var output: SettingsViewOutput
     private var contentView: UIView = UIView()
     
-    // var delegate: DeletingRoom = GameViewController(roomId: "", name: "", isAdmin: false)
+    // weak var delegate: DeletingRoom = GameViewController(roomId: "", name: "", isAdmin: false)
     
     private lazy var adminView = { () -> UIView in
         let view = UIView()
@@ -25,8 +28,7 @@ class SettingsViewController: UIViewController{
         view.backgroundColor = .white
         return view
     }()
-
-
+    
     private lazy var roomNameInput = { () -> UITextField in
         let input = UITextField()
         input.placeholder = "Room Name"
@@ -42,21 +44,8 @@ class SettingsViewController: UIViewController{
         input.borderStyle = .roundedRect
         input.autocapitalizationType = .none
         input.textColor = .black
+        input.keyboardType = .numberPad
         return input
-    }()
-
-    private lazy var isPrivteToggle = { () -> UISwitch in
-        let toggle = UISwitch()
-        toggle.setOn(false, animated: false)
-        return toggle
-    }()
-
-    private lazy var toggleLabel = { () -> UILabel in
-        let label = UILabel()
-        label.text = "Private"
-        label.font = .systemFont(ofSize: 20)
-        label.textColor = .black
-        return label
     }()
 
     private lazy var applyButton = { () -> UIButton in
@@ -76,8 +65,11 @@ class SettingsViewController: UIViewController{
     
     private var isAdmin: Bool = true
     
-    init (isAdmin: Bool){
+    // MARK: - Lifecycle
+    
+    init (isAdmin: Bool, output: SettingsViewOutput){
         self.isAdmin = isAdmin
+        self.output = output
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -85,8 +77,6 @@ class SettingsViewController: UIViewController{
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         if (isAdmin){
@@ -96,14 +86,18 @@ class SettingsViewController: UIViewController{
             self.contentView = self.participantView
         }
         setupView()
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+        output.viewIsReady()
     }
     
+    // MARK: - View setup
     
     private func setupView() {
         setupContentView()
         setupNameInput()
         setupApplyButton()
-        setupPrivateToggle()
         setupPointsInput()
         setupDeleteButton()
     }
@@ -149,24 +143,6 @@ class SettingsViewController: UIViewController{
             pointsInput.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 100)
         ])
     }
-
-    private func setupPrivateToggle() {
-        contentView.addSubview(isPrivteToggle)
-        isPrivteToggle.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            isPrivteToggle.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 5),
-            isPrivteToggle.rightAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -5),
-            isPrivteToggle.topAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 70)
-        ])
-        
-        contentView.addSubview(toggleLabel)
-        toggleLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            toggleLabel.leftAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 5),
-            toggleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -5),
-            toggleLabel.topAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 70)
-        ])
-    }
     
     private func setupApplyButton() {
         contentView.addSubview(applyButton)
@@ -179,11 +155,16 @@ class SettingsViewController: UIViewController{
         applyButton.addTarget(self, action: #selector(applyChanges), for: .touchUpInside)
     }
     
-    
+    // MARK: - Action targets
     
     @objc
     private func applyChanges(_ sender: AnyObject) {
-        // ToDo change settings
+        guard let name = roomNameInput.text,
+              !name.isEmpty,
+              let points = Int(pointsInput.text ?? "10") else {
+            return
+        }
+        output.applyChanges(name: name, points: points)
     }
     
     @objc
@@ -200,6 +181,41 @@ class SettingsViewController: UIViewController{
 //            }
 //        }
     }
+}
+
+
+// MARK: - SettingsViewInput
+
+extension SettingsViewController: SettingsViewInput {
     
+    func fillRoomInfo(name: String, points: Int) {
+        roomNameInput.text = name
+        pointsInput.text = points.description
+    }
     
+    func updateSettingsSuccessed(newRoom: Room) {
+        DispatchQueue.main.async { [weak self] in
+            let alert = UIAlertController(title: "Message", message: "Success update", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(
+                title: NSLocalizedString("OK", comment: "Default action"),
+                style: .default,
+                handler: { _ in
+                    self?.dismiss(animated: true)
+                })
+            )
+            self?.present(alert, animated: true)
+        }
+    }
+    
+    func showAlert(title: String, text: String) {
+        DispatchQueue.main.async { [weak self] in
+            let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(
+                title: NSLocalizedString("OK", comment: "Default action"),
+                style: .default,
+                handler: { _ in })
+            )
+            self?.present(alert, animated: true)
+        }
+    }
 }

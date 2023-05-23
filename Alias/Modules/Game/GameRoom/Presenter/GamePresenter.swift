@@ -97,7 +97,8 @@ extension GamePresenter: GameViewOutput {
     }
     
     func changeSettings() {
-        
+        let settingsPresenter = SettingsPresenter(room: room, roomService: roomService)
+        viewInput?.presentSettings(output: settingsPresenter)
     }
     
     func leaveRoom() {

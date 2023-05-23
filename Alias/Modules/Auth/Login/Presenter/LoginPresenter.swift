@@ -29,7 +29,6 @@ extension LoginPresenter: LoginViewOutput {
                 guard let roomService = self?.roomService,
                       let userService = self?.userService else { return }
                 UserDefaults.standard.set(user.value, forKey: "bearer token")
-                print(UserDefaults.standard.object(forKey: "bearer token"))
                 DispatchQueue.main.async {
                     let presenter = JoinRoomPresenter(roomService: roomService, userService: userService)
                     let vc = JoinRoomViewController(output: presenter)

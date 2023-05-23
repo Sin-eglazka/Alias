@@ -66,10 +66,9 @@ class GameViewController: UIViewController{
     
     private lazy var mainTitle = { () -> UILabel in
         let label = UILabel()
-        label.text = name
+        label.text = room.name
         label.textColor = .systemBlue
         label.textAlignment = .center
-        //label.font = .systemFont(ofSize: 25,weight: .regular)
         return label
     }()
     
@@ -78,19 +77,15 @@ class GameViewController: UIViewController{
         label.text = "Game not started"
         label.textColor = .black
         label.textAlignment = .center
-        //label.font = .systemFont(ofSize: 25, weight: .regular)
         return label
     }()
     
-    private var roomId, name: String
-    private var isAdmin: Bool
+    private var room: JoinRoomResponse
     
     // MARK: Lifecycle
     
-    init (roomId: String, name: String, isAdmin: Bool, output: GameViewOutput){
-        self.roomId = roomId
-        self.name = name
-        self.isAdmin = isAdmin
+    init (room: JoinRoomResponse, output: GameViewOutput){
+        self.room = room
         self.output = output
         super.init(nibName: nil, bundle: nil)
     }
@@ -264,11 +259,7 @@ class GameViewController: UIViewController{
     
     @objc
     private func settingsDidTouch(_ sender: AnyObject) {
-        
-        // TODO check if user an admin
-        let settingsVC = SettingsViewController(isAdmin: true)
-        // settingsVC.delegate = self
-        present(settingsVC, animated: true)
+        output.changeSettings()
     }
     
     func updateParticipants(){
@@ -283,13 +274,13 @@ class GameViewController: UIViewController{
     }
     
     private func handleDelete(indexPath: IndexPath) {
-        if (isAdmin){
+        // if (isAdmin) {
             
             // TODo delete team with index indexPath.row
             
             dataSource.remove(at: indexPath.row)
             tableView.reloadData()
-        }
+       // }
     }
 }
 
@@ -314,8 +305,12 @@ extension GameViewController: GameViewInput {
         }
     }
     
-    func presentSettings(vc: UIViewController) {
-        
+    func presentSettings(output: SettingsViewOutput) {
+        DispatchQueue.main.async { [weak self] in
+            let settingsVC = SettingsViewController(isAdmin: true, output: output)
+            output.setupView(vc: settingsVC)
+            self?.present(settingsVC, animated: true)
+        }
     }
     
     func updateAfterAddingTeam() {

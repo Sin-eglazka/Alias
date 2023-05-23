@@ -34,6 +34,9 @@
 		CC4810EA2A1BC24700300FD3 /* GamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4810E92A1BC24700300FD3 /* GamePresenter.swift */; };
 		CC4810EC2A1BC25A00300FD3 /* GameViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4810EB2A1BC25A00300FD3 /* GameViewInput.swift */; };
 		CC4810EE2A1BC26300300FD3 /* GameViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4810ED2A1BC26300300FD3 /* GameViewOutput.swift */; };
+		CC6B3B372A1D6E13007E8384 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6B3B362A1D6E13007E8384 /* SettingsPresenter.swift */; };
+		CC6B3B392A1D6E25007E8384 /* SettingsViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6B3B382A1D6E25007E8384 /* SettingsViewOutput.swift */; };
+		CC6B3B3B2A1D6E2D007E8384 /* SettingsViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6B3B3A2A1D6E2D007E8384 /* SettingsViewInput.swift */; };
 		CC90E9A92A190EA5007E06E4 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9A82A190EA5007E06E4 /* LoginResponse.swift */; };
 		CC90E9AB2A191517007E06E4 /* RoomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9AA2A191517007E06E4 /* RoomService.swift */; };
 		CC90E9AF2A191548007E06E4 /* UserServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90E9AE2A191548007E06E4 /* UserServiceProtocol.swift */; };
@@ -86,6 +89,9 @@
 		CC4810E92A1BC24700300FD3 /* GamePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePresenter.swift; sourceTree = "<group>"; };
 		CC4810EB2A1BC25A00300FD3 /* GameViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewInput.swift; sourceTree = "<group>"; };
 		CC4810ED2A1BC26300300FD3 /* GameViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewOutput.swift; sourceTree = "<group>"; };
+		CC6B3B362A1D6E13007E8384 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
+		CC6B3B382A1D6E25007E8384 /* SettingsViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewOutput.swift; sourceTree = "<group>"; };
+		CC6B3B3A2A1D6E2D007E8384 /* SettingsViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewInput.swift; sourceTree = "<group>"; };
 		CC90E9A82A190EA5007E06E4 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		CC90E9AA2A191517007E06E4 /* RoomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomService.swift; sourceTree = "<group>"; };
 		CC90E9AE2A191548007E06E4 /* UserServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceProtocol.swift; sourceTree = "<group>"; };
@@ -262,7 +268,8 @@
 		CC4810E62A1BC13900300FD3 /* GameRoomSettings */ = {
 			isa = PBXGroup;
 			children = (
-				44D3253C2A18272E00667BA9 /* SettingsViewController.swift */,
+				CC6B3B352A1D6DFD007E8384 /* Presenter */,
+				CC6B3B342A1D6DF7007E8384 /* View */,
 			);
 			path = GameRoomSettings;
 			sourceTree = "<group>";
@@ -281,6 +288,24 @@
 			isa = PBXGroup;
 			children = (
 				CC4810E92A1BC24700300FD3 /* GamePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		CC6B3B342A1D6DF7007E8384 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				44D3253C2A18272E00667BA9 /* SettingsViewController.swift */,
+				CC6B3B382A1D6E25007E8384 /* SettingsViewOutput.swift */,
+				CC6B3B3A2A1D6E2D007E8384 /* SettingsViewInput.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CC6B3B352A1D6DFD007E8384 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				CC6B3B362A1D6E13007E8384 /* SettingsPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -535,9 +560,11 @@
 				44E6C9472A179C610016B11C /* RegisterResponse.swift in Sources */,
 				44E6C94B2A179C8E0016B11C /* Team.swift in Sources */,
 				CC39584D2A181C57008E4838 /* UserService.swift in Sources */,
+				CC6B3B372A1D6E13007E8384 /* SettingsPresenter.swift in Sources */,
 				44D3253D2A18272E00667BA9 /* SettingsViewController.swift in Sources */,
 				44E6C9532A17AABB0016B11C /* Constants.swift in Sources */,
 				CC90E9BF2A19762F007E06E4 /* LoginPresenter.swift in Sources */,
+				CC6B3B392A1D6E25007E8384 /* SettingsViewOutput.swift in Sources */,
 				44A19DBE2A1963CC0006523D /* TeamCell.swift in Sources */,
 				CCF05E022A1A2A1700F26C1A /* RegisterViewInput.swift in Sources */,
 				CCF05E002A1A29C300F26C1A /* RegisterPresenter.swift in Sources */,
@@ -560,6 +587,7 @@
 				44D325382A18266500667BA9 /* JoinRoomViewController.swift in Sources */,
 				CC90E9B92A196BE3007E06E4 /* URLRequestFactoryProtocol.swift in Sources */,
 				CC4810E42A1BB9D500300FD3 /* GameRound.swift in Sources */,
+				CC6B3B3B2A1D6E2D007E8384 /* SettingsViewInput.swift in Sources */,
 				CC90E9C12A197660007E06E4 /* LoginViewInput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

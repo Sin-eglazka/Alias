@@ -129,7 +129,6 @@ final class RegisterViewController: UIViewController {
 extension RegisterViewController: RegisterViewInput {
     
     func signUpSuccessed() {
-        // TODO: success alert
         DispatchQueue.main.async { [weak self] in
             let alert = UIAlertController(title: "Message", message: "Success registration", preferredStyle: .alert)
             alert.addAction(UIAlertAction(

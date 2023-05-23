@@ -81,7 +81,7 @@ extension JoinRoomPresenter: JoinRoomViewOutput {
                     teamService: assembly.makeTeamService()
                 )
                 DispatchQueue.main.async {
-                    let gameRoomVC = GameViewController(roomId: roomId, name: name, isAdmin: isAdmin, output: presenter)
+                    let gameRoomVC = GameViewController(room: room, output: presenter)
                     presenter.viewInput = gameRoomVC
                     self?.viewInput?.presentRoom(vc: gameRoomVC)
                 }

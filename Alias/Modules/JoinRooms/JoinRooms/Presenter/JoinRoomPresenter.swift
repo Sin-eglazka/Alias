@@ -71,11 +71,11 @@ extension JoinRoomPresenter: JoinRoomViewOutput {
         
         roomService.joinRoom(gameRoomId: roomId, invitationCode: invitationCode, token: token) { [weak self] result in
             switch result {
-            case .success:
+            case let .success(room):
                 let assembly = ServiceAssembly()
                 guard let roomService = self?.roomService else { return }
                 let presenter = GamePresenter(
-                    roomId: roomId,
+                    room: room,
                     roomService: roomService,
                     gameService: assembly.makeGameService(),
                     teamService: assembly.makeTeamService()

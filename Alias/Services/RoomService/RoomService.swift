@@ -35,7 +35,7 @@ final class RoomService: RoomServiceProtocol {
         }
     }
     
-    func joinRoom(gameRoomId: String, invitationCode: String?, token: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func joinRoom(gameRoomId: String, invitationCode: String?, token: String, completion: @escaping (Result<JoinRoomResponse, Error>) -> Void) {
         do {
             let request = try requestFactory.joinRoom(with: token, gameRoomId: gameRoomId, invitationCode: invitationCode)
             networkService.sendRequest(request, completion: completion)

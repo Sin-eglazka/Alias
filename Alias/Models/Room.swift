@@ -25,3 +25,14 @@ struct GameRoom: Codable {
     let invitationCode: String?
     let pointsPerWord: Int
 }
+
+struct JoinRoomResponse: Codable {
+    let isPrivate: Bool
+    let id: String
+    let admin: String
+    let name: String
+    let creator: String
+    let invitationCode: String?
+    let points: Int
+}
+

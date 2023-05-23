@@ -16,13 +16,13 @@ final class GamePresenter {
     private let teamService: TeamServiceProtocol
     
     private let token = (UserDefaults.standard.object(forKey: "bearer token") as? String)
-    private let roomId: String
+    private let room: JoinRoomResponse
     
-    init(roomId: String, roomService: RoomServiceProtocol, gameService: GameServiceProtocol, teamService: TeamServiceProtocol) {
+    init(room: JoinRoomResponse, roomService: RoomServiceProtocol, gameService: GameServiceProtocol, teamService: TeamServiceProtocol) {
         self.roomService = roomService
         self.gameService = gameService
         self.teamService = teamService
-        self.roomId = roomId
+        self.room = room
     }
     
     private func loadTeams() {
@@ -31,7 +31,7 @@ final class GamePresenter {
             return
         }
         
-        teamService.listTeamsForRoom(gameRoomId: roomId, token: token) { [weak self] result in
+        teamService.listTeamsForRoom(gameRoomId: room.id, token: token) { [weak self] result in
             switch result {
             case let .success(teams):
                 self?.viewInput?.showTeams(teams)
@@ -54,7 +54,7 @@ extension GamePresenter: GameViewOutput {
             return
         }
         
-        gameService.startRound(inRoom: roomId, token: token) { [weak self] result in
+        gameService.startRound(inRoom: room.id, token: token) { [weak self] result in
             switch result {
             case let .success(round):
                 self?.viewInput?.updateRound(state: "Round started at \(round.startTime)")
@@ -70,7 +70,7 @@ extension GamePresenter: GameViewOutput {
             return
         }
         
-        gameService.pauseRound(inRoom: roomId, token: token) { [weak self] result in
+        gameService.pauseRound(inRoom: room.id, token: token) { [weak self] result in
             switch result {
             case let .success(round):
                 self?.viewInput?.updateRound(state: "Round was paused at \(round.endTime ?? "")")
@@ -86,7 +86,7 @@ extension GamePresenter: GameViewOutput {
             return
         }
         
-        teamService.createTeam(name: name, gameRoomId: roomId, token: token) { [weak self] result in
+        teamService.createTeam(name: name, gameRoomId: room.id, token: token) { [weak self] result in
             switch result {
             case .success(_):
                 self?.viewInput?.updateAfterAddingTeam()
@@ -106,7 +106,7 @@ extension GamePresenter: GameViewOutput {
             return
         }
         
-        roomService.leaveRoom(gameRoomId: roomId, token: token) { [weak self] result in
+        roomService.leaveRoom(gameRoomId: room.id, token: token) { [weak self] result in
             switch result {
             case .success:
                 self?.viewInput?.leaveRoom()

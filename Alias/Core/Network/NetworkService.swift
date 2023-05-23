@@ -37,6 +37,7 @@ final class NetworkService: NetworkServiceProtocol {
                 let model = try JSONDecoder().decode(T.self, from: data)
                 completion(.success(model))
             } catch {
+                print(error)
                 completion(.failure(error))
             }
         }.resume()

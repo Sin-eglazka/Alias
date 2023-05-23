@@ -134,10 +134,10 @@ class GameViewController: UIViewController{
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 10),
+            tableView.topAnchor.constraint(equalTo: teamNameField.bottomAnchor, constant: 10),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
-            tableView.bottomAnchor.constraint(equalTo: teamNameField.topAnchor, constant: -10)
+            tableView.bottomAnchor.constraint(equalTo: pauseRoundButton.topAnchor, constant: -10)
         ])
     }
     
@@ -165,7 +165,7 @@ class GameViewController: UIViewController{
         view.addSubview(teamNameField)
         teamNameField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            teamNameField.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60),
+            teamNameField.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 10),
             teamNameField.rightAnchor.constraint(equalTo: view.centerXAnchor, constant: -10),
             teamNameField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10)
         ])
@@ -175,7 +175,7 @@ class GameViewController: UIViewController{
         view.addSubview(createTeamButton)
         createTeamButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            createTeamButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60),
+            createTeamButton.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 10),
             createTeamButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
             createTeamButton.leftAnchor.constraint(equalTo: view.centerXAnchor, constant: 10)
         ])

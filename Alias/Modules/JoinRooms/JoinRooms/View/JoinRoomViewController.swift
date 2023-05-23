@@ -244,9 +244,7 @@ extension JoinRoomViewController: JoinRoomViewInput {
     }
     
     func presentRoom(vc: UIViewController) {
-        DispatchQueue.main.async { [weak self] in
-            self?.navigationController?.pushViewController(vc, animated: true)
-        }
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func logoutSuccess() {

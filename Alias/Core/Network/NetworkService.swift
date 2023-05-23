@@ -21,7 +21,7 @@ final class NetworkService: NetworkServiceProtocol {
     }
     
     func sendRequest<T: Decodable>(_ request: URLRequest, completion: @escaping (Result<T, Error>) -> Void) {
-        session.dataTask(with: request) { data, _, error in
+        session.dataTask(with: request) { data, response , error in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -43,12 +43,23 @@ final class NetworkService: NetworkServiceProtocol {
     }
     
     func sendRequest(_ request: URLRequest, completion: @escaping (Result<Void, Error>) -> Void) {
-        session.dataTask(with: request) { data, _, error in
+        session.dataTask(with: request) { data, response , error in
             if let error = error {
                 completion(.failure(error))
                 return
             }
-
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(HttpError.badResponse))
+                return
+            }
+            
+            if httpResponse.statusCode >= 200 && httpResponse.statusCode < 300 {
+                completion(.success(()))
+            } else {
+                completion(.failure(HttpError.badResponse))
+            }
+            
             completion(.success(()))
         }.resume()
     }

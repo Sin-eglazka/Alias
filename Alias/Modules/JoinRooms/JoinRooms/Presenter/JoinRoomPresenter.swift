@@ -56,9 +56,7 @@ extension JoinRoomPresenter: JoinRoomViewOutput {
             switch result {
             case .success(()):
                 UserDefaults.standard.removeObject(forKey: "bearer token")
-                DispatchQueue.main.async {
-                    self?.viewInput?.logoutSuccess()
-                }
+                self?.viewInput?.logoutSuccess()
             case .failure:
                 self?.viewInput?.showAlert(title: "Server error", text: "Couldn't logout")
             }
@@ -73,16 +71,16 @@ extension JoinRoomPresenter: JoinRoomViewOutput {
         
         roomService.joinRoom(gameRoomId: roomId, invitationCode: invitationCode, token: token) { [weak self] result in
             switch result {
-            case .success(()):
+            case .success:
+                let assembly = ServiceAssembly()
+                guard let roomService = self?.roomService else { return }
+                let presenter = GamePresenter(
+                    roomId: roomId,
+                    roomService: roomService,
+                    gameService: assembly.makeGameService(),
+                    teamService: assembly.makeTeamService()
+                )
                 DispatchQueue.main.async {
-                    let assembly = ServiceAssembly()
-                    guard let roomService = self?.roomService else { return }
-                    let presenter = GamePresenter(
-                        roomId: roomId,
-                        roomService: roomService,
-                        gameService: assembly.makeGameService(),
-                        teamService: assembly.makeTeamService()
-                    )
                     let gameRoomVC = GameViewController(roomId: roomId, name: name, isAdmin: isAdmin, output: presenter)
                     presenter.viewInput = gameRoomVC
                     self?.viewInput?.presentRoom(vc: gameRoomVC)

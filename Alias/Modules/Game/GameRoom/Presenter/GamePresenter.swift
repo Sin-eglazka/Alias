@@ -84,7 +84,7 @@ extension GamePresenter: GameViewOutput {
         
         roomService.leaveRoom(gameRoomId: roomId, token: token) { [weak self] result in
             switch result {
-            case .success(_):
+            case .success:
                 self?.viewInput?.leaveRoom()
             case .failure:
                 self?.viewInput?.showAlert(title: "Server error", text: "Couldn't leave room")

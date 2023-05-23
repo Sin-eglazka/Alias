@@ -49,11 +49,35 @@ extension GamePresenter: GameViewOutput {
     }
     
     func wantToStartRound() {
+        guard let token = token else {
+            viewInput?.showAlert(title: "Server error", text: "broken auth")
+            return
+        }
         
+        gameService.startRound(inRoom: roomId, token: token) { [weak self] result in
+            switch result {
+            case let .success(round):
+                self?.viewInput?.updateRound(state: "Round started at \(round.startTime)")
+            case .failure:
+                self?.viewInput?.showAlert(title: "Server error", text: "Couldn't start round")
+            }
+        }
     }
     
     func wantToPauseRound() {
+        guard let token = token else {
+            viewInput?.showAlert(title: "Server error", text: "broken auth")
+            return
+        }
         
+        gameService.pauseRound(inRoom: roomId, token: token) { [weak self] result in
+            switch result {
+            case let .success(round):
+                self?.viewInput?.updateRound(state: "Round was paused at \(round.endTime ?? "")")
+            case .failure:
+                self?.viewInput?.showAlert(title: "Server error", text: "Couldn't pause round")
+            }
+        }
     }
     
     func createTeam(with name: String) {
